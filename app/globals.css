@@ -82,7 +82,8 @@ button { cursor: pointer; }
    the vertical wash seats the nav at the top and the service band at the bottom. */
 .ov-hero-video { position: absolute; inset: 0; background: radial-gradient(ellipse 58% 46% at 50% 50%, rgba(7, 10, 16, 0.5) 0%, rgba(7, 10, 16, 0.28) 55%, rgba(7, 10, 16, 0) 100%), linear-gradient(180deg, rgba(7, 10, 16, 0.45) 0%, rgba(7, 10, 16, 0.1) 30%, rgba(7, 10, 16, 0.14) 66%, rgba(7, 10, 16, 0.78) 100%); pointer-events: none; }
 .hero-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-.hero-video { opacity: 0; transition: opacity 1.6s ease; }
+/* short fade: the poster is frame 0, so a long dissolve ghosts the moving shot over a frozen copy of itself */
+.hero-video { opacity: 0; transition: opacity 0.35s ease; }
 .hero-video.on { opacity: 1; }
 .ov-pin { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 29, 58, 0) 40%, rgba(11, 29, 58, 0.92) 100%); pointer-events: none; }
 .ov-team { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 29, 58, 0) 45%, rgba(11, 29, 58, 0.9) 100%); pointer-events: none; }

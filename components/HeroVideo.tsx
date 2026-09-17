@@ -29,26 +29,36 @@ export default function HeroVideo({ alt }: { alt: string }) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (conn?.saveData || /(^|-)[23]g$/.test(conn?.effectiveType || '')) return;
 
-    let visible = true;
-    const play = () => { video.play().then(() => setOn(true)).catch(() => {}); };
+    // Playback waits for three things: data buffered, the intro cover lifted, hero on screen.
+    // The file downloads while the intro plays, but the film is held on frame 0 (= the poster)
+    // until the cover is gone: otherwise the opening shot is spent behind it, and decoding
+    // 1080p video during the logo flight and wipe makes both stutter.
+    let visible = true, ready = false, lifted = false, dead = false;
+    const play = () => { if (ready && lifted && visible && !dead) video.play().then(() => setOn(true)).catch(() => {}); };
     const start = () => {
       video.muted = true; // React doesn't reliably reflect `muted`, and autoplay requires it
+      video.preload = 'auto';
       video.src = (window.matchMedia(PORTRAIT).matches ? SOURCES.mobile : SOURCES.desktop).video;
-      video.addEventListener('canplay', () => { if (visible) play(); }, { once: true });
+      video.addEventListener('canplay', () => { ready = true; play(); }, { once: true });
       video.load();
     };
     if (document.readyState === 'complete') start();
     else window.addEventListener('load', start, { once: true });
 
+    // The cover's own introWipe animation is the clock (see Intro). Already finished on
+    // client-side navigations back to the homepage, so this resolves immediately there.
+    const wipe = document.querySelector('.intro')?.getAnimations()[0];
+    (wipe ? wipe.finished.catch(() => {}) : Promise.resolve()).then(() => { lifted = true; play(); });
+
     // Don't decode video nobody can see.
     const io = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting;
-      if (!video.src) return;
       if (visible) play(); else video.pause();
     });
     io.observe(video);
 
     return () => {
+      dead = true;
       window.removeEventListener('load', start);
       io.disconnect();
       video.pause();
