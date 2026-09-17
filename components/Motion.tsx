@@ -110,8 +110,10 @@ export default function Motion() {
       q('[data-count]').forEach((el) => { mark(el); if (anim) obs.observe(el); else count(el, true); });
       // Class-driven reveals: adds `.in` once the element enters the viewport (CSS does the rest).
       q('[data-inview]').forEach((el) => { mark(el); if (anim) obs.observe(el); else el.classList.add('in'); });
-      q('[data-card]').forEach((el) => {
-        mark(el);
+      // Hover handlers use their own marker: cards inside a [data-seq] grid are already
+      // marked data-r by the stagger pass above, so `q` would skip them.
+      $$('[data-card]:not([data-hov])').forEach((el) => {
+        el.setAttribute('data-hov', '1');
         const img = el.querySelector<HTMLElement>('[data-card-img]'), ov = el.querySelector<HTMLElement>('[data-card-overlay]');
         if (img) img.style.transition = `transform 1.6s ${ease}`;
         if (ov) ov.style.transition = `opacity .7s ease, transform .7s ${ease}`;

@@ -86,7 +86,7 @@ export default function About() {
                 <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 24, display: 'grid', gap: 4, pointerEvents: 'none' }}>
                   <span className="serif" style={{ fontSize: 24, lineHeight: 1.15 }}>{m.name}</span>
                   <span className="eyebrow eyebrow-gold" style={{ fontSize: 11, letterSpacing: '.14em' }}>{m.role}</span>
-                  <span data-card-overlay="1" style={{ opacity: 0, transform: 'translateY(8px)', fontSize: 13, color: 'rgba(247,243,236,.8)', paddingTop: 6 }}>{m.bio}</span>
+                  <div className="grow"><span data-card-overlay="1" style={{ display: 'block', opacity: 0, transform: 'translateY(8px)', fontSize: 13, color: 'rgba(247,243,236,.8)', paddingTop: 6 }}>{m.bio}</span></div>
                 </div>
               </div>
             ))}

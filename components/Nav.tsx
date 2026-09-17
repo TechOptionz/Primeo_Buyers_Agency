@@ -28,7 +28,7 @@ export default function Nav() {
       <nav data-nav="1" className={`nav${on ? ' on' : ''}`}>
         <div data-pad="1" data-nav-pad="1" className="nav-inner">
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'inherit' }}>
-            <LogoMark />
+            <span data-nav-logo="1" style={{ display: 'flex' }}><LogoMark /></span>
             <span data-logo-text="1" style={{ fontWeight: 700, fontSize: 19, letterSpacing: '.14em', lineHeight: 1 }}>PRIMEO</span>
           </Link>
           <div data-desk="1" style={{ display: 'flex', alignItems: 'center', gap: 28 }}>

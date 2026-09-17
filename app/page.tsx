@@ -102,7 +102,7 @@ export default function Home() {
                   <span className="eyebrow eyebrow-gold">{c.n}</span>
                   <h3 className="serif" style={{ fontSize: 30, lineHeight: 1.1 }}>{c.title}</h3>
                   <p style={{ fontSize: 15, lineHeight: 1.55, color: 'rgba(247,243,236,.8)', maxWidth: 420 }}>{c.text}</p>
-                  <span data-card-overlay="1" className="eyebrow eyebrow-gold" style={{ opacity: 0, transform: 'translateY(8px)', letterSpacing: '.14em', paddingTop: 6 }}>Explore →</span>
+                  <div className="grow"><span data-card-overlay="1" className="eyebrow eyebrow-gold" style={{ display: 'block', opacity: 0, transform: 'translateY(8px)', letterSpacing: '.14em', paddingTop: 6 }}>Explore →</span></div>
                 </div>
               </Link>
             ))}
