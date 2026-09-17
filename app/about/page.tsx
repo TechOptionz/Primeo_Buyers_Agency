@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import PageHero from '@/components/PageHero';
 import { ImageSlot } from '@/components/ImageSlot';
-import { VALUES, TEAM } from '@/lib/data';
+import { VALUES, TEAM, IMAGES } from '@/lib/data';
 
 export const metadata: Metadata = { title: 'About', description: 'A Brisbane property group working across buying, selling, rentals, commercial and new homes.' };
 
@@ -20,6 +20,7 @@ export default function About() {
         eyebrow="About PRIMEO"
         title="Property advice built on evidence, not hype."
         lead="A Brisbane property group working across buying, selling, rentals, commercial and new homes."
+        src={IMAGES.aboutHero}
         band={
           <div data-pad="1" data-g4="1" className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)' }}>
             {FACTS.map((f) => (
@@ -45,8 +46,8 @@ export default function About() {
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, alignItems: 'end' }}>
-            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4', marginTop: 56 }}><ImageSlot placeholder="Photo: early PRIMEO office, 2012" /></div>
-            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4', marginBottom: 56 }}><ImageSlot placeholder="Photo: team on site today" /></div>
+            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4', marginTop: 56 }}><ImageSlot src={IMAGES.aboutStoryA} alt="Early PRIMEO office, 2012" placeholder="Photo: early PRIMEO office, 2012" /></div>
+            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4', marginBottom: 56 }}><ImageSlot src={IMAGES.aboutStoryB} alt="Team on site today" placeholder="Photo: team on site today" /></div>
           </div>
         </div>
       </section>

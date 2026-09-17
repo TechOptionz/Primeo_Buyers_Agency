@@ -2,13 +2,13 @@ import type { ReactNode } from 'react';
 import { ImageSlot } from './ImageSlot';
 
 /** Inner-page hero: dark backdrop, eyebrow with rule, serif headline, lead, optional fact band. */
-export default function PageHero({ eyebrow, title, lead, band }: {
-  eyebrow: string; title: string; lead: string; band?: ReactNode;
+export default function PageHero({ eyebrow, title, lead, band, src }: {
+  eyebrow: string; title: string; lead: string; band?: ReactNode; src?: string;
 }) {
   return (
     <section data-hero="1" style={{ position: 'relative', minHeight: '82vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: '#0B1D3A', color: '#F7F3EC', padding: '160px 0 0' }}>
       <div data-parallax="1" style={{ position: 'absolute', inset: '-10% 0', willChange: 'transform' }}>
-        <div data-zoom="1" data-bg-slot="1" style={{ position: 'absolute', inset: 0, background: '#1C2F52' }}><ImageSlot tone="dark" /></div>
+        <div data-zoom="1" data-bg-slot="1" style={{ position: 'absolute', inset: 0, background: '#1C2F52' }}><ImageSlot src={src} tone="dark" /></div>
       </div>
       <div className="ov-hero" />
       <div style={{ position: 'relative', width: '100%', display: 'grid', gap: 56 }}>

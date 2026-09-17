@@ -32,7 +32,7 @@ export default function PinnedSteps({ eyebrow, title, blurb, steps, footer }: {
             <div data-pin-media="1" style={{ position: 'relative', height: 'min(72vh,660px)' }}>
               {steps.map((s, i) => (
                 <div key={s.n} data-pin-img={i} style={{ position: 'absolute', inset: 0, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', opacity: 0, transform: 'scale(1.06)', transition: 'opacity 1.4s ease,transform 2.2s cubic-bezier(.16,1,.3,1)' }}>
-                  <div className="fill"><ImageSlot placeholder={s.ph} tone="dark" /></div>
+                  <div className="fill"><ImageSlot src={s.src} alt={s.title} placeholder={s.ph} tone="dark" /></div>
                   <div className="ov-pin" />
                   <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 40, display: 'grid', gap: 12, pointerEvents: 'none' }}>
                     <span className="eyebrow eyebrow-gold">Step {s.n}</span>
@@ -63,7 +63,7 @@ export default function PinnedSteps({ eyebrow, title, blurb, steps, footer }: {
                   <div style={{ display: 'grid', gap: 8 }}>
                     <h3 className="serif" style={{ fontSize: 24, lineHeight: 1.15, paddingTop: 4 }}>{s.title}</h3>
                     <p style={{ fontSize: 15, lineHeight: 1.6, color: 'rgba(247,243,236,.75)' }}>{s.text}</p>
-                    <div className="media" style={{ aspectRatio: '16/9', borderRadius: 6, background: '#3A4A66', marginTop: 8 }}><ImageSlot placeholder={s.ph} tone="dark" /></div>
+                    <div className="media" style={{ aspectRatio: '16/9', borderRadius: 6, background: '#3A4A66', marginTop: 8 }}><ImageSlot src={s.src} alt={s.title} placeholder={s.ph} tone="dark" /></div>
                   </div>
                 </div>
               ))}

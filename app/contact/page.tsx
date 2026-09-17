@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import PageHero from '@/components/PageHero';
 import { ImageSlot } from '@/components/ImageSlot';
 import { ContactForm } from '@/components/Forms';
-import { CONTACT } from '@/lib/data';
+import { CONTACT, IMAGES } from '@/lib/data';
 
 export const metadata: Metadata = { title: 'Contact', description: 'Call, email or visit. Every enquiry is answered by a PRIMEO agent.' };
 
@@ -13,7 +13,7 @@ const small: React.CSSProperties = { fontSize: 13, color: '#4A4C55', lineHeight:
 export default function Contact() {
   return (
     <>
-      <PageHero eyebrow="Contact" title="Let’s talk about your next move." lead="Call, email or visit. Every enquiry is answered by a PRIMEO agent, not a call centre." />
+      <PageHero eyebrow="Contact" title="Let’s talk about your next move." lead="Call, email or visit. Every enquiry is answered by a PRIMEO agent, not a call centre." src={IMAGES.contactHero} />
 
       <section data-sec="1" className="sec" style={{ background: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.15fr', gap: 64, alignItems: 'start' }}>
@@ -36,9 +36,9 @@ export default function Contact() {
 
       <section data-sec="1" style={{ padding: '0 0 96px', background: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: 24 }}>
-          <div data-mask="1" className="media" style={{ aspectRatio: '16/9', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot placeholder="Map or office exterior" /></div>
+          <div data-mask="1" className="media" style={{ aspectRatio: '16/9', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={IMAGES.contactMap} alt="PRIMEO office exterior" placeholder="Map or office exterior" /></div>
           <div data-reveal="1" style={{ position: 'relative', borderRadius: 8, overflow: 'hidden', background: '#0B1D3A', color: '#F7F3EC', padding: 36, display: 'grid', alignContent: 'end', gap: 12, minHeight: 320 }}>
-            <div style={{ position: 'absolute', inset: 0, opacity: 0.35 }}><ImageSlot tone="dark" /></div>
+            <div style={{ position: 'absolute', inset: 0, opacity: 0.35 }}><ImageSlot src={IMAGES.contactOffice} alt="" tone="dark" /></div>
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(11,29,58,0),rgba(11,29,58,.95))', pointerEvents: 'none' }} />
             <p className="eyebrow eyebrow-gold" style={{ position: 'relative' }}>Visit us</p>
             <p className="serif" style={{ position: 'relative', fontSize: 26, lineHeight: 1.2 }}>Coffee is on us. Drop in for a no-obligation chat about your brief.</p>
