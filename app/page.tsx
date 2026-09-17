@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import HeroVideo from '@/components/HeroVideo';
 import { ImageSlot } from '@/components/ImageSlot';
 import PinnedSteps from '@/components/PinnedSteps';
 import Testimonials from '@/components/Testimonials';
@@ -24,28 +25,25 @@ export default function Home() {
   return (
     <>
       {/* 1 HERO */}
-      <section data-hero="1" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: '#0B1D3A', color: '#F7F3EC', padding: '160px 0 0' }}>
+      <section data-hero="1" style={{ position: 'relative', minHeight: '100vh', display: 'flex', overflow: 'hidden', background: '#0B1D3A', color: '#F7F3EC', padding: '110px 0 0' }}>
         <div data-parallax="1" style={{ position: 'absolute', inset: '-10% 0', willChange: 'transform' }}>
-          <div data-zoom="1" data-bg-slot="1" style={{ position: 'absolute', inset: 0, background: '#1C2F52' }}><ImageSlot src={IMAGES.hero} alt="Premium Queensland home at dusk" tone="dark" /></div>
+          <div data-zoom="1" style={{ position: 'absolute', inset: 0, background: '#1C2F52' }}><HeroVideo alt="Aerial view of waterfront homes in South East Queensland" /></div>
         </div>
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(11,29,58,.5) 0%,rgba(11,29,58,.2) 40%,rgba(11,29,58,.92) 100%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'relative', width: '100%', display: 'grid', gap: 64 }}>
-          <div data-pad="1" className="container" style={{ width: '100%', display: 'grid', gridTemplateColumns: '1fr auto', gap: 40, alignItems: 'end', pointerEvents: 'none' }}>
-            <div data-hero-content="1" style={{ maxWidth: 860, display: 'grid', gap: 26, pointerEvents: 'auto' }}>
-              <div data-reveal="0" style={{ display: 'flex', alignItems: 'center', gap: 16 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold" style={{ letterSpacing: '.2em' }}>Property Group · Brisbane &amp; Queensland</p></div>
-              <h1 data-hero-h="1" className="serif" style={{ fontSize: 84, lineHeight: 1, letterSpacing: '-.02em' }}>
-                <span data-line="1" className="lines" style={{ paddingBottom: '.06em' }}><span>Property, handled</span></span>
-                <span data-line="2" className="lines" style={{ paddingBottom: '.06em' }}><span>with <em style={{ fontStyle: 'italic', color: '#C6A15B' }}>strategy.</em></span></span>
+        <div className="ov-hero-video" />
+        {/* copy is centred in the space above the service band, clear of the busy lower frame */}
+        <div style={{ position: 'relative', width: '100%', display: 'grid', gridTemplateRows: '1fr auto', gap: 40 }}>
+          <div data-pad="1" className="container" style={{ width: '100%', display: 'grid', alignItems: 'center', justifyItems: 'center', pointerEvents: 'none' }}>
+            <div data-hero-content="1" style={{ maxWidth: 900, display: 'grid', gap: 24, justifyItems: 'center', textAlign: 'center', pointerEvents: 'auto' }}>
+              <div data-reveal="0" style={{ display: 'grid', justifyItems: 'center', gap: 18 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold" style={{ letterSpacing: '.2em' }}>Property Group · Brisbane &amp; Queensland</p></div>
+              <h1 data-hero-h="1" className="serif" style={{ fontSize: 68, lineHeight: 1.05, letterSpacing: '-.02em', textShadow: '0 2px 28px rgba(0,0,0,.45)' }}>
+                <span data-line="1" className="lines" style={{ paddingBottom: '.06em' }}><span>Your trusted partner in</span></span>
+                <span data-line="2" className="lines" style={{ paddingBottom: '.06em' }}><span>every property <em style={{ fontStyle: 'italic', color: '#C6A15B' }}>decision.</em></span></span>
               </h1>
-              <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.82)', maxWidth: 540 }}>Buying, selling, leasing and commercial advisory for people who expect clear advice and better outcomes.</p>
-              <div data-reveal="4" data-hero-cta="1" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginTop: 6 }}>
-                <Link href="/contact" className="btn btn-gold">Book a strategy call</Link>
-                <Link href="/buyers" className="btn btn-outline-light">Explore services</Link>
+              <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 540, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>Helping buyers, sellers and investors navigate the property market with confidence.</p>
+              <div data-hero-cta="1" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', marginTop: 10 }}>
+                <span data-reveal="5" style={{ display: 'grid' }}><Link href="/contact" className="btn btn-gold">Book a Consultation</Link></span>
+                <span data-reveal="7" style={{ display: 'grid' }}><a href="#services" className="btn btn-outline-light">Explore Services</a></span>
               </div>
-            </div>
-            <div data-desk="1" data-reveal="6" style={{ display: 'grid', gap: 8, justifyItems: 'end', textAlign: 'right', color: 'rgba(247,243,236,.75)', fontSize: 13, lineHeight: 1.6, pointerEvents: 'auto' }}>
-              <span className="serif" style={{ fontSize: 22, color: '#F7F3EC' }}>Licensed · Independent</span>
-              <span>Buyer agency · Sales · Rentals<br />Commercial · House &amp; Land</span>
             </div>
           </div>
           <div data-reveal="5" data-desk-block="1" className="hero-band">
@@ -84,7 +82,7 @@ export default function Home() {
       </section>
 
       {/* 3 SERVICES SHOWCASE */}
-      <section data-sec="1" className="sec" style={{ background: '#F7F3EC' }}>
+      <section id="services" data-sec="1" className="sec" style={{ background: '#F7F3EC', scrollMarginTop: 72 }}>
         <div data-pad="1" className="container" style={{ display: 'grid', gap: 44 }}>
           <div data-reveal="0" className="head-row">
             <div style={{ display: 'grid', gap: 14, maxWidth: 620 }}>
@@ -157,10 +155,7 @@ export default function Home() {
       {/* 6 WHY PRIMEO */}
       <section data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4', borderBottom: '1px solid #E6E0D4' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 72, alignItems: 'center' }}>
-          <div style={{ position: 'relative' }}>
-            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={IMAGES.why} alt="Consultant and clients reviewing a property report" placeholder="Photo: consultant and clients reviewing a property report" /></div>
-            <div data-reveal="2" data-overlap="1" className="callout"><span className="serif" style={{ fontSize: 38, lineHeight: 1 }}>1 in 3</span><span style={{ fontSize: 13, lineHeight: 1.5, color: 'rgba(247,243,236,.75)' }}>properties we secure for buyers never reach a public portal.</span></div>
-          </div>
+          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={IMAGES.why} alt="Consultant and clients reviewing a property report" placeholder="Photo: consultant and clients reviewing a property report" /></div>
           <div style={{ display: 'grid', gap: 28 }}>
             <div data-reveal="0" style={{ display: 'grid', gap: 14 }}>
               <p className="eyebrow eyebrow-tan">Why PRIMEO</p>

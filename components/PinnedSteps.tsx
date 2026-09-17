@@ -17,15 +17,22 @@ export default function PinnedSteps({ eyebrow, title, blurb, steps, footer }: {
                 <h2 data-h2="1" className="h2">{title}</h2>
                 {blurb && <p data-desk="1" style={{ fontSize: 16, lineHeight: 1.6, color: 'rgba(247,243,236,.72)', maxWidth: 440 }}>{blurb}</p>}
               </div>
-              <div data-desk="1" style={{ position: 'relative', display: 'grid' }}>
-                <div style={{ position: 'absolute', left: 11, top: 14, bottom: 14, width: 1, background: 'rgba(247,243,236,.15)' }} />
-                <div data-pin-bar="1" style={{ position: 'absolute', left: 11, top: 14, bottom: 14, width: 1, background: '#C6A15B', transformOrigin: 'top center', transform: 'scaleY(0)' }} />
-                {steps.map((s, i) => (
-                  <div key={s.n} data-pin-item={i} style={{ display: 'grid', gridTemplateColumns: '23px 1fr', gap: 20, padding: '12px 0', alignItems: 'center', opacity: 0.35, transition: 'opacity 1s ease', position: 'relative' }}>
-                    <span style={{ width: 23, height: 23, borderRadius: '50%', background: '#0B1D3A', border: '1.5px solid #C6A15B', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ width: 7, height: 7, borderRadius: '50%', background: '#C6A15B' }} /></span>
-                    <div style={{ display: 'flex', gap: 14, alignItems: 'baseline' }}><span className="eyebrow eyebrow-gold" style={{ fontSize: 11 }}>{s.n}</span><span className="serif" style={{ fontSize: 22, lineHeight: 1.1 }}>{s.title}</span></div>
-                  </div>
-                ))}
+              <div data-desk="1" style={{ display: 'grid', gap: 22 }}>
+                <div className="pin-list">
+                  {steps.map((s, i) => (
+                    <div key={s.n} data-pin-item={i} data-state={i === 0 ? 'on' : 'todo'} className="pin-step">
+                      <span className="pin-num">{s.n}</span>
+                      <div>
+                        <h3 className="serif pin-title">{s.title}</h3>
+                        <div className="pin-body"><p>{s.text}</p></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="pin-progress">
+                  <span><b data-pin-count="1">01</b> / {String(steps.length).padStart(2, '0')}</span>
+                  <div className="pin-track"><span data-pin-bar="1" /></div>
+                </div>
               </div>
               {footer}
             </div>
@@ -33,8 +40,9 @@ export default function PinnedSteps({ eyebrow, title, blurb, steps, footer }: {
               {steps.map((s, i) => (
                 <div key={s.n} data-pin-img={i} style={{ position: 'absolute', inset: 0, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', opacity: 0, transform: 'scale(1.06)', transition: 'opacity 1.4s ease,transform 2.2s cubic-bezier(.16,1,.3,1)' }}>
                   <div className="fill"><ImageSlot src={s.src} alt={s.title} placeholder={s.ph} tone="dark" /></div>
-                  <div className="ov-pin" />
-                  <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 40, display: 'grid', gap: 12, pointerEvents: 'none' }}>
+                  {/* caption only below 1000px, where the index list is hidden */}
+                  <div className="ov-pin pin-cap" />
+                  <div className="pin-cap" style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 40, gap: 12, pointerEvents: 'none' }}>
                     <span className="eyebrow eyebrow-gold">Step {s.n}</span>
                     <h3 className="serif" style={{ fontSize: 40, lineHeight: 1.05 }}>{s.title}</h3>
                     <p style={{ fontSize: 16, lineHeight: 1.6, color: 'rgba(247,243,236,.82)', maxWidth: 520 }}>{s.text}</p>
@@ -55,13 +63,10 @@ export default function PinnedSteps({ eyebrow, title, blurb, steps, footer }: {
             </div>
             <div style={{ display: 'grid' }}>
               {steps.map((s, i) => (
-                <div key={s.n} data-reveal={i} style={{ display: 'grid', gridTemplateColumns: '32px 1fr', gap: 16, paddingBottom: 28 }}>
-                  <div style={{ display: 'grid', gridTemplateRows: 'auto 1fr', justifyItems: 'center', gap: 8 }}>
-                    <span className="serif" style={{ width: 32, height: 32, borderRadius: '50%', border: '1.5px solid #C6A15B', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color: '#C6A15B' }}>{s.n}</span>
-                    <span style={{ width: 1, background: 'rgba(247,243,236,.15)' }} />
-                  </div>
+                <div key={s.n} data-reveal={i} style={{ display: 'grid', gridTemplateColumns: '40px 1fr', padding: '22px 0 26px', borderTop: '1px solid rgba(247,243,236,.14)' }}>
+                  <span className="pin-num" style={{ color: '#C6A15B', paddingTop: 7 }}>{s.n}</span>
                   <div style={{ display: 'grid', gap: 8 }}>
-                    <h3 className="serif" style={{ fontSize: 24, lineHeight: 1.15, paddingTop: 4 }}>{s.title}</h3>
+                    <h3 className="serif" style={{ fontSize: 24, lineHeight: 1.15 }}>{s.title}</h3>
                     <p style={{ fontSize: 15, lineHeight: 1.6, color: 'rgba(247,243,236,.75)' }}>{s.text}</p>
                     <div className="media" style={{ aspectRatio: '16/9', borderRadius: 6, background: '#3A4A66', marginTop: 8 }}><ImageSlot src={s.src} alt={s.title} placeholder={s.ph} tone="dark" /></div>
                   </div>

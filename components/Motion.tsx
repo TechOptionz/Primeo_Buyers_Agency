@@ -58,9 +58,10 @@ export default function Motion() {
         if (sec.getAttribute('data-active') !== String(active)) {
           sec.setAttribute('data-active', String(active));
           imgs.forEach((im, i) => { const on = i === active; im.style.opacity = on ? '1' : '0'; im.style.transform = on ? 'none' : (i < active ? 'scale(1)' : 'scale(1.06)'); im.style.zIndex = on ? '2' : '1'; });
-          sec.querySelectorAll<HTMLElement>('[data-pin-item]').forEach((it, i) => { it.style.opacity = i <= active ? '1' : '.35'; });
+          sec.querySelectorAll<HTMLElement>('[data-pin-item]').forEach((it, i) => { it.setAttribute('data-state', i === active ? 'on' : i < active ? 'done' : 'todo'); });
+          const count = sec.querySelector<HTMLElement>('[data-pin-count]'); if (count) count.textContent = String(active + 1).padStart(2, '0');
         }
-        const bar = sec.querySelector<HTMLElement>('[data-pin-bar]'); if (bar) bar.style.transform = `scaleY(${p.toFixed(3)})`;
+        const bar = sec.querySelector<HTMLElement>('[data-pin-bar]'); if (bar) bar.style.transform = `scaleX(${p.toFixed(3)})`;
       });
       $$('[data-mask][data-drift]').forEach((el) => {
         const r = el.getBoundingClientRect();

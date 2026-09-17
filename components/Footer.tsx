@@ -10,40 +10,19 @@ const SOCIAL = [
   { label: 'YouTube', d: <><rect x="3" y="6" width="18" height="12" rx="3" /><path d="M10 9.5v5l4.5-2.5z" fill="currentColor" /></> },
 ];
 
-// Skyline silhouette along the footer's bottom edge (heights in px).
-const BARS = [22, 40, 30, 58, 44, 76, 50, 90, 64, 104, 56, 82, 46, 68, 36, 54, 28, 42, 20];
-
 const summary: React.CSSProperties = { listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '18px 0', fontSize: 11, fontWeight: 600, letterSpacing: '.16em', textTransform: 'uppercase', color: '#C6A15B', cursor: 'pointer' };
 const mobLink: React.CSSProperties = { color: 'rgba(247,243,236,.85)' };
-
-/** Footer logo: strokes draw on when the footer enters view, then the gold dot pulses slowly. */
-function FooterLogo() {
-  return (
-    <div className="flogo">
-      <span className="flogo-pulse" />
-      <svg width="52" height="52" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path className="flogo-frame" pathLength={1} d="M4 12V4h32v32H4V24" />
-        <path className="flogo-line" pathLength={1} d="M4 30 18 20l8 4L34 14" />
-        <circle className="flogo-dot" cx="34" cy="14" r="3.5" fill="#C6A15B" stroke="none" />
-      </svg>
-    </div>
-  );
-}
 
 export default function Footer() {
   return (
     <footer data-inview="1" className="footer">
       <span data-rule="1" className="footer-topline" />
       <div className="footer-watermark"><span data-reveal="0">PRIMEO</span></div>
-      <div className="footer-skyline" aria-hidden="true">
-        {BARS.map((h, i) => <span key={i} data-reveal={i} style={{ height: h }} />)}
-      </div>
 
       <div data-pad="1" className="container" style={{ position: 'relative', display: 'grid', gap: 56 }}>
         <div data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1.2fr 2fr', gap: 64 }}>
           <div style={{ display: 'grid', gap: 22, alignContent: 'start' }}>
-            <div data-reveal="0" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-              <FooterLogo />
+            <div data-reveal="0">
               <div style={{ display: 'grid', gap: 5 }}>
                 <span className="flogo-word" style={{ fontWeight: 700, fontSize: 28, letterSpacing: '.14em', lineHeight: 1 }}>PRIMEO</span>
                 <span className="flogo-sub" style={{ fontSize: 9, letterSpacing: '.3em', textTransform: 'uppercase', fontWeight: 600, color: 'rgba(247,243,236,.7)' }}>Property Group</span>

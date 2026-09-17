@@ -9,8 +9,8 @@ export type Service = {
   lead: string;
   placeholder: string;
   src?: string;
+  introSrc?: string;
   facts: { v: string; l: string }[];
-  callout: { v: string; l: string };
   introTitle: string;
   intro: string;
   points: string[];
@@ -43,7 +43,7 @@ export const IMAGES = {
   aboutHero: '/images/hero_brisbane_luxury.jpg',
   aboutStoryA: '/images/about_early_office.jpg',
   aboutStoryB: '/images/testimonial_verandah.jpg',
-  contactHero: '/images/contact_office_exterior.jpg',
+  contactHero: '/images/contact_hero.jpg',
   contactMap: '/images/contact_office_exterior.jpg',
   contactOffice: '/images/contact_lounge.jpg',
 };
@@ -115,8 +115,8 @@ export const SERVICES: Record<string, Service> = {
     lead: 'Independent representation for home buyers and investors across Brisbane and South East Queensland.',
     placeholder: 'Photo: buyers walking through a Queenslander with their agent',
     src: '/images/service_buyers.jpg',
+    introSrc: '/images/buyers_intro.jpg',
     facts: [{ v: '350+', l: 'Properties secured' }, { v: '1 in 3', l: 'Bought off-market' }, { v: '$60k', l: 'Average saved vs guide' }],
-    callout: { v: '1 in 3', l: 'properties we secure never reach a public portal.' },
     introTitle: 'Why buyers need representation',
     intro: 'Every seller has an agent whose job is to get the highest price. Most buyers have no one. A buyer’s agent restores the balance: we search the whole market, including off-market stock, assess each property on evidence and negotiate with a clear walk-away number.',
     points: ['Access to off-market and pre-market properties through agent networks', 'Independent valuation before you make an offer', 'Negotiation and auction bidding handled by someone who does it weekly', 'Time saved: we shortlist, you decide'],
@@ -135,7 +135,7 @@ export const SERVICES: Record<string, Service> = {
       { tag: 'Access', title: 'The whole market', text: 'Roughly a third of the properties we secure never reach a portal.', foot: 'Off-market network' },
       { tag: 'Leverage', title: 'A stronger position', text: 'Selling agents negotiate differently with a professional across the table.', foot: 'Better outcomes' },
     ], ['Photo: signed contract', 'Photo: off-market home', 'Photo: auction crowd'],
-    ['/images/why_primeo_review.jpg', '/images/prop_moray_st.jpg', '/images/cta_front_gate.jpg']),
+    ['/images/why_primeo_review.jpg', '/images/prop_moray_st.jpg', '/images/buyers_card_leverage.jpg']),
     columns: [],
     quote: { text: 'They found us a home that was never advertised and negotiated $60k under the guide. Calm the whole way through.', name: 'Sarah & Tom Nguyen', meta: 'Bought in New Farm', ph: 'Photo: family at their new front door', src: '/images/testimonial_verandah.jpg' },
     ctaButton: 'Book a strategy call',
@@ -147,8 +147,8 @@ export const SERVICES: Record<string, Service> = {
     lead: 'Considered campaigns that find the right buyer and protect your price.',
     placeholder: 'Photo: styled living room with garden view',
     src: '/images/service_selling.jpg',
+    introSrc: '/images/selling_intro.jpg',
     facts: [{ v: '21 days', l: 'Average days on market' }, { v: '4%', l: 'Above appraisal, average' }, { v: '100%', l: 'Campaigns with weekly reports' }],
-    callout: { v: '21 days', l: 'average time from launch to unconditional contract.' },
     introTitle: 'A calmer way to sell',
     intro: 'Selling well is a sequence of good decisions: the right price guide, the right method, the right buyers in the room at the right time. We plan each of them with you before anything goes live, and we report on every one of them as the campaign runs.',
     points: [],
@@ -159,7 +159,7 @@ export const SERVICES: Record<string, Service> = {
       { n: '03', title: 'Campaign', text: 'Targeted digital, database and portal marketing with weekly reporting.' },
       { n: '04', title: 'Negotiate', text: 'Private treaty, auction or expressions of interest, run to protect your price.' },
     ], ['Photo: appraisal walkthrough', 'Photo: stylist dressing a room', 'Photo: photographer on site', 'Photo: handshake at auction'],
-    ['/images/why_primeo_review.jpg', '/images/service_selling.jpg', '/images/prop_moray_st.jpg', '/images/cta_front_gate.jpg']),
+    ['/images/selling_step_appraisal.jpg', '/images/selling_step_prepare.jpg', '/images/selling_step_campaign.jpg', '/images/selling_step_negotiate.jpg']),
     cardsEyebrow: 'Marketing approach',
     cardsTitle: 'Reach the right buyers, not just the most.',
     cards: withPh([
@@ -167,9 +167,9 @@ export const SERVICES: Record<string, Service> = {
       { tag: 'Reach', title: 'Buyer database first', text: 'Qualified buyers from our buyer agency see your home before it is public.', foot: 'Pre-market advantage' },
       { tag: 'Reporting', title: 'Weekly campaign reports', text: 'Enquiry, inspections, feedback and price signals, explained plainly.', foot: 'No surprises' },
     ], ['Photo: editorial interior', 'Photo: buyer database on screen', 'Photo: campaign report'],
-    ['/images/service_selling.jpg', '/images/why_primeo_review.jpg', '/images/insight_skyline.jpg']),
+    ['/images/selling_card_photography.jpg', '/images/selling_card_database.jpg', '/images/selling_card_report.jpg']),
     columns: [],
-    quote: { text: 'The appraisal was honest, the campaign plan was clear, and we sold in three weeks above reserve.', name: 'Michael Andersen', meta: 'Sold in Paddington', ph: 'Photo: sold sticker on signboard', src: '/images/cta_front_gate.jpg' },
+    quote: { text: 'The appraisal was honest, the campaign plan was clear, and we sold in three weeks above reserve.', name: 'Michael Andersen', meta: 'Sold in Paddington', ph: 'Photo: seller at the front steps of his home', src: '/images/selling_quote.jpg' },
     ctaButton: 'Request an appraisal',
   },
   rentals: {
@@ -179,8 +179,8 @@ export const SERVICES: Record<string, Service> = {
     lead: 'Property management that keeps landlords informed and tenants looked after.',
     placeholder: 'Photo: bright apartment interior, Brisbane skyline',
     src: '/images/service_rentals.jpg',
+    introSrc: '/images/rentals_intro.jpg',
     facts: [{ v: '0.8%', l: 'Vacancy across our portfolio' }, { v: '48 hrs', l: 'Average maintenance response' }, { v: '4 × yr', l: 'Routine inspections' }],
-    callout: { v: '0.8%', l: 'vacancy across the properties we manage.' },
     introTitle: 'Good management is good communication',
     intro: 'A rental is a relationship between three parties. We keep it working with clear leases, fast maintenance, transparent statements and a single point of contact who knows your property.',
     points: [],
@@ -189,9 +189,9 @@ export const SERVICES: Record<string, Service> = {
     columns: withPh([
       { eyebrow: 'For landlords', title: 'Protect the asset, maximise the return.', text: 'Rental appraisal, tenant selection, routine inspections and compliance handled for you.', points: ['Rental appraisal and market positioning', 'Tenant screening and reference checks', 'Quarterly inspections with photo reports', 'Maintenance coordination with vetted trades', 'Monthly statements and EOFY summaries'], cta: 'Request a rental appraisal' },
       { eyebrow: 'For tenants', title: 'A home you can rely on.', text: 'Straightforward applications, prompt repairs and respectful communication throughout your lease.', points: ['Simple online application', 'Repairs logged and tracked online', 'Clear entry and exit condition reports', 'Fair, transparent lease renewals'], cta: 'Browse rentals' },
-    ], ['Photo: apartment living room', 'Photo: tenants moving in'],
-    ['/images/service_rentals.jpg', '/images/prop_oxlade_dr.jpg']),
-    quote: { text: 'Statements arrive on time, repairs are handled fast and I always know who to call.', name: 'Grace Whitford', meta: 'Landlord, Bulimba', ph: 'Photo: landlord and property manager at apartment', src: '/images/prop_oxlade_dr.jpg' },
+    ], ['Photo: routine inspection', 'Photo: tenants moving in'],
+    ['/images/rentals_landlords.jpg', '/images/rentals_tenants.jpg']),
+    quote: { text: 'Statements arrive on time, repairs are handled fast and I always know who to call.', name: 'Grace Whitford', meta: 'Landlord, Bulimba', ph: 'Photo: landlord on her apartment balcony', src: '/images/rentals_quote.jpg' },
     ctaButton: 'Get in touch',
   },
   commercial: {
@@ -201,8 +201,8 @@ export const SERVICES: Record<string, Service> = {
     lead: 'Acquisition, leasing, sales and advisory for offices, retail and industrial assets.',
     placeholder: 'Photo: contemporary Brisbane office building at golden hour',
     src: '/images/service_commercial.jpg',
+    introSrc: '/images/commercial_intro.jpg',
     facts: [{ v: '$120M', l: 'Commercial transactions' }, { v: '6.2%', l: 'Average net yield secured' }, { v: '3 sectors', l: 'Office · Retail · Industrial' }],
-    callout: { v: '6.2%', l: 'average net yield on assets acquired for clients.' },
     introTitle: 'Commercial property solutions',
     intro: 'Commercial decisions carry more variables: yield, lease covenants, tenancy risk, zoning and exit. We bring the same evidence-led approach we use in residential to help investors and occupiers buy, lease and sell with confidence.',
     points: [],
@@ -215,9 +215,9 @@ export const SERVICES: Record<string, Service> = {
       { tag: 'Sales', title: 'Sell to qualified buyers', text: 'Targeted campaigns to investors and occupiers already in our network.', foot: 'Off-market where it suits' },
       { tag: 'Advisory', title: 'Portfolio strategy', text: 'Hold-or-sell reviews, valuations and repositioning advice.', foot: 'Independent view' },
     ], ['Photo: office tower', 'Photo: retail strip', 'Photo: industrial warehouse', 'Photo: portfolio review'],
-    ['/images/service_commercial.jpg', '/images/contact_office_exterior.jpg', '/images/service_commercial.jpg', '/images/why_primeo_review.jpg']),
+    ['/images/commercial_card_office.jpg', '/images/commercial_card_retail.jpg', '/images/commercial_card_industrial.jpg', '/images/why_primeo_review.jpg']),
     columns: [],
-    quote: { text: 'Our commercial purchase had a dozen moving parts. PRIMEO kept every one of them on track.', name: 'Priya Raman', meta: 'Commercial investor, Fortitude Valley', ph: 'Photo: investor in office foyer', src: '/images/contact_office_exterior.jpg' },
+    quote: { text: 'Our commercial purchase had a dozen moving parts. PRIMEO kept every one of them on track.', name: 'Priya Raman', meta: 'Commercial investor, Fortitude Valley', ph: 'Photo: investor in office foyer', src: '/images/commercial_quote.jpg' },
     ctaButton: 'Book a consultation',
   },
   land: {
@@ -227,8 +227,8 @@ export const SERVICES: Record<string, Service> = {
     lead: 'Turnkey packages with vetted builders, fixed-price contracts and independent advice on where to buy.',
     placeholder: 'Photo: new estate streetscape, contemporary homes, wide sky',
     src: '/images/service_land.jpg',
+    introSrc: '/images/land_intro.jpg',
     facts: [{ v: '18', l: 'Estates assessed this year' }, { v: '6', l: 'Recommended' }, { v: 'Fixed', l: 'Price build contracts' }],
-    callout: { v: '18 → 6', l: 'estates assessed this year; six made our recommended list.' },
     introTitle: 'New developments, independently assessed',
     intro: 'Not every estate is a good buy. We assess infrastructure, land supply, builder track record and resale evidence before we recommend a package, so you buy where value is likely to hold.',
     points: [],
@@ -239,7 +239,7 @@ export const SERVICES: Record<string, Service> = {
       { n: '03', title: 'Contract', text: 'Land and build contracts reviewed; inclusions and timelines confirmed.' },
       { n: '04', title: 'Build & handover', text: 'Progress inspections and a final handover check before you move in.' },
     ], ['Photo: pre-approval meeting', 'Photo: estate display village', 'Photo: signing land contract', 'Photo: house under construction'],
-    ['/images/why_primeo_review.jpg', '/images/service_land.jpg', '/images/cta_front_gate.jpg', '/images/service_land.jpg']),
+    ['/images/why_primeo_review.jpg', '/images/land_step_select.jpg', '/images/land_step_contract.jpg', '/images/land_step_build.jpg']),
     cardsEyebrow: 'Current packages',
     cardsTitle: 'Selected developments.',
     cards: withPh([
@@ -247,9 +247,9 @@ export const SERVICES: Record<string, Service> = {
       { tag: 'Ipswich', title: 'Ridgeview Rise', text: '4 bed · 2 bath · 2 car on 400 m². Close to rail and new schools.', foot: 'From $712,000' },
       { tag: 'Logan', title: 'Parkline Terraces', text: '3 bed · 2.5 bath townhomes with private courtyards. Low-maintenance investment.', foot: 'From $598,000' },
     ], ['Photo: Riverbend display home', 'Photo: Ridgeview streetscape', 'Photo: Parkline townhomes'],
-    ['/images/service_land.jpg', '/images/service_land.jpg', '/images/service_land.jpg']),
+    ['/images/land_card_riverbend.jpg', '/images/land_card_ridgeview.jpg', '/images/land_card_parkline.jpg']),
     columns: [],
-    quote: { text: 'They told us which estates to avoid and why. We bought where the numbers made sense.', name: 'Liam & Aisha Carter', meta: 'First-home buyers, Moreton Bay', ph: 'Photo: couple at new home handover', src: '/images/service_land.jpg' },
+    quote: { text: 'They told us which estates to avoid and why. We bought where the numbers made sense.', name: 'Liam & Aisha Carter', meta: 'First-home buyers, Moreton Bay', ph: 'Photo: couple at new home handover', src: '/images/land_quote.jpg' },
     ctaButton: 'Register interest',
   },
 };

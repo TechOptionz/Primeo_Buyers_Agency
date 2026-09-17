@@ -40,10 +40,7 @@ export default async function ServicePage({ params }: Params) {
       {/* intro: image + text */}
       <section data-sec="1" className="sec" style={{ background: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 72, alignItems: 'center' }}>
-          <div style={{ position: 'relative' }}>
-            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={svc.src} alt={svc.title} placeholder={svc.placeholder} /></div>
-            <div data-reveal="2" data-overlap="1" className="callout"><span className="serif" style={{ fontSize: 36, lineHeight: 1 }}>{svc.callout.v}</span><span style={{ fontSize: 13, lineHeight: 1.5, color: 'rgba(247,243,236,.75)' }}>{svc.callout.l}</span></div>
-          </div>
+          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={svc.introSrc ?? svc.src} alt={svc.title} placeholder={svc.placeholder} /></div>
           <div style={{ display: 'grid', gap: 26 }}>
             <div data-reveal="0" style={{ display: 'grid', gap: 14 }}>
               <p className="eyebrow eyebrow-tan">{svc.title}</p>
