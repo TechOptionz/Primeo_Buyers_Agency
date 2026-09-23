@@ -28,7 +28,7 @@ export default function Footer() {
                 <span className="flogo-sub" style={{ fontSize: 9, letterSpacing: '.3em', textTransform: 'uppercase', fontWeight: 600, color: 'rgba(247,243,236,.7)' }}>Property Group</span>
               </div>
             </div>
-            <p data-reveal="1" style={{ fontSize: 15, lineHeight: 1.65, color: 'rgba(247,243,236,.65)', maxWidth: 360 }}>Independent buyer agency, sales, rentals, commercial and house &amp; land across Brisbane and South East Queensland.</p>
+            <p data-reveal="1" style={{ fontSize: 15, lineHeight: 1.65, color: 'rgba(247,243,236,.65)', maxWidth: 360 }}>Independent buyer agency, property investment, off-market sourcing and property advisory across Brisbane and South East Queensland.</p>
             <div style={{ display: 'flex', gap: 10 }}>
               {SOCIAL.map((s, i) => (
                 <a key={s.label} href="#" aria-label={s.label} className="social" data-reveal={i + 2}>
@@ -42,7 +42,7 @@ export default function Footer() {
           <div data-mob-only="1" data-reveal="2" style={{ display: 'none' }}>
             <details style={{ borderTop: '1px solid rgba(247,243,236,.15)' }}>
               <summary style={summary}>Services<span style={{ fontSize: 18, color: 'rgba(247,243,236,.6)' }}>+</span></summary>
-              <div style={{ display: 'grid', gap: 14, padding: '0 0 22px', fontSize: 16 }}>{SERVICE_ITEMS.map((i) => <Link key={i.key} href={i.href} style={mobLink}>{i.label}</Link>)}</div>
+              <div style={{ display: 'grid', gap: 14, padding: '0 0 22px', fontSize: 16 }}>{SERVICE_ITEMS.map((i) => <Link key={i.key} href={i.href} style={mobLink}>{i.full}</Link>)}</div>
             </details>
             <details style={{ borderTop: '1px solid rgba(247,243,236,.15)' }}>
               <summary style={summary}>Company<span style={{ fontSize: 18, color: 'rgba(247,243,236,.6)' }}>+</span></summary>
@@ -62,7 +62,7 @@ export default function Footer() {
           <div data-g3="1" data-desk-block="1" data-seq="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 40 }}>
             <div style={{ display: 'grid', gap: 12, alignContent: 'start', fontSize: 15 }}>
               <span className="eyebrow eyebrow-gold" style={{ fontSize: 11, marginBottom: 6 }}>Services</span>
-              {SERVICE_ITEMS.map((i) => <Link key={i.key} href={i.href} className="footer-link">{i.label}</Link>)}
+              {SERVICE_ITEMS.map((i) => <Link key={i.key} href={i.href} className="footer-link">{i.full}</Link>)}
             </div>
             <div style={{ display: 'grid', gap: 12, alignContent: 'start', fontSize: 15 }}>
               <span className="eyebrow eyebrow-gold" style={{ fontSize: 11, marginBottom: 6 }}>Company</span>

@@ -10,7 +10,7 @@ const sans = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '
 
 export const metadata: Metadata = {
   title: { default: 'PRIMEO Property Group · Brisbane & Queensland', template: '%s · PRIMEO' },
-  description: 'Buying, selling, leasing and commercial advisory for people who expect clear advice and better outcomes.',
+  description: 'Independent buyer agency, property investment, off-market sourcing, property advisory and house & land for people who expect clear advice and better outcomes.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

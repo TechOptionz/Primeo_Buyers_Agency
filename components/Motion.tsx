@@ -64,9 +64,22 @@ export default function Motion() {
         const bar = sec.querySelector<HTMLElement>('[data-pin-bar]'); if (bar) bar.style.transform = `scaleX(${p.toFixed(3)})`;
       });
       $$('[data-mask][data-drift]').forEach((el) => {
-        const r = el.getBoundingClientRect();
+        const r = el.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return;
+        const amp = +(el.getAttribute('data-drift') || 24) || 24;
         const c = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh));
-        el.style.transform = `translateY(${(-c * 24).toFixed(1)}px)`;
+        el.style.transform = `translateY(${(-c * amp).toFixed(1)}px)`;
+      });
+      // Scroll-drawn timelines: --p is the block's progress through the viewport (CSS scales the
+      // gold line by it) and each [data-node] lights once the line, along --axis (x|y), passes it.
+      if (anim) $$('[data-track]').forEach((el) => {
+        const r = el.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return;
+        const p = Math.max(0, Math.min(1, (vh * 0.82 - r.top) / (r.height + vh * 0.15)));
+        el.style.setProperty('--p', p.toFixed(3));
+        const x = getComputedStyle(el).getPropertyValue('--axis').trim() === 'x';
+        el.querySelectorAll<HTMLElement>('[data-node]').forEach((n) => {
+          const b = n.getBoundingClientRect();
+          n.classList.toggle('lit', x ? b.left + b.width / 2 <= r.left + p * r.width : b.top + b.height / 2 <= r.top + p * r.height);
+        });
       });
     };
 
@@ -103,7 +116,7 @@ export default function Motion() {
         q('[data-reveal]').forEach((el) => { mark(el); const d = (inHero(el) ? delay0 : 0) + (+(el.getAttribute('data-reveal') || 0)) * 0.06; el.style.opacity = '0'; el.style.transform = 'translateY(24px)'; el.style.transition = `opacity .7s ${ease} ${d}s, transform .7s ${ease} ${d}s`; obs.observe(el); });
         q('[data-line]').forEach((el) => { mark(el); const d = (inHero(el) ? delay0 : 0) + (+(el.getAttribute('data-line') || 0)) * 0.08; const inner = el.firstElementChild as HTMLElement | null; if (inner) { inner.style.transform = 'translateY(112%)'; inner.style.transition = `transform .7s cubic-bezier(.22,1,.36,1) ${d}s`; } obs.observe(el); });
         q('[data-rule]').forEach((el) => { mark(el); el.style.transformOrigin = 'left center'; el.style.transform = 'scaleX(0)'; el.style.transition = `transform .9s ${ease} ${inHero(el) ? delay0 : 0}s`; obs.observe(el); });
-        q('[data-mask]').forEach((el) => { mark(el); if (el.hasAttribute('data-img-tall')) { el.setAttribute('data-drift', '1'); el.style.transition = 'transform .2s linear'; } const inner = el.firstElementChild as HTMLElement | null; if (inner) { inner.style.clipPath = 'inset(100% 0 0 0)'; inner.style.transform = 'scale(1.12)'; inner.style.transformOrigin = 'center'; inner.style.transition = `clip-path 1.1s cubic-bezier(.76,0,.24,1), transform 1.8s ${ease}`; } obs.observe(el); });
+        q('[data-mask]').forEach((el) => { mark(el); if (el.hasAttribute('data-img-tall')) el.setAttribute('data-drift', '24'); if (el.hasAttribute('data-drift')) el.style.transition = 'transform .2s linear'; const inner = el.firstElementChild as HTMLElement | null; if (inner) { inner.style.clipPath = 'inset(100% 0 0 0)'; inner.style.transform = 'scale(1.12)'; inner.style.transformOrigin = 'center'; inner.style.transition = `clip-path 1.1s cubic-bezier(.76,0,.24,1), transform 1.8s ${ease}`; } obs.observe(el); });
         q('[data-zoom]').forEach((el) => { mark(el); el.style.transform = 'scale(1.12)'; el.style.transition = `transform 22s ${ease}`; setTimeout(() => { el.style.transform = 'scale(1)'; }, 100); });
       } else {
         q('[data-reveal],[data-mask],[data-line],[data-rule]').forEach(mark);
@@ -111,6 +124,7 @@ export default function Motion() {
       q('[data-count]').forEach((el) => { mark(el); if (anim) obs.observe(el); else count(el, true); });
       // Class-driven reveals: adds `.in` once the element enters the viewport (CSS does the rest).
       q('[data-inview]').forEach((el) => { mark(el); if (anim) obs.observe(el); else el.classList.add('in'); });
+      q('[data-track]').forEach((el) => { mark(el); if (!anim) { el.style.setProperty('--p', '1'); el.querySelectorAll('[data-node]').forEach((n) => n.classList.add('lit')); } });
       // Hover handlers use their own marker: cards inside a [data-seq] grid are already
       // marked data-r by the stagger pass above, so `q` would skip them.
       $$('[data-card]:not([data-hov])').forEach((el) => {

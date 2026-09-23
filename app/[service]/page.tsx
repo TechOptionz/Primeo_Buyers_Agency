@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import PageHero from '@/components/PageHero';
 import PinnedSteps from '@/components/PinnedSteps';
+import FactBand from '@/components/FactBand';
 import { ImageSlot } from '@/components/ImageSlot';
 import { SERVICES } from '@/lib/data';
 
@@ -28,13 +29,7 @@ export default async function ServicePage({ params }: Params) {
         title={svc.hero}
         lead={svc.lead}
         src={svc.src}
-        band={
-          <div data-pad="1" data-g3="1" className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)' }}>
-            {svc.facts.map((f) => (
-              <div key={f.l} className="fact"><span className="serif" style={{ fontSize: 30, lineHeight: 1 }}>{f.v}</span><span style={{ fontSize: 13, color: 'rgba(247,243,236,.7)' }}>{f.l}</span></div>
-            ))}
-          </div>
-        }
+        band={<FactBand facts={svc.facts} />}
       />
 
       {/* intro: image + text */}

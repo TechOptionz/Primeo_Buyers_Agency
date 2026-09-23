@@ -1,7 +1,7 @@
 'use client';
 import { FormEvent, useState } from 'react';
 
-const INTERESTS = ['Buying a property', 'Selling a property', 'Renting or property management', 'Commercial property', 'House & land packages'];
+const INTERESTS = ['Buying a property', 'Investing in property', 'Off-market properties', 'Property advisory', 'House & land packages'];
 
 function useSubmit() {
   const [sent, setSent] = useState(false);
@@ -35,7 +35,7 @@ export function ContactForm() {
   );
 }
 
-export function CtaForm() {
+export function CtaForm({ label = 'Book a strategy call' }: { label?: string }) {
   const { sent, onSubmit } = useSubmit();
   return (
     <form data-reveal="3" onSubmit={onSubmit} style={{ display: 'grid', gap: 12 }}>
@@ -44,7 +44,7 @@ export function CtaForm() {
         <input className="input-dark" placeholder="Phone or email" required />
       </div>
       <InterestSelect className="input-dark" />
-      <button type="submit" className="btn btn-gold" style={{ height: 56 }}>{sent ? 'Thanks — we’ll be in touch' : 'Book a strategy call'}</button>
+      <button type="submit" className="btn btn-gold" style={{ height: 56 }}>{sent ? 'Thanks — we’ll be in touch' : label}</button>
     </form>
   );
 }

@@ -4,7 +4,7 @@ import PageHero from '@/components/PageHero';
 import { ImageSlot } from '@/components/ImageSlot';
 import { VALUES, TEAM, IMAGES } from '@/lib/data';
 
-export const metadata: Metadata = { title: 'About', description: 'A Brisbane property group working across buying, selling, rentals, commercial and new homes.' };
+export const metadata: Metadata = { title: 'About', description: 'An independent Brisbane buyer agency: buyer representation, property investment, off-market sourcing, advisory and house and land, under one roof.' };
 
 const FACTS = [
   { v: 2012, label: 'Founded in Brisbane' },
@@ -19,7 +19,7 @@ export default function About() {
       <PageHero
         eyebrow="About PRIMEO"
         title="Property advice built on evidence, not hype."
-        lead="A Brisbane property group working across buying, selling, rentals, commercial and new homes."
+        lead="An independent Brisbane buyer agency: representation, investment sourcing, off-market access, advisory and house and land, under one roof."
         src={IMAGES.aboutHero}
         band={
           <div data-pad="1" data-g4="1" className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)' }}>
@@ -42,7 +42,7 @@ export default function About() {
             </div>
             <div data-reveal="1" style={{ display: 'grid', gap: 18, fontSize: 17, lineHeight: 1.65, color: '#4A4C55' }}>
               <p>PRIMEO began as a buyer&apos;s agency, representing people who had no one on their side of the negotiation. That independence still shapes everything we do: we tell clients what a property is worth and whether they should buy it, even when the answer is no.</p>
-              <p>Today we work across the whole property journey in Brisbane and South East Queensland. Because we see transactions from every side, our advice is grounded in how deals are actually won, not in what a listing needs to say.</p>
+              <p>Today we represent buyers and investors across Brisbane and South East Queensland: buyer agency, property investment, off-market sourcing, independent advisory and house and land packages. Because we sit across the table from selling agents every week, our advice is grounded in how deals are actually won, not in what a listing needs to say.</p>
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, alignItems: 'end' }}>

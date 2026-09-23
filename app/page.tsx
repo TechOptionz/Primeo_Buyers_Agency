@@ -4,6 +4,7 @@ import { ImageSlot } from '@/components/ImageSlot';
 import PinnedSteps from '@/components/PinnedSteps';
 import Testimonials from '@/components/Testimonials';
 import { SERVICE_ITEMS, SERVICES, PROPERTIES, JOURNEY, TRUST, ARTICLES, IMAGES } from '@/lib/data';
+import { SLOTS } from '@/lib/slots';
 
 const STATS = [
   { v: 350, suf: '+', label: 'Properties secured', sub: 'For buyers and investors, on and off market' },
@@ -12,12 +13,13 @@ const STATS = [
   { v: 98, suf: '%', label: 'Client satisfaction', sub: 'Would recommend PRIMEO to family' },
 ];
 
+// Image placeholders for the three newer services live in lib/slots.ts (same slot as each page's hero).
 const SERVICE_CARDS = [
-  { key: 'buyers', n: '01', title: 'Buyer Agency', text: 'Independent search, due diligence and negotiation on your side of the table.', ph: 'Photo: agent and buyers at a Queenslander front gate, golden hour', span: 4 },
-  { key: 'selling', n: '02', title: 'Selling', text: 'Campaigns that reach the right buyers and protect your price.', ph: 'Photo: styled living room, wide', span: 2 },
-  { key: 'rentals', n: '03', title: 'Rentals', text: 'Management that keeps landlords informed and tenants looked after.', ph: 'Photo: modern apartment interior', span: 2 },
-  { key: 'commercial', n: '04', title: 'Commercial', text: 'Acquisition, leasing and sales for offices, retail and industrial.', ph: 'Photo: Brisbane office tower facade', span: 2 },
-  { key: 'land', n: '05', title: 'House & Land', text: 'New developments and packages in growth corridors.', ph: 'Photo: new estate streetscape', span: 2 },
+  { key: 'buyers', n: '01', title: 'Buyer Agency', text: 'Independent search, due diligence and negotiation on your side of the table.', ph: 'Photo: agent and buyers at a Queenslander front gate, golden hour', src: SERVICES.buyers.src, span: 4 },
+  { key: 'investing', n: '02', title: 'Property Investment', text: 'Research-led sourcing and analysis for investors.', ph: 'PROPERTY_INVESTMENT_HERO', src: SLOTS.PROPERTY_INVESTMENT_HERO, span: 2 },
+  { key: 'off-market', n: '03', title: 'Off-Market Properties', text: 'Opportunities beyond the major portals, through agent and local networks.', ph: 'OFF_MARKET_PROPERTY_IMAGE', src: SLOTS.OFF_MARKET_PROPERTY_IMAGE, span: 2 },
+  { key: 'advisory', n: '04', title: 'Property Advisory', text: 'Independent guidance on value, strategy and negotiation.', ph: 'PROPERTY_ADVISORY_MEETING', src: SLOTS.PROPERTY_ADVISORY_MEETING, span: 2 },
+  { key: 'land', n: '05', title: 'House & Land', text: 'New developments and packages in growth corridors.', ph: 'Photo: new estate streetscape', src: SERVICES.land.src, span: 2 },
 ];
 
 export default function Home() {
@@ -39,7 +41,7 @@ export default function Home() {
                 <span data-line="1" className="lines" style={{ paddingBottom: '.06em' }}><span>Your trusted partner in</span></span>
                 <span data-line="2" className="lines" style={{ paddingBottom: '.06em' }}><span>every property <em style={{ fontStyle: 'italic', color: '#C6A15B' }}>decision.</em></span></span>
               </h1>
-              <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 540, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>Helping buyers, sellers and investors navigate the property market with confidence.</p>
+              <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 540, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>Helping buyers and investors navigate the property market with confidence.</p>
               <div data-hero-cta="1" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', marginTop: 10 }}>
                 <span data-reveal="5" style={{ display: 'grid' }}><Link href="/contact" className="btn btn-gold">Book a Consultation</Link></span>
                 <span data-reveal="7" style={{ display: 'grid' }}><a href="#services" className="btn btn-outline-light">Explore Services</a></span>
@@ -47,11 +49,11 @@ export default function Home() {
             </div>
           </div>
           <div data-reveal="5" data-desk-block="1" className="hero-band">
-            <div data-pad="1" data-scroll-row="1" className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)' }}>
+            <div data-pad="1" data-scroll-row="1" className="container" style={{ display: 'grid', gridTemplateColumns: `repeat(${SERVICE_ITEMS.length},1fr)` }}>
               {SERVICE_ITEMS.map((s, i) => (
                 <Link key={s.key} href={s.href} className="hero-band-link">
                   <span className="eyebrow eyebrow-gold eyebrow-sm">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="serif" style={{ fontSize: 19 }}>{s.label}</span>
+                  <span className="serif" style={{ fontSize: 19 }}>{s.full}</span>
                 </Link>
               ))}
             </div>
@@ -89,12 +91,12 @@ export default function Home() {
               <p className="eyebrow eyebrow-tan">What we do</p>
               <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Five services. One team in your corner.</span></span></h2>
             </div>
-            <p className="lead" style={{ maxWidth: 380 }}>Choose the service you need today; we bring the rest of the group when it helps.</p>
+            <p className="lead" style={{ maxWidth: 380 }}>From your first home to your next investment, the same independent advice applies to every service.</p>
           </div>
           <div data-seq="1" data-scroll-row="1" data-svc-grid="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 16 }}>
             {SERVICE_CARDS.map((c, i) => (
               <Link key={c.key} href={`/${c.key}`} data-card="1" data-reveal={i} data-span="1" style={{ gridColumn: `span ${c.span}`, position: 'relative', display: 'block', height: 420, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', color: '#F7F3EC' }}>
-                <div data-card-img="1" className="fill"><ImageSlot src={SERVICES[c.key]?.src} alt={c.title} placeholder={c.ph} tone="dark" /></div>
+                <div data-card-img="1" className="fill"><ImageSlot src={c.src} alt={c.title} placeholder={c.ph} tone="dark" /></div>
                 <div className="ov-card" />
                 <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 30, display: 'grid', gap: 10, pointerEvents: 'none' }}>
                   <span className="eyebrow eyebrow-gold">{c.n}</span>
@@ -185,7 +187,7 @@ export default function Home() {
             <a href="#" className="link-u">All insights →</a>
           </div>
           <div data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 24 }}>
-            <a href="#" data-card="1" data-reveal="0" data-lead-card="1" style={{ position: 'relative', display: 'block', minHeight: 520, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', color: '#F7F3EC' }}>
+            <Link href={lead.href} data-card="1" data-reveal="0" data-lead-card="1" style={{ position: 'relative', display: 'block', minHeight: 520, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', color: '#F7F3EC' }}>
               <div data-card-img="1" className="fill"><ImageSlot src={lead.src} alt={lead.title} placeholder={lead.placeholder} tone="dark" /></div>
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(11,29,58,0) 30%,rgba(11,29,58,.92) 100%)', pointerEvents: 'none' }} />
               <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 36, display: 'grid', gap: 12, pointerEvents: 'none' }}>
@@ -193,17 +195,17 @@ export default function Home() {
                 <h3 className="serif" style={{ fontSize: 34, lineHeight: 1.15, maxWidth: 560 }}>{lead.title}</h3>
                 <p style={{ fontSize: 15, lineHeight: 1.55, color: 'rgba(247,243,236,.8)', maxWidth: 520 }}>{lead.excerpt}</p>
               </div>
-            </a>
+            </Link>
             <div style={{ display: 'grid', gap: 24 }}>
               {more.map((a, i) => (
-                <a key={a.id} href="#" data-card="1" data-reveal={i} data-mini-card="1" className="card card-hover soft" style={{ gridTemplateColumns: '1fr 1.2fr', gap: 0, color: '#0B1D3A' }}>
+                <Link key={a.id} href={a.href} data-card="1" data-reveal={i} data-mini-card="1" className="card card-hover soft" style={{ gridTemplateColumns: '1fr 1.2fr', gap: 0, color: '#0B1D3A' }}>
                   <div className="media" style={{ minHeight: 220, background: '#E6E0D4' }}><div data-card-img="1" className="fill"><ImageSlot src={a.src} alt={a.title} placeholder={a.placeholder} /></div></div>
                   <div style={{ padding: 26, display: 'grid', gap: 10, alignContent: 'center' }}>
                     <div className="eyebrow eyebrow-tan eyebrow-sm" style={{ display: 'flex', gap: 10 }}><span>{a.cat}</span><span>·</span><span>{a.date}</span></div>
                     <h3 className="serif" style={{ fontSize: 22, lineHeight: 1.2 }}>{a.title}</h3>
                     <span className="link-u sm">Read →</span>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           </div>

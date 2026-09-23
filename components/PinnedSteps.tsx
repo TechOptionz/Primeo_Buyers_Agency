@@ -18,7 +18,8 @@ export default function PinnedSteps({ eyebrow, title, blurb, steps, footer }: {
                 {blurb && <p data-desk="1" style={{ fontSize: 16, lineHeight: 1.6, color: 'rgba(247,243,236,.72)', maxWidth: 440 }}>{blurb}</p>}
               </div>
               <div data-desk="1" style={{ display: 'grid', gap: 22 }}>
-                <div className="pin-list">
+                {/* six or more steps: tighter rows so the index still fits beside the image on a laptop screen */}
+                <div className={`pin-list${steps.length > 5 ? ' compact' : ''}`}>
                   {steps.map((s, i) => (
                     <div key={s.n} data-pin-item={i} data-state={i === 0 ? 'on' : 'todo'} className="pin-step">
                       <span className="pin-num">{s.n}</span>

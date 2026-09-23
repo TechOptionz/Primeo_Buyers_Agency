@@ -31,7 +31,7 @@ export default function Nav() {
             <span data-nav-logo="1" style={{ display: 'flex' }}><LogoMark /></span>
             <span data-logo-text="1" style={{ fontWeight: 700, fontSize: 19, letterSpacing: '.14em', lineHeight: 1 }}>PRIMEO</span>
           </Link>
-          <div data-desk="1" style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
+          <div data-desk="1" className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
             {NAV.map((i) => <Link key={i.key} href={i.href} className="nav-link">{i.label}</Link>)}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
