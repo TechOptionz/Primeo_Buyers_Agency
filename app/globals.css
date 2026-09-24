@@ -225,6 +225,10 @@ select.input-dark option { color: var(--navy); }
 .footer-topline { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, var(--gold), rgba(198, 161, 91, 0.15)); }
 .footer-watermark { position: absolute; left: 0; right: 0; bottom: -0.12em; text-align: center; font-weight: 700; font-size: clamp(64px, 22vw, 320px); line-height: 1; letter-spacing: 0.08em; color: transparent; -webkit-text-stroke: 1px rgba(198, 161, 91, 0.12); pointer-events: none; user-select: none; white-space: nowrap; }
 .footer-watermark span { display: inline-block; }
+.flogo, .flogo:hover { display: inline-flex; align-items: center; gap: 8px; color: var(--cream); width: max-content; }
+.flogo-text { display: grid; gap: 4px; }
+.flogo-word { font-weight: 700; font-size: 30px; letter-spacing: 0.12em; line-height: 1; }
+.flogo-sub { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 600; opacity: 0.7; line-height: 1; }
 .footer-link { position: relative; color: rgba(247, 243, 236, 0.8); transition: color 0.3s ease; width: max-content; }
 .footer-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease); }
 .footer-link:hover { color: var(--gold); }

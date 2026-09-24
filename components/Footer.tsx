@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { SERVICE_ITEMS, CONTACT } from '@/lib/data';
+import { LogoMark } from '@/components/Logo';
 
 const COMPANY = [{ label: 'About', href: '/about' }, { label: 'Market insights', href: '#' }, { label: 'Careers', href: '#' }, { label: 'Contact', href: '/contact' }];
 
@@ -22,12 +23,13 @@ export default function Footer() {
       <div data-pad="1" className="container" style={{ position: 'relative', display: 'grid', gap: 56 }}>
         <div data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1.2fr 2fr', gap: 64 }}>
           <div style={{ display: 'grid', gap: 22, alignContent: 'start' }}>
-            <div data-reveal="0">
-              <div style={{ display: 'grid', gap: 5 }}>
-                <span className="flogo-word" style={{ fontWeight: 700, fontSize: 28, letterSpacing: '.14em', lineHeight: 1 }}>PRIMEO</span>
-                <span className="flogo-sub" style={{ fontSize: 9, letterSpacing: '.3em', textTransform: 'uppercase', fontWeight: 600, color: 'rgba(247,243,236,.7)' }}>Property Group</span>
-              </div>
-            </div>
+            <Link href="/" data-reveal="0" className="flogo" aria-label="PRIMEO Buyer’s Agency, home">
+              <LogoMark size={42} />
+              <span className="flogo-text">
+                <span className="flogo-word">PRIMEO</span>
+                <span className="flogo-sub">Buyer&apos;s Agency</span>
+              </span>
+            </Link>
             <p data-reveal="1" style={{ fontSize: 15, lineHeight: 1.65, color: 'rgba(247,243,236,.65)', maxWidth: 360 }}>Independent buyer agency, property investment, off-market sourcing and property advisory across Brisbane and South East Queensland.</p>
             <div style={{ display: 'flex', gap: 10 }}>
               {SOCIAL.map((s, i) => (
