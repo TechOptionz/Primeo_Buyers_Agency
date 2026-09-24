@@ -209,12 +209,15 @@ select.input-dark option { color: var(--navy); }
 .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .nav-link { color: inherit; white-space: nowrap; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; padding: 6px 0; border-bottom: 1.5px solid transparent; transition: border-color 0.35s ease, opacity 0.35s ease; }
 .nav-link:hover { color: inherit; border-bottom-color: var(--gold); }
+.nav-link.active { border-bottom-color: var(--gold); color: var(--gold); }
 .nav-cta { padding: 13px 22px; }
 .nav-round { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; }
 .menu { position: fixed; inset: 0; z-index: 60; background: var(--navy); color: var(--cream); padding: 14px 20px 28px; display: grid; grid-template-rows: auto 1fr auto; visibility: hidden; opacity: 0; transform: translateY(-14px); transition: opacity 0.45s ease, transform 0.6s var(--ease), visibility 0s linear 0.45s; overflow: auto; }
 .menu.open { visibility: visible; opacity: 1; transform: none; transition: opacity 0.45s ease, transform 0.6s var(--ease); }
 .menu-item { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0; border-top: 1px solid rgba(247, 243, 236, 0.12); color: var(--cream); cursor: pointer; opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.6s var(--ease); }
 .menu-item:hover { color: var(--cream); }
+.menu-item.active { color: var(--gold); }
+.menu-item.active .serif { color: var(--gold); }
 .menu.open .menu-item, .menu.open .menu-foot { opacity: 1; transform: none; }
 .menu-foot { display: grid; gap: 14px; opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.6s var(--ease); }
 

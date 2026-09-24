@@ -112,7 +112,7 @@ export default async function ServicePage({ params }: Params) {
             <span className="serif" style={{ fontSize: 56, lineHeight: 0.6, color: '#C6A15B' }}>“</span>
             <p className="serif" style={{ fontSize: 32, lineHeight: 1.3, textWrap: 'pretty' }}>{svc.quote.text}</p>
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <div className="media" style={{ width: 52, height: 52, borderRadius: '50%', background: '#E6E0D4', flex: 'none' }}><ImageSlot /></div>
+              <div className="media" style={{ width: 52, height: 52, borderRadius: '50%', background: '#E6E0D4', flex: 'none', position: 'relative', overflow: 'hidden' }}><ImageSlot src={svc.quote.avatarSrc} alt={svc.quote.name} /></div>
               <div style={{ display: 'grid', gap: 2 }}><span style={{ fontWeight: 600, fontSize: 15 }}>{svc.quote.name}</span><span style={{ fontSize: 13, color: '#8A7A57' }}>{svc.quote.meta}</span></div>
             </div>
           </div>

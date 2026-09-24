@@ -22,7 +22,7 @@ export type Service = {
   cardsTitle?: string;
   cards: ServiceCard[];
   columns: Column[];
-  quote: { text: string; name: string; meta: string; ph: string; src?: string };
+  quote: { text: string; name: string; meta: string; ph: string; src?: string; avatarSrc?: string };
   ctaButton: string;
 };
 
@@ -62,9 +62,9 @@ export const CONTACT = {
 };
 
 export const TESTIMONIALS = [
-  { id: 'nguyen', quote: 'They found us a home that was never advertised and negotiated $60k under the guide. Calm the whole way through.', name: 'Sarah & Tom Nguyen', meta: 'Bought in New Farm' },
-  { id: 'andersen', quote: 'We were outbid twice on our own. With PRIMEO bidding for us we secured the third home at auction, under budget.', name: 'Michael Andersen', meta: 'Bought in Paddington' },
-  { id: 'raman', quote: 'They told us which suburbs to avoid and why. Our investment property was secured with the numbers already checked.', name: 'Priya Raman', meta: 'Investor, Fortitude Valley' },
+  { id: 'nguyen', quote: 'They found us a home that was never advertised and negotiated $60k under the guide. Calm the whole way through.', name: 'Sarah & Tom Nguyen', meta: 'Bought in New Farm', src: '/images/avatar_nguyen.jpg' },
+  { id: 'andersen', quote: 'We were outbid twice on our own. With PRIMEO bidding for us we secured the third home at auction, under budget.', name: 'Michael Andersen', meta: 'Bought in Paddington', src: '/images/avatar_andersen.jpg' },
+  { id: 'raman', quote: 'They told us which suburbs to avoid and why. Our investment property was secured with the numbers already checked.', name: 'Priya Raman', meta: 'Investor, Fortitude Valley', src: '/images/avatar_raman.jpg' },
 ];
 
 export const ARTICLES = [
@@ -141,7 +141,7 @@ export const SERVICES: Record<string, Service> = {
     ], ['Photo: signed contract', 'Photo: off-market home', 'Photo: auction crowd'],
     ['/images/why_primeo_review.jpg', '/images/prop_moray_st.jpg', '/images/buyers_card_leverage.jpg']),
     columns: [],
-    quote: { text: 'They found us a home that was never advertised and negotiated $60k under the guide. Calm the whole way through.', name: 'Sarah & Tom Nguyen', meta: 'Bought in New Farm', ph: 'Photo: family at their new front door', src: '/images/testimonial_verandah.jpg' },
+    quote: { text: 'They found us a home that was never advertised and negotiated $60k under the guide. Calm the whole way through.', name: 'Sarah & Tom Nguyen', meta: 'Bought in New Farm', ph: 'Photo: family at their new front door', src: '/images/testimonial_verandah.jpg', avatarSrc: '/images/avatar_nguyen.jpg' },
     ctaButton: 'Book a strategy call',
   },
   land: {
@@ -173,7 +173,7 @@ export const SERVICES: Record<string, Service> = {
     ], ['Photo: Riverbend display home', 'Photo: Ridgeview streetscape', 'Photo: Parkline townhomes'],
     ['/images/land_card_riverbend.jpg', '/images/land_card_ridgeview.jpg', '/images/land_card_parkline.jpg']),
     columns: [],
-    quote: { text: 'They told us which estates to avoid and why. We bought where the numbers made sense.', name: 'Liam & Aisha Carter', meta: 'First-home buyers, Moreton Bay', ph: 'Photo: couple at new home handover', src: '/images/land_quote.jpg' },
+    quote: { text: 'They told us which estates to avoid and why. We bought where the numbers made sense.', name: 'Liam & Aisha Carter', meta: 'First-home buyers, Moreton Bay', ph: 'Photo: couple at new home handover', src: '/images/land_quote.jpg', avatarSrc: '/images/avatar_carter.jpg' },
     ctaButton: 'Register interest',
   },
 };

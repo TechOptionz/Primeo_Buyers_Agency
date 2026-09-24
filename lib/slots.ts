@@ -11,42 +11,42 @@
  */
 export const SLOTS: Record<string, string | undefined> = {
   // ---- Property Investment (/investing) ----
-  PROPERTY_INVESTMENT_HERO: undefined,        // wide, full-bleed hero (also the homepage service card)
-  INVESTMENT_INTRO_PORTRAIT: undefined,       // portrait: adviser and client reviewing figures
-  PROPERTY_RESEARCH_IMAGE: undefined,         // portrait: research desk, plans, laptop with data
-  INVESTMENT_STEP_STRATEGY: undefined,        // landscape: strategy meeting
-  INVESTMENT_STEP_RESEARCH: undefined,        // landscape: suburb aerial or data on screen
-  INVESTMENT_STEP_SOURCE: undefined,          // landscape: streetscape, agent on the phone
-  INVESTMENT_STEP_ASSESS: undefined,          // landscape: inspecting a property
-  INVESTMENT_STEP_NEGOTIATE: undefined,       // landscape: negotiation at a table
-  INVESTMENT_STEP_SECURE: undefined,          // landscape: keys, handshake, settlement
-  ESTABLISHED_PROPERTY_IMAGE: undefined,      // landscape: established Queenslander street
-  HOUSE_AND_LAND_IMAGE: undefined,            // landscape: new estate under construction
-  BRISBANE_GROWTH_MAP: undefined,             // wide: stylised map / aerial of South East Queensland
-  BRISBANE_PROPERTY_IMAGE: undefined,         // portrait: Brisbane home, river or skyline
+  PROPERTY_INVESTMENT_HERO: '/images/invest_hero.jpg',
+  INVESTMENT_INTRO_PORTRAIT: '/images/invest_intro_portrait.jpg',
+  PROPERTY_RESEARCH_IMAGE: '/images/invest_research_desk.jpg',
+  INVESTMENT_STEP_STRATEGY: '/images/invest_step_strategy.jpg',
+  INVESTMENT_STEP_RESEARCH: '/images/invest_step_research.jpg',
+  INVESTMENT_STEP_SOURCE: '/images/invest_step_source.jpg',
+  INVESTMENT_STEP_ASSESS: '/images/invest_step_assess.jpg',
+  INVESTMENT_STEP_NEGOTIATE: '/images/invest_step_negotiate.jpg',
+  INVESTMENT_STEP_SECURE: '/images/invest_step_secure.jpg',
+  ESTABLISHED_PROPERTY_IMAGE: '/images/prop_latrobe_tce.jpg',
+  HOUSE_AND_LAND_IMAGE: '/images/land_card_parkline.jpg',
+  BRISBANE_GROWTH_MAP: '/images/insight_skyline.jpg',
+  BRISBANE_PROPERTY_IMAGE: '/images/prop_moray_st.jpg',
 
   // ---- Off-Market Properties (/off-market) ----
-  OFF_MARKET_HERO: undefined,                 // wide, full-bleed hero: high-end home, dusk
-  OFF_MARKET_PROPERTY_IMAGE: undefined,       // portrait: private home behind a gate (also the homepage card)
-  OFF_MARKET_STREETSCAPE: undefined,          // wide 21:9: leafy inner-Brisbane street
-  OFF_MARKET_STEP_SEARCH: undefined,          // landscape: agent on the phone / driving a street
-  OFF_MARKET_STEP_EVALUATE: undefined,        // landscape: inspection, building report
-  OFF_MARKET_STEP_SECURE: undefined,          // landscape: contract signing, keys
-  OFF_MARKET_DUE_DILIGENCE: undefined,        // wide background: property detail, moody
-  PROPERTY_MATCHING_IMAGE: undefined,         // portrait: adviser writing a brief with clients
+  OFF_MARKET_HERO: '/images/off_market_hero.jpg',
+  OFF_MARKET_PROPERTY_IMAGE: '/images/off_market_gate.jpg',
+  OFF_MARKET_STREETSCAPE: '/images/prop_oxlade_dr.jpg',
+  OFF_MARKET_STEP_SEARCH: '/images/journey_02_search.jpg',
+  OFF_MARKET_STEP_EVALUATE: '/images/journey_03_inspect.jpg',
+  OFF_MARKET_STEP_SECURE: '/images/journey_05_secure.jpg',
+  OFF_MARKET_DUE_DILIGENCE: '/images/off_market_due_diligence.jpg',
+  PROPERTY_MATCHING_IMAGE: '/images/off_market_buyer_brief.jpg',
 
   // ---- Property Advisory (/advisory) ----
-  PROPERTY_ADVISORY_HERO: undefined,          // wide, full-bleed hero: adviser and clients at a table
-  PROPERTY_ADVISORY_MEETING: undefined,       // portrait: advisory meeting (also the homepage card)
-  ADVISORY_SERVICE_STRATEGY: undefined,       // portrait: one image per service (files may be shared)
-  ADVISORY_SERVICE_RESEARCH: undefined,
-  ADVISORY_SERVICE_ASSESSMENT: undefined,
-  ADVISORY_SERVICE_COMPARABLES: undefined,
-  ADVISORY_SERVICE_NEGOTIATION: undefined,
-  ADVISORY_SERVICE_AUCTION: undefined,
-  ADVISORY_SERVICE_INVESTMENT: undefined,
-  ADVISORY_SERVICE_LAND: undefined,
-  PROPERTY_ASSESSMENT_IMAGE: undefined,       // portrait 3:4: walking through a property with a clipboard
-  NEGOTIATION_TABLE: undefined,               // wide background: negotiation across a table, low light
-  SETTLEMENT_KEYS_IMAGE: undefined,           // landscape: keys handed over at the front door
+  PROPERTY_ADVISORY_HERO: '/images/advisory_hero.jpg',
+  PROPERTY_ADVISORY_MEETING: '/images/advisory_meeting.jpg',
+  ADVISORY_SERVICE_STRATEGY: '/images/buyers_intro.jpg',
+  ADVISORY_SERVICE_RESEARCH: '/images/about_early_office.jpg',
+  ADVISORY_SERVICE_ASSESSMENT: '/images/why_primeo_review.jpg',
+  ADVISORY_SERVICE_COMPARABLES: '/images/insight_front_door.jpg',
+  ADVISORY_SERVICE_NEGOTIATION: '/images/journey_04_negotiate.jpg',
+  ADVISORY_SERVICE_AUCTION: '/images/buyers_card_leverage.jpg',
+  ADVISORY_SERVICE_INVESTMENT: '/images/land_step_contract.jpg',
+  ADVISORY_SERVICE_LAND: '/images/land_step_select.jpg',
+  PROPERTY_ASSESSMENT_IMAGE: '/images/advisory_property_assessment.jpg',
+  NEGOTIATION_TABLE: '/images/advisory_negotiation_table.jpg',
+  SETTLEMENT_KEYS_IMAGE: '/images/advisory_settlement_keys.jpg',
 };

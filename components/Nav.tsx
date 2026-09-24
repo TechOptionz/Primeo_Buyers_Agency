@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { LogoMark } from './Logo';
 import { NAV, CONTACT } from '@/lib/data';
 
@@ -9,6 +10,8 @@ const MENU = [{ key: 'home', label: 'Home', href: '/' }, ...NAV, { key: 'contact
 export default function Nav() {
   const [on, setOn] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/'));
   const close = () => setOpen(false);
 
   useEffect(() => {
@@ -32,7 +35,7 @@ export default function Nav() {
             <span data-logo-text="1" style={{ fontWeight: 700, fontSize: 19, letterSpacing: '.14em', lineHeight: 1 }}>PRIMEO</span>
           </Link>
           <div data-desk="1" className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
-            {NAV.map((i) => <Link key={i.key} href={i.href} className="nav-link">{i.label}</Link>)}
+            {NAV.map((i) => <Link key={i.key} href={i.href} className={`nav-link${isActive(i.href) ? ' active' : ''}`} aria-current={isActive(i.href) ? 'page' : undefined}>{i.label}</Link>)}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <Link href="/contact" data-desk="1" className="btn btn-gold nav-cta">Book a call</Link>
@@ -53,7 +56,7 @@ export default function Nav() {
         </div>
         <div style={{ display: 'grid', alignContent: 'center', padding: '24px 0' }}>
           {MENU.map((m, i) => (
-            <Link key={m.key} href={m.href} onClick={close} className="menu-item" style={{ transitionDelay: open ? `${0.12 + i * 0.05}s` : '0s' }}>
+            <Link key={m.key} href={m.href} onClick={close} className={`menu-item${isActive(m.href) ? ' active' : ''}`} aria-current={isActive(m.href) ? 'page' : undefined} style={{ transitionDelay: open ? `${0.12 + i * 0.05}s` : '0s' }}>
               <span style={{ display: 'flex', gap: 16, alignItems: 'baseline' }}>
                 <span className="eyebrow eyebrow-gold eyebrow-sm">{String(i).padStart(2, '0')}</span>
                 <span className="serif" style={{ fontSize: 32, lineHeight: 1.05 }}>{m.label}</span>
