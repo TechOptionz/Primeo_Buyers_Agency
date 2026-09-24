@@ -2,12 +2,12 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import PageHero from '@/components/PageHero';
 import { ImageSlot } from '@/components/ImageSlot';
-import { VALUES, TEAM, IMAGES } from '@/lib/data';
+import { VALUES, IMAGES, FOUNDER } from '@/lib/data';
 
 export const metadata: Metadata = { title: 'About', description: 'An independent Brisbane buyer agency: buyer representation, property investment, off-market sourcing, advisory and house and land, under one roof.' };
 
 const FACTS = [
-  { v: 2012, label: 'Founded in Brisbane' },
+  { v: 100, suf: '%', label: 'Independent, buyer-side only' },
   { v: 12, label: 'Licensed agents' },
   { v: 5, label: 'Services under one roof' },
   { v: 420, pre: '$', suf: 'M', label: 'Transacted for clients' },
@@ -46,8 +46,32 @@ export default function About() {
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, alignItems: 'end' }}>
-            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4', marginTop: 56 }}><ImageSlot src={IMAGES.aboutStoryA} alt="Early PRIMEO office, 2012" placeholder="Photo: early PRIMEO office, 2012" /></div>
+            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4', marginTop: 56 }}><ImageSlot src={IMAGES.aboutStoryA} alt="Early PRIMEO office" placeholder="Photo: early PRIMEO office" /></div>
             <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4', marginBottom: 56 }}><ImageSlot src={IMAGES.aboutStoryB} alt="Team on site today" placeholder="Photo: team on site today" /></div>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4' }}>
+        <div data-pad="1" data-g2="1" className="container founder" style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 80, alignItems: 'center' }}>
+          <div className="founder-frame">
+            <div data-mask="1" className="media founder-photo" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4' }}>
+              <ImageSlot src={FOUNDER.src} alt={`${FOUNDER.name}, ${FOUNDER.role} of PRIMEO`} placeholder="Portrait: founder" />
+            </div>
+          </div>
+          <div style={{ display: 'grid', gap: 28 }}>
+            <p data-reveal="0" className="eyebrow eyebrow-tan">From the founder</p>
+            <blockquote data-reveal="1" className="founder-quote">
+              <span className="founder-mark serif" aria-hidden="true">&ldquo;</span>
+              <p className="serif" style={{ fontSize: 34, lineHeight: 1.28, textWrap: 'pretty', color: '#0B1D3A' }}>{FOUNDER.quote}</p>
+            </blockquote>
+            <div data-reveal="2" style={{ display: 'grid', gap: 6 }}>
+              <span className="rule" />
+              <span className="serif" style={{ fontSize: 24, lineHeight: 1.15, marginTop: 14 }}>{FOUNDER.name}</span>
+              <span className="eyebrow eyebrow-gold" style={{ fontSize: 11, letterSpacing: '.16em' }}>{FOUNDER.role} · PRIMEO</span>
+            </div>
+            <p data-reveal="3" style={{ fontSize: 16, lineHeight: 1.65, color: '#4A4C55', maxWidth: 520 }}>{FOUNDER.bio}</p>
+            <Link data-reveal="4" href="/contact" className="link-u">Book a conversation</Link>
           </div>
         </div>
       </section>
@@ -63,31 +87,6 @@ export default function About() {
               <div key={v.n} data-reveal={i} className="value-card">
                 <span className="num-ring" style={{ borderColor: 'rgba(247,243,236,.3)' }}>{v.n}</span>
                 <div style={{ display: 'grid', gap: 10, alignContent: 'start' }}><h3 className="serif" style={{ fontSize: 26, lineHeight: 1.15 }}>{v.title}</h3><p style={{ fontSize: 15, lineHeight: 1.6, color: 'rgba(247,243,236,.72)' }}>{v.text}</p></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section data-sec="1" className="sec" style={{ background: '#F7F3EC' }}>
-        <div data-pad="1" className="container" style={{ display: 'grid', gap: 44 }}>
-          <div data-reveal="0" className="head-row">
-            <div style={{ display: 'grid', gap: 14, maxWidth: 640 }}>
-              <p className="eyebrow eyebrow-tan">The team</p>
-              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>People who know the market street by street.</span></span></h2>
-            </div>
-            <Link href="/contact" className="btn btn-outline-dark">Meet the team</Link>
-          </div>
-          <div data-seq="1" data-g4="1" data-scroll-row="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24 }}>
-            {TEAM.map((m, i) => (
-              <div key={m.id} data-card="1" data-reveal={i} style={{ position: 'relative', aspectRatio: '3/4', borderRadius: 8, overflow: 'hidden', background: '#E6E0D4', color: '#F7F3EC', cursor: 'pointer' }}>
-                <div data-card-img="1" className="fill"><ImageSlot placeholder="Portrait" /></div>
-                <div className="ov-team" />
-                <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 24, display: 'grid', gap: 4, pointerEvents: 'none' }}>
-                  <span className="serif" style={{ fontSize: 24, lineHeight: 1.15 }}>{m.name}</span>
-                  <span className="eyebrow eyebrow-gold" style={{ fontSize: 11, letterSpacing: '.14em' }}>{m.role}</span>
-                  <div className="grow"><span data-card-overlay="1" style={{ display: 'block', opacity: 0, transform: 'translateY(8px)', fontSize: 13, color: 'rgba(247,243,236,.8)', paddingTop: 6 }}>{m.bio}</span></div>
-                </div>
               </div>
             ))}
           </div>

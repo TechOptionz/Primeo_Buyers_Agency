@@ -86,7 +86,6 @@ button { cursor: pointer; }
 .hero-video { opacity: 0; transition: opacity 0.35s ease; }
 .hero-video.on { opacity: 1; }
 .ov-pin { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 29, 58, 0) 40%, rgba(11, 29, 58, 0.92) 100%); pointer-events: none; }
-.ov-team { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 29, 58, 0) 45%, rgba(11, 29, 58, 0.9) 100%); pointer-events: none; }
 .tag { position: absolute; top: 16px; left: 16px; padding: 7px 12px; border-radius: 2px; background: rgba(247, 243, 236, 0.94); color: var(--navy); font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; pointer-events: none; }
 .hero-band { border-top: 1px solid rgba(247, 243, 236, 0.18); background: rgba(11, 29, 58, 0.35); backdrop-filter: blur(8px); }
 .hero-band-link { padding: 22px 20px; border-right: 1px solid rgba(247, 243, 236, 0.15); color: var(--cream); display: grid; gap: 4px; cursor: pointer; transition: background 0.35s ease; }
@@ -410,4 +409,22 @@ select.input-dark option { color: var(--navy); }
   /* placeholder labels tuck into the top-right, clear of the copy */
   .slot[data-pos='top'] { align-items: flex-end; padding: 18vh 24px 0; font-size: 10px; }
   .slot[data-pos='corner'] { padding: 96px 24px; font-size: 10px; }
+}
+
+/* ---------- founder spotlight (About) ---------- */
+.founder-frame { position: relative; max-width: 460px; width: 100%; justify-self: center; }
+.founder-photo { position: relative; z-index: 1; box-shadow: 0 40px 80px rgba(11, 29, 58, 0.16); }
+.founder-photo .slot-img { object-position: 50% 18%; }
+.founder-quote { position: relative; margin: 0; padding-left: 36px; border-left: 1px solid var(--sand); }
+.founder-mark { position: absolute; left: -6px; top: -26px; font-size: 96px; line-height: 1; color: var(--gold); opacity: 0.55; pointer-events: none; }
+@media (max-width: 1000px) {
+  .founder { gap: 48px !important; }
+  .founder-frame { max-width: 380px; justify-self: start; }
+  .founder-quote p { font-size: 26px !important; }
+}
+@media (max-width: 640px) {
+  .founder-frame { max-width: 100%; }
+  .founder-quote { padding-left: 24px; }
+  .founder-quote p { font-size: 23px !important; }
+  .founder-mark { font-size: 72px; top: -20px; }
 }

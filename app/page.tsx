@@ -8,7 +8,7 @@ import { SLOTS } from '@/lib/slots';
 
 const STATS = [
   { v: 350, suf: '+', label: 'Properties secured', sub: 'For buyers and investors, on and off market' },
-  { v: 14, suf: '', label: 'Years of experience', sub: 'Brisbane market, every cycle since 2012' },
+  { v: 100, suf: '%', label: 'Independent', sub: 'Buyer-side only, never paid by a vendor' },
   { v: 60, suf: '+', label: 'Suburbs served', sub: 'From New Farm to the Moreton Bay corridor' },
   { v: 98, suf: '%', label: 'Client satisfaction', sub: 'Would recommend PRIMEO to family' },
 ];
@@ -69,7 +69,7 @@ export default function Home() {
               <p className="eyebrow eyebrow-tan">Trusted across South East Queensland</p>
               <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Fourteen years of results, one recommendation at a time.</span></span></h2>
             </div>
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: '#4A4C55', maxWidth: 440, justifySelf: 'end' }}>Licensed, independent and accountable to one party only: the client in front of us. The numbers below are drawn from settled transactions since 2012.</p>
+            <p style={{ fontSize: 16, lineHeight: 1.65, color: '#4A4C55', maxWidth: 440, justifySelf: 'end' }}>Licensed, independent and accountable to one party only: the client in front of us. The numbers below are drawn from settled transactions.</p>
           </div>
           <div data-seq="1" data-g4="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 0, borderTop: '1px solid #E6E0D4', borderRight: '1px solid #E6E0D4' }}>
             {STATS.map((s, i) => (

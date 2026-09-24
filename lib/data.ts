@@ -47,6 +47,7 @@ export const IMAGES = {
   aboutHero: '/images/hero_brisbane_luxury.jpg',
   aboutStoryA: '/images/about_early_office.jpg',
   aboutStoryB: '/images/testimonial_verandah.jpg',
+  founder: '/images/founder_portrait.jpg',
   contactHero: '/images/contact_hero.jpg',
   contactMap: '/images/contact_office_exterior.jpg',
   contactOffice: '/images/contact_lounge.jpg',
@@ -98,15 +99,17 @@ export const VALUES = [
   { n: '01', title: 'Independence', text: 'No listing to push, no developer commissions. Our only client is the person in front of us.' },
   { n: '02', title: 'Evidence', text: 'Every recommendation comes with the comparable sales and the reasoning behind it.' },
   { n: '03', title: 'Calm', text: 'Property is stressful enough. We remove urgency tricks and explain each step plainly.' },
-  { n: '04', title: 'Local', text: 'Suburb by suburb knowledge of Brisbane and South East Queensland, built over 14 years.' },
+  { n: '04', title: 'Local', text: 'Suburb by suburb knowledge of Brisbane and South East Queensland, built across every market cycle.' },
 ];
 
-export const TEAM = [
-  { id: 'one', name: 'Jordan Reid', role: 'Principal · Buyer Agency', bio: 'Founder. 14 years negotiating for Brisbane buyers.' },
-  { id: 'two', name: 'Elena Marsh', role: 'Director · Buyer Agency', bio: 'Negotiation strategy and auction bidding specialist.' },
-  { id: 'three', name: 'Daniel Okafor', role: 'Head of Research', bio: 'Suburb analysis, comparable sales and due diligence.' },
-  { id: 'four', name: 'Mia Tran', role: 'House & Land', bio: 'Estate and builder assessment across growth corridors.' },
-];
+/** Founder spotlight on the About page. Update `name` when the client confirms it. */
+export const FOUNDER = {
+  name: 'Prim Singh',
+  role: 'Founder & CEO',
+  quote: 'A buyer should never walk into a negotiation alone. Our job is to bring the evidence, hold the line on price, and be the one voice in the room that answers only to you.',
+  bio: 'Prim founded PRIMEO after years of watching buyers outmanoeuvred by well-briefed selling agents. He still leads negotiations for private clients and sets the standard for every recommendation the firm makes.',
+  src: '/images/founder_portrait.jpg',
+};
 
 const withPh = <T extends object>(items: T[], phs: string[], srcs?: string[]) =>
   items.map((x, i) => ({ ...x, ph: phs[i] || 'Photo', src: srcs?.[i] }));
@@ -119,7 +122,7 @@ export const SERVICES: Record<string, Service> = {
     lead: 'Independent representation for home buyers and investors across Brisbane and South East Queensland.',
     placeholder: 'Photo: buyers walking through a Queenslander with their agent',
     src: '/images/service_buyers.jpg',
-    introSrc: '/images/buyers_intro.jpg',
+    introSrc: '/images/buyers_representation.jpg',
     facts: [{ v: '350+', l: 'Properties secured' }, { v: '1 in 3', l: 'Bought off-market' }, { v: '$60k', l: 'Average saved vs guide' }],
     introTitle: 'Why buyers need representation',
     intro: 'Every seller has an agent whose job is to get the highest price. Most buyers have no one. A buyer’s agent restores the balance: we search the whole market, including off-market stock, assess each property on evidence and negotiate with a clear walk-away number.',
