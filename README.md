@@ -28,7 +28,7 @@ Every photo area is an `<ImageSlot>` placeholder. To use a real image, drop it i
 <ImageSlot src="/photos/hero.jpg" alt="…" />
 ```
 
-Photos are served through `next/image` (resized per device, AVIF/WebP). Pass `sizes` with the slot's rendered width (e.g. `sizes="(max-width: 1000px) 100vw, 50vw"`) so phones are not sent desktop-sized files.
+Photos are served through `next/image` (resized per device, WebP). AVIF is deliberately off: its encode is 5-8x slower and made first views stall, see `next.config.ts`. Pass `sizes` with the slot's rendered width (e.g. `sizes="(max-width: 1000px) 100vw, 50vw"`) so phones are not sent desktop-sized files.
 After adding photos to `public/images`, run `node scripts/optimize-images.mjs` once to bring the
 source files down to web size (auto-orient, max 1920px, JPEG Q80). It only rewrites files that shrink.
 
