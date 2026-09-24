@@ -29,7 +29,7 @@ export default function Testimonials() {
       <div style={{ display: 'grid', gap: 28, transition: 'opacity .4s ease,transform .4s ease', opacity: fade ? 0 : 1, transform: fade ? 'translateY(12px)' : 'none' }}>
         <p data-quote="1" className="serif" style={{ fontSize: 32, lineHeight: 1.3, textWrap: 'pretty' }}>“{cur.quote}”</p>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div className="media" style={{ width: 56, height: 56, borderRadius: '50%', background: '#3A4A66', flex: 'none', position: 'relative', overflow: 'hidden' }}><ImageSlot src={cur.src} alt={cur.name} tone="dark" /></div>
+          <div className="media" style={{ width: 56, height: 56, borderRadius: '50%', background: '#3A4A66', flex: 'none', position: 'relative', overflow: 'hidden' }}><ImageSlot src={cur.src} alt={cur.name} tone="dark" sizes="56px" /></div>
           <div style={{ display: 'grid', gap: 2 }}><span style={{ fontWeight: 600, fontSize: 15 }}>{cur.name}</span><span style={{ fontSize: 13, color: 'rgba(247,243,236,.6)' }}>{cur.meta}</span></div>
         </div>
       </div>

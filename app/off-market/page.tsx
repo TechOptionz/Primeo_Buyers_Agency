@@ -22,7 +22,7 @@ export default function OffMarket() {
               <h2 data-h2="1" className="h2" style={{ fontSize: 54 }}><span data-line="1" className="lines"><span>{P.what.title}</span></span></h2>
             </div>
             <p data-reveal="1" style={{ fontSize: 18, lineHeight: 1.65, color: '#4A4C55', maxWidth: 520 }}>{P.what.text}</p>
-            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', maxWidth: 440, borderRadius: 8, background: '#E6E0D4' }}><Slot id="OFF_MARKET_PROPERTY_IMAGE" alt="Private home behind a gate" /></div>
+            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', maxWidth: 440, borderRadius: 8, background: '#E6E0D4' }}><Slot id="OFF_MARKET_PROPERTY_IMAGE" alt="Private home behind a gate" sizes="440px" /></div>
           </div>
           <div data-sticky="1" className="stick" style={{ display: 'grid', alignContent: 'start', paddingTop: 12 }}>
             {P.what.defs.map((d, i) => (
@@ -80,7 +80,7 @@ export default function OffMarket() {
                   <h3 className="serif" style={{ fontSize: 36, lineHeight: 1.1 }}>{s.title}</h3>
                   <p style={{ fontSize: 16, lineHeight: 1.6, color: '#4A4C55', maxWidth: 420 }}>{s.text}</p>
                 </div>
-                {s.slot && <div className="tl-media"><div data-mask="1" className="media"><Slot id={s.slot} alt={s.title} /></div></div>}
+                {s.slot && <div className="tl-media"><div data-mask="1" className="media"><Slot id={s.slot} alt={s.title} sizes="(max-width: 1000px) 100vw, 50vw" /></div></div>}
               </div>
             ))}
           </div>
@@ -115,7 +115,7 @@ export default function OffMarket() {
       {/* 5 PROPERTY MATCHING: portrait beside the brief */}
       <section data-sec="1" className="sec" style={{ background: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.15fr', gap: 72, alignItems: 'center' }}>
-          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><Slot id="PROPERTY_MATCHING_IMAGE" alt="Adviser writing a buyer brief with clients" /></div>
+          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><Slot id="PROPERTY_MATCHING_IMAGE" alt="Adviser writing a buyer brief with clients" sizes="(max-width: 1000px) 100vw, 50vw" /></div>
           <div style={{ display: 'grid', gap: 28 }}>
             <div data-reveal="0" style={{ display: 'grid', gap: 14 }}>
               <p className="eyebrow eyebrow-tan">{P.matching.eyebrow}</p>

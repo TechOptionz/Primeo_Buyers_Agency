@@ -46,8 +46,8 @@ export default function About() {
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, alignItems: 'end' }}>
-            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4', marginTop: 56 }}><ImageSlot src={IMAGES.aboutStoryA} alt="Early PRIMEO office" placeholder="Photo: early PRIMEO office" /></div>
-            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4', marginBottom: 56 }}><ImageSlot src={IMAGES.aboutStoryB} alt="Team on site today" placeholder="Photo: team on site today" /></div>
+            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4', marginTop: 56 }}><ImageSlot src={IMAGES.aboutStoryA} alt="Early PRIMEO office" placeholder="Photo: early PRIMEO office" sizes="(max-width: 1000px) 50vw, 25vw" /></div>
+            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4', marginBottom: 56 }}><ImageSlot src={IMAGES.aboutStoryB} alt="Team on site today" placeholder="Photo: team on site today" sizes="(max-width: 1000px) 50vw, 25vw" /></div>
           </div>
         </div>
       </section>
@@ -56,7 +56,7 @@ export default function About() {
         <div data-pad="1" data-g2="1" className="container founder" style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 80, alignItems: 'center' }}>
           <div className="founder-frame">
             <div data-mask="1" className="media founder-photo" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4' }}>
-              <ImageSlot src={FOUNDER.src} alt={`${FOUNDER.name}, ${FOUNDER.role} of PRIMEO`} placeholder="Portrait: founder" />
+              <ImageSlot src={FOUNDER.src} alt={`${FOUNDER.name}, ${FOUNDER.role} of PRIMEO`} placeholder="Portrait: founder" sizes="(max-width: 640px) 100vw, 460px" />
             </div>
           </div>
           <div style={{ display: 'grid', gap: 28 }}>

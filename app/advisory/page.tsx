@@ -17,7 +17,7 @@ export default function Advisory() {
       {/* 1 PROPERTY DECISIONS NEED CONTEXT: portrait beside six numbered needs */}
       <section data-sec="1" className="sec" style={{ background: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.15fr', gap: 72, alignItems: 'center' }}>
-          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4' }}><Slot id="PROPERTY_ADVISORY_MEETING" alt="Advisory meeting" /></div>
+          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4' }}><Slot id="PROPERTY_ADVISORY_MEETING" alt="Advisory meeting" sizes="(max-width: 1000px) 100vw, 50vw" /></div>
           <div style={{ display: 'grid', gap: 28 }}>
             <div data-reveal="0" style={{ display: 'grid', gap: 14 }}>
               <p className="eyebrow eyebrow-tan">{P.context.eyebrow}</p>
@@ -59,7 +59,7 @@ export default function Advisory() {
             </div>
           </div>
           <div data-sticky="1" className="stick">
-            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><Slot id="PROPERTY_ASSESSMENT_IMAGE" alt="Walking through a property with a clipboard" /></div>
+            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><Slot id="PROPERTY_ASSESSMENT_IMAGE" alt="Walking through a property with a clipboard" sizes="(max-width: 1000px) 100vw, 50vw" /></div>
           </div>
         </div>
       </section>

@@ -36,9 +36,9 @@ export default function Contact() {
 
       <section data-sec="1" style={{ padding: '0 0 96px', background: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: 24 }}>
-          <div data-mask="1" className="media" style={{ aspectRatio: '16/9', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={IMAGES.contactMap} alt="PRIMEO office exterior" placeholder="Map or office exterior" /></div>
+          <div data-mask="1" className="media" style={{ aspectRatio: '16/9', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={IMAGES.contactMap} alt="PRIMEO office exterior" placeholder="Map or office exterior" sizes="(max-width: 1000px) 100vw, 60vw" /></div>
           <div data-reveal="1" style={{ position: 'relative', borderRadius: 8, overflow: 'hidden', background: '#0B1D3A', color: '#F7F3EC', padding: 36, display: 'grid', alignContent: 'end', gap: 12, minHeight: 320 }}>
-            <div style={{ position: 'absolute', inset: 0, opacity: 0.35 }}><ImageSlot src={IMAGES.contactOffice} alt="" tone="dark" /></div>
+            <div style={{ position: 'absolute', inset: 0, opacity: 0.35 }}><ImageSlot src={IMAGES.contactOffice} alt="" tone="dark" sizes="(max-width: 1000px) 100vw, 40vw" /></div>
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(11,29,58,0),rgba(11,29,58,.95))', pointerEvents: 'none' }} />
             <p className="eyebrow eyebrow-gold" style={{ position: 'relative' }}>Visit us</p>
             <p className="serif" style={{ position: 'relative', fontSize: 26, lineHeight: 1.2 }}>Coffee is on us. Drop in for a no-obligation chat about your brief.</p>

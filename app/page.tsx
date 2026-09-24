@@ -96,7 +96,7 @@ export default function Home() {
           <div data-seq="1" data-scroll-row="1" data-svc-grid="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 16 }}>
             {SERVICE_CARDS.map((c, i) => (
               <Link key={c.key} href={`/${c.key}`} data-card="1" data-reveal={i} data-span="1" style={{ gridColumn: `span ${c.span}`, position: 'relative', display: 'block', height: 420, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', color: '#F7F3EC' }}>
-                <div data-card-img="1" className="fill"><ImageSlot src={c.src} alt={c.title} placeholder={c.ph} tone="dark" /></div>
+                <div data-card-img="1" className="fill"><ImageSlot src={c.src} alt={c.title} placeholder={c.ph} tone="dark" sizes={`(max-width: 760px) 100vw, ${Math.round((c.span / 6) * 100)}vw`} /></div>
                 <div className="ov-card" />
                 <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 30, display: 'grid', gap: 10, pointerEvents: 'none' }}>
                   <span className="eyebrow eyebrow-gold">{c.n}</span>
@@ -134,7 +134,7 @@ export default function Home() {
             {PROPERTIES.map((p, i) => (
               <div key={p.id} data-card="1" data-reveal={i} className="card card-hover" style={{ cursor: 'pointer' }}>
                 <div className="media" style={{ aspectRatio: '4/3', background: '#E6E0D4' }}>
-                  <div data-card-img="1" className="fill"><ImageSlot src={p.src} alt={p.address} placeholder={p.placeholder} /></div>
+                  <div data-card-img="1" className="fill"><ImageSlot src={p.src} alt={p.address} placeholder={p.placeholder} sizes="(max-width: 640px) 100vw, (max-width: 1240px) 50vw, 33vw" /></div>
                   <span className="tag">{p.status}</span>
                   <div data-card-overlay="1" style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '18px 20px', background: 'linear-gradient(180deg,rgba(11,29,58,0),rgba(11,29,58,.85))', color: '#F7F3EC', opacity: 0, transform: 'translateY(10px)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', pointerEvents: 'none' }}>
                     <span style={{ fontSize: 13 }}>{p.agent}</span><span className="eyebrow eyebrow-gold" style={{ fontSize: 11, letterSpacing: '.14em' }}>View →</span>
@@ -157,7 +157,7 @@ export default function Home() {
       {/* 6 WHY PRIMEO */}
       <section data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4', borderBottom: '1px solid #E6E0D4' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 72, alignItems: 'center' }}>
-          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={IMAGES.why} alt="Consultant and clients reviewing a property report" placeholder="Photo: consultant and clients reviewing a property report" /></div>
+          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={IMAGES.why} alt="Consultant and clients reviewing a property report" placeholder="Photo: consultant and clients reviewing a property report" sizes="(max-width: 1000px) 100vw, 50vw" /></div>
           <div style={{ display: 'grid', gap: 28 }}>
             <div data-reveal="0" style={{ display: 'grid', gap: 14 }}>
               <p className="eyebrow eyebrow-tan">Why PRIMEO</p>
@@ -188,7 +188,7 @@ export default function Home() {
           </div>
           <div data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 24 }}>
             <Link href={lead.href} data-card="1" data-reveal="0" data-lead-card="1" style={{ position: 'relative', display: 'block', minHeight: 520, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', color: '#F7F3EC' }}>
-              <div data-card-img="1" className="fill"><ImageSlot src={lead.src} alt={lead.title} placeholder={lead.placeholder} tone="dark" /></div>
+              <div data-card-img="1" className="fill"><ImageSlot src={lead.src} alt={lead.title} placeholder={lead.placeholder} tone="dark" sizes="(max-width: 1000px) 100vw, 60vw" /></div>
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(11,29,58,0) 30%,rgba(11,29,58,.92) 100%)', pointerEvents: 'none' }} />
               <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 36, display: 'grid', gap: 12, pointerEvents: 'none' }}>
                 <div className="eyebrow eyebrow-gold" style={{ display: 'flex', gap: 12, fontSize: 11 }}><span>{lead.cat}</span><span>·</span><span>{lead.date}</span></div>
@@ -199,7 +199,7 @@ export default function Home() {
             <div style={{ display: 'grid', gap: 24 }}>
               {more.map((a, i) => (
                 <Link key={a.id} href={a.href} data-card="1" data-reveal={i} data-mini-card="1" className="card card-hover soft" style={{ gridTemplateColumns: '1fr 1.2fr', gap: 0, color: '#0B1D3A' }}>
-                  <div className="media" style={{ minHeight: 220, background: '#E6E0D4' }}><div data-card-img="1" className="fill"><ImageSlot src={a.src} alt={a.title} placeholder={a.placeholder} /></div></div>
+                  <div className="media" style={{ minHeight: 220, background: '#E6E0D4' }}><div data-card-img="1" className="fill"><ImageSlot src={a.src} alt={a.title} placeholder={a.placeholder} sizes="(max-width: 760px) 100vw, (max-width: 1000px) 45vw, 18vw" /></div></div>
                   <div style={{ padding: 26, display: 'grid', gap: 10, alignContent: 'center' }}>
                     <div className="eyebrow eyebrow-tan eyebrow-sm" style={{ display: 'flex', gap: 10 }}><span>{a.cat}</span><span>·</span><span>{a.date}</span></div>
                     <h3 className="serif" style={{ fontSize: 22, lineHeight: 1.2 }}>{a.title}</h3>
@@ -215,7 +215,7 @@ export default function Home() {
       {/* 8 TESTIMONIALS */}
       <section data-sec="1" className="sec" style={{ background: '#0B1D3A', color: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 72, alignItems: 'center' }}>
-          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#3A4A66' }}><ImageSlot src={IMAGES.clients} alt="Clients on the verandah of their new home" placeholder="Photo: clients on the verandah of their new home" tone="dark" /></div>
+          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#3A4A66' }}><ImageSlot src={IMAGES.clients} alt="Clients on the verandah of their new home" placeholder="Photo: clients on the verandah of their new home" tone="dark" sizes="(max-width: 1000px) 100vw, 40vw" /></div>
           <Testimonials />
         </div>
       </section>

@@ -40,7 +40,7 @@ export default function PinnedSteps({ eyebrow, title, blurb, steps, footer }: {
             <div data-pin-media="1" style={{ position: 'relative', height: 'min(72vh,660px)' }}>
               {steps.map((s, i) => (
                 <div key={s.n} data-pin-img={i} style={{ position: 'absolute', inset: 0, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', opacity: 0, transform: 'scale(1.06)', transition: 'opacity 1.4s ease,transform 2.2s cubic-bezier(.16,1,.3,1)' }}>
-                  <div className="fill"><ImageSlot src={s.src} alt={s.title} placeholder={s.ph} tone="dark" /></div>
+                  <div className="fill"><ImageSlot src={s.src} alt={s.title} placeholder={s.ph} tone="dark" sizes="(max-width: 1000px) 100vw, 55vw" /></div>
                   {/* caption only below 1000px, where the index list is hidden */}
                   <div className="ov-pin pin-cap" />
                   <div className="pin-cap" style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 40, gap: 12, pointerEvents: 'none' }}>

@@ -52,7 +52,7 @@ export default function AdvisoryServices() {
             <div data-reveal="1" className="svc-media">
               {ADVISORY.services.map((s, i) => (
                 <div key={s.n} className={`svc-img${i === active ? ' on' : ''}`} aria-hidden={i !== active}>
-                  <div className="fill"><Slot id={s.slot} alt={s.title} tone="dark" /></div>
+                  <div className="fill"><Slot id={s.slot} alt={s.title} tone="dark" sizes="(max-width: 1000px) 100vw, 55vw" /></div>
                 </div>
               ))}
               <div className="ov-pin" />

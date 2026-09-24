@@ -31,7 +31,7 @@ export default function Investing() {
               <Link href="/contact" data-reveal="3" className="btn btn-navy btn-fit">Book a property consultation</Link>
             </div>
             <div style={{ display: 'grid', gap: 16 }}>
-              <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><Slot id="INVESTMENT_INTRO_PORTRAIT" alt="Adviser and investor reviewing property figures" /></div>
+              <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><Slot id="INVESTMENT_INTRO_PORTRAIT" alt="Adviser and investor reviewing property figures" sizes="(max-width: 1000px) 100vw, 45vw" /></div>
               <p data-reveal="1" style={{ display: 'flex', gap: 14, alignItems: 'baseline', fontSize: 13, lineHeight: 1.5, color: '#8A7A57' }}><span className="eyebrow eyebrow-tan eyebrow-sm" style={{ flex: 'none' }}>Independent</span><span>Our only client is the buyer. No listings to push, no developer commissions.</span></p>
             </div>
           </div>
@@ -50,7 +50,7 @@ export default function Investing() {
             <Link href="/advisory" data-reveal="2" className="link-u">How we assess a property →</Link>
           </div>
           <div style={{ display: 'grid', gap: 40 }}>
-            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '16/11', borderRadius: 8, background: '#E6E0D4' }}><Slot id="PROPERTY_RESEARCH_IMAGE" alt="Research desk with suburb data and plans" /></div>
+            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '16/11', borderRadius: 8, background: '#E6E0D4' }}><Slot id="PROPERTY_RESEARCH_IMAGE" alt="Research desk with suburb data and plans" sizes="(max-width: 1000px) 100vw, 55vw" /></div>
             <div style={{ display: 'grid' }}>
               {P.research.factors.map((f, i) => (
                 <div key={f.n} data-reveal={i % 4} className="fac">
@@ -85,7 +85,7 @@ export default function Investing() {
           <div className="cmp">
             {P.compare.cols.map((c, i) => (
               <div key={c.title}>
-                <div data-mask="1" className="media" style={{ aspectRatio: '16/10', borderRadius: 8, background: '#E6E0D4' }}><Slot id={c.slot} alt={c.title} /></div>
+                <div data-mask="1" className="media" style={{ aspectRatio: '16/10', borderRadius: 8, background: '#E6E0D4' }}><Slot id={c.slot} alt={c.title} sizes="(max-width: 640px) 100vw, (max-width: 1240px) 50vw, 33vw" /></div>
                 <div data-reveal={i} style={{ display: 'grid', gap: 12 }}>
                   <p className="eyebrow eyebrow-tan">{c.eyebrow}</p>
                   <h3 className="serif" style={{ fontSize: 32, lineHeight: 1.15 }}>{c.title}</h3>
@@ -121,7 +121,7 @@ export default function Investing() {
             <span className="tag" style={{ top: 'auto', bottom: 16, left: 16 }}>Corridors we research</span>
           </div>
           <div data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 72, alignItems: 'center' }}>
-            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#3A4A66' }}><Slot id="BRISBANE_PROPERTY_IMAGE" alt="Brisbane home" tone="dark" /></div>
+            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#3A4A66' }}><Slot id="BRISBANE_PROPERTY_IMAGE" alt="Brisbane home" tone="dark" sizes="(max-width: 1000px) 100vw, 45vw" /></div>
             <div style={{ display: 'grid', gap: 28 }}>
               <div data-reveal="0" style={{ display: 'grid', gap: 12 }}>
                 <p className="eyebrow eyebrow-gold">Four lenses on every corridor</p>

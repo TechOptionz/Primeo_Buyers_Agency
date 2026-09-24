@@ -35,7 +35,7 @@ export default async function ServicePage({ params }: Params) {
       {/* intro: image + text */}
       <section data-sec="1" className="sec" style={{ background: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 72, alignItems: 'center' }}>
-          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={svc.introSrc ?? svc.src} alt={svc.title} placeholder={svc.placeholder} /></div>
+          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={svc.introSrc ?? svc.src} alt={svc.title} placeholder={svc.placeholder} sizes="(max-width: 1000px) 100vw, 50vw" /></div>
           <div style={{ display: 'grid', gap: 26 }}>
             <div data-reveal="0" style={{ display: 'grid', gap: 14 }}>
               <p className="eyebrow eyebrow-tan">{svc.title}</p>
@@ -67,7 +67,7 @@ export default async function ServicePage({ params }: Params) {
               {svc.cards.map((c, i) => (
                 <div key={c.title} data-card="1" data-reveal={i} className="card card-hover">
                   <div className="media" style={{ aspectRatio: '16/10', background: '#E6E0D4' }}>
-                    <div data-card-img="1" className="fill"><ImageSlot src={c.src} alt={c.title} placeholder={c.ph} /></div>
+                    <div data-card-img="1" className="fill"><ImageSlot src={c.src} alt={c.title} placeholder={c.ph} sizes="(max-width: 640px) 100vw, (max-width: 1240px) 50vw, 33vw" /></div>
                     <span className="tag">{c.tag}</span>
                   </div>
                   <div style={{ display: 'grid', gap: 10, padding: '26px 26px 28px' }}>
@@ -87,7 +87,7 @@ export default async function ServicePage({ params }: Params) {
           <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
             {svc.columns.map((col, i) => (
               <div key={col.title} data-card="1" data-reveal={i} className="card">
-                <div className="media" style={{ aspectRatio: '16/9', background: '#E6E0D4' }}><div data-card-img="1" className="fill"><ImageSlot src={col.src} alt={col.title} placeholder={col.ph} /></div></div>
+                <div className="media" style={{ aspectRatio: '16/9', background: '#E6E0D4' }}><div data-card-img="1" className="fill"><ImageSlot src={col.src} alt={col.title} placeholder={col.ph} sizes="(max-width: 1000px) 100vw, 50vw" /></div></div>
                 <div style={{ display: 'grid', gap: 22, padding: '36px 40px 40px' }}>
                   <div style={{ display: 'grid', gap: 10 }}>
                     <p className="eyebrow eyebrow-tan">{col.eyebrow}</p>
@@ -112,11 +112,11 @@ export default async function ServicePage({ params }: Params) {
             <span className="serif" style={{ fontSize: 56, lineHeight: 0.6, color: '#C6A15B' }}>“</span>
             <p className="serif" style={{ fontSize: 32, lineHeight: 1.3, textWrap: 'pretty' }}>{svc.quote.text}</p>
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <div className="media" style={{ width: 52, height: 52, borderRadius: '50%', background: '#E6E0D4', flex: 'none', position: 'relative', overflow: 'hidden' }}><ImageSlot src={svc.quote.avatarSrc} alt={svc.quote.name} /></div>
+              <div className="media" style={{ width: 52, height: 52, borderRadius: '50%', background: '#E6E0D4', flex: 'none', position: 'relative', overflow: 'hidden' }}><ImageSlot src={svc.quote.avatarSrc} alt={svc.quote.name} sizes="52px" /></div>
               <div style={{ display: 'grid', gap: 2 }}><span style={{ fontWeight: 600, fontSize: 15 }}>{svc.quote.name}</span><span style={{ fontSize: 13, color: '#8A7A57' }}>{svc.quote.meta}</span></div>
             </div>
           </div>
-          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={svc.quote.src} alt={svc.quote.name} placeholder={svc.quote.ph} /></div>
+          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={svc.quote.src} alt={svc.quote.name} placeholder={svc.quote.ph} sizes="(max-width: 1000px) 100vw, 45vw" /></div>
         </div>
       </section>
     </>
