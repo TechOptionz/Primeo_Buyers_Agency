@@ -49,4 +49,8 @@ export const SLOTS: Record<string, string | undefined> = {
   PROPERTY_ASSESSMENT_IMAGE: '/images/advisory_property_assessment.jpg',
   NEGOTIATION_TABLE: '/images/advisory_negotiation_table.jpg',
   SETTLEMENT_KEYS_IMAGE: '/images/advisory_settlement_keys.jpg',
+
+  // ---- About (/about) ----
+  // Prim Ahuja's portrait (3:4). To replace it, drop the new file in public/images and point this at it.
+  PRIM_AHUJA_PORTRAIT: '/images/founder_portrait.jpg',
 };

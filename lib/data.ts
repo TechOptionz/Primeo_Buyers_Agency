@@ -45,9 +45,6 @@ export const IMAGES = {
   clients: '/images/testimonial_verandah.jpg',
   cta: '/images/cta_front_gate.jpg',
   aboutHero: '/images/hero_brisbane_luxury.jpg',
-  aboutStoryA: '/images/about_early_office.jpg',
-  aboutStoryB: '/images/testimonial_verandah.jpg',
-  founder: '/images/founder_portrait.jpg',
   contactHero: '/images/contact_hero.jpg',
   contactMap: '/images/contact_office_exterior.jpg',
   contactOffice: '/images/contact_lounge.jpg',
@@ -95,20 +92,94 @@ export const TRUST = [
   { n: '04', title: 'Calm under pressure', text: 'Auctions, deadlines and negotiations handled by people who do it weekly.' },
 ];
 
-export const VALUES = [
-  { n: '01', title: 'Independence', text: 'No listing to push, no developer commissions. Our only client is the person in front of us.' },
-  { n: '02', title: 'Evidence', text: 'Every recommendation comes with the comparable sales and the reasoning behind it.' },
-  { n: '03', title: 'Calm', text: 'Property is stressful enough. We remove urgency tricks and explain each step plainly.' },
-  { n: '04', title: 'Local', text: 'Suburb by suburb knowledge of Brisbane and South East Queensland, built across every market cycle.' },
-];
+// ---------- About (/about): Prim Ahuja ----------
+// Every fact below comes from Prim's CV; the closing quote is his, confirmed. Change the trading
+// name here and every mention on the page follows.
+const COMPANY = 'PRIMEO';
 
-/** Founder spotlight on the About page. Update `name` when the client confirms it. */
-export const FOUNDER = {
-  name: 'Prim Singh',
-  role: 'Founder & CEO',
-  quote: 'A buyer should never walk into a negotiation alone. Our job is to bring the evidence, hold the line on price, and be the one voice in the room that answers only to you.',
-  bio: 'Prim founded PRIMEO after years of watching buyers outmanoeuvred by well-briefed selling agents. He still leads negotiations for private clients and sets the standard for every recommendation the firm makes.',
-  src: '/images/founder_portrait.jpg',
+export type Milestone = { year: string; mark: string; title: string; text: string };
+export type Credential = { kind: string; title: string; meta: string };
+
+export const ABOUT = {
+  company: COMPANY,
+  name: 'Prim Ahuja',
+  role: 'Accredited Mortgage Broker | Certified Practising Accountant (CPA)',
+  seo: `Meet Prim Ahuja, Accredited Mortgage Broker and Certified Practising Accountant (CPA) at ${COMPANY}: more than ten years in finance, accounting and compliance, applied to every home loan application.`,
+  hero: 'An accountant’s precision. A broker’s dedication.',
+  lead: 'Prim Ahuja is an Accredited Mortgage Broker and Certified Practising Accountant with more than ten years in finance, accounting and compliance. He gets the numbers right before an application is lodged, and explains every step in plain language.',
+  facts: [{ v: 'Prim Ahuja', l: `Accredited Mortgage Broker · ${COMPANY}` }, { v: 'CPA', l: 'Certified Practising Accountant · CPA Australia' }, { v: 'Cert IV', l: 'Finance and Mortgage Broking · 2020' }],
+  intro: {
+    eyebrow: 'About Prim',
+    title: 'A career built on numbers, compliance and people.',
+    p1: 'Before he prepared his first loan application, Prim had reconciled balance sheets, audited payment controls, run a business with up to 30 staff and investigated compliance breaches in state and federal government roles. It shows in how he works: nothing goes to a lender until it is right.',
+    p2: 'He explains what is happening and why, answers quickly, and treats a client’s application with the same care he once brought to an audit file.',
+    glance: [
+      { label: 'Role', value: 'Accredited Mortgage Broker', sub: `${COMPANY} · broking since 2020` },
+      { label: 'CPA', value: 'Certified Practising Accountant', sub: 'CPA Australia · since 2015' },
+      { label: 'Languages', value: 'English, Hindi and Punjabi', sub: 'Multilingual client support' },
+      { label: 'Based in', value: 'Brisbane, Queensland' },
+    ] as { label: string; value: string; sub?: string }[],
+  },
+  journey: {
+    eyebrow: 'His story',
+    title: 'Every step built toward this.',
+    text: 'Accounting, internal audit, running a business, public-sector compliance and now mortgage broking. The thread through all of it: understanding numbers, compliance and people.',
+    milestones: [
+      { year: '2011 – 2012', mark: '2011', title: 'A master’s degree, then a foot in the door', text: 'Prim completed a Master of Professional Accounting at Central Queensland University and began his Australian career at RemServ in 2012, joining as an intern and earning a permanent role within months.' },
+      { year: '2012 – 2017', mark: '2012', title: 'Promoted through the ranks at RemServ', text: 'Over five years he moved through a series of roles, including Internal Controls Consultant and Assistant Accountant, specialising in salary packaging, novated leasing, Fringe Benefits Tax and internal audit. He won the company’s Customer Champion Award and Accuracy Superstar Award along the way.' },
+      { year: '2015', mark: '2015', title: 'Certified Practising Accountant', text: 'Prim earned his CPA designation with CPA Australia while working at RemServ, formalising the accounting discipline that still underpins every application he prepares.' },
+      { year: '2017 – 2020', mark: '2017', title: 'Owner and Managing Director', text: 'As owner and Managing Director of a Red Rooster franchise, Prim led a team of up to 30. He took the business from non-compliant to 99% compliance at external audit within two months, grew sales by 9% and halved customer complaints.' },
+      { year: '2019 – 2021', mark: '2019', title: 'Compliance and audit in government', text: 'Compliance roles with the Department of Human Services and the Department of Employment, Small Business and Training, then Financial Assessment Officer (Auditor) at the Queensland Building and Construction Commission: investigating irregularities, auditing financial records and reporting findings clearly.' },
+      { year: '2020 – present', mark: '2020', title: `Accredited Mortgage Broker at ${COMPANY}`, text: 'Prim completed his Certificate IV in Finance and Mortgage Broking in 2020 and now guides clients through every stage of their loan application, from the first conversation to lodgement and follow-up.' },
+    ] as Milestone[],
+  },
+  together: {
+    eyebrow: `At ${COMPANY}`,
+    title: 'How Prim brings it all together.',
+    text: 'Everything in Prim’s background has a practical use for the client in front of him. These are the four that matter most when a loan application is on the line.',
+    pillars: [
+      { n: '01', title: 'An accountant’s eye', text: 'Prim understands income, tax and financial documents in depth, so an application is prepared correctly the first time rather than patched after a lender queries it.' },
+      { n: '02', title: 'A compliance background', text: 'Years of audit and compliance work mean every file is thorough, accurate and lender-ready, with the supporting evidence already in order.' },
+      { n: '03', title: 'A business owner’s perspective', text: 'Self-employed and small business clients work with someone who has been one. Prim knows how a business’s finances look from the inside and how to present them clearly.' },
+      { n: '04', title: 'Client-first communication', text: 'Clear explanations at every step, fast responses and no jargon. Clients always know where their application is and what happens next.' },
+    ] as Factor[],
+    stats: [
+      { v: 10, suf: '+', label: 'Years in finance, accounting and compliance', sub: 'From RemServ in 2012 to mortgage broking today' },
+      { v: 22, pre: '$', suf: 'M', label: 'Lodged in a single month', sub: 'Loan applications successfully lodged in one month' },
+      { v: 100, label: 'Positive client reviews', sub: 'Around one hundred, reflecting clear communication and service' },
+      { v: 3, label: 'Languages spoken', sub: 'English, Hindi and Punjabi' },
+    ] as { v: number; pre?: string; suf?: string; label: string; sub: string }[],
+  },
+  credentials: {
+    eyebrow: 'Credentials & qualifications',
+    title: 'Qualified in accounting. Accredited in broking.',
+    text: 'The designations and study behind the advice, from an economics degree to CPA Australia and the Certificate IV in Finance and Mortgage Broking.',
+    items: [
+      { kind: 'Designation', title: 'Certified Practising Accountant (CPA)', meta: 'CPA Australia · 2015' },
+      { kind: 'Qualification', title: 'Certificate IV in Finance and Mortgage Broking', meta: 'Real Estate Academy Australia · 2020' },
+      { kind: 'Postgraduate', title: 'Master of Professional Accounting', meta: 'Central Queensland University · 2011' },
+      { kind: 'Undergraduate', title: 'Bachelor of Science in Economics', meta: 'Guru Nanak Dev University' },
+      { kind: 'Professional development', title: 'Fraud Awareness Training', meta: '2019' },
+      { kind: 'Professional development', title: 'Fringe Benefits Tax Workshop', meta: '2016' },
+    ] as Credential[],
+  },
+  values: {
+    eyebrow: 'How Prim works',
+    title: 'Four commitments behind every application.',
+    items: [
+      { icon: 'shield', title: 'Integrity & transparency', text: 'Straight answers about what is achievable, what it costs and how long it takes, including when the answer is not the one a client hoped for.' },
+      { icon: 'target', title: 'Accuracy in every detail', text: 'An auditor’s habit of checking twice. Every figure and document is verified before it reaches a lender.' },
+      { icon: 'heart', title: 'Genuine client care', text: 'Prompt replies, plain language and a broker who stays reachable from the first question to the final signature.' },
+      { icon: 'globe', title: 'Serving a diverse community', text: 'Support in English, Hindi and Punjabi, so clients can work through a major financial decision in the language they are most comfortable with.' },
+    ],
+  },
+  closing: {
+    eyebrow: 'A note from Prim',
+    quote: 'Most people apply for a home loan only a few times in their lives. I have spent my career learning to get the numbers right, as an accountant, an auditor and a business owner, and I bring all of it to your application. If you are thinking about your next move, let’s talk it through.',
+    signature: 'Accredited Mortgage Broker · CPA',
+    text: 'Tell Prim what you are planning and he will explain what a lender is likely to want to see, and where to start.',
+    button: 'Book a conversation',
+  },
 };
 
 const withPh = <T extends object>(items: T[], phs: string[], srcs?: string[]) =>
@@ -192,6 +263,7 @@ export const CTA_COPY: Record<string, Partial<typeof CTA_DEFAULT>> = {
   '/investing': { title: 'Build your next property move with clarity.', text: 'Leave your details and a PRIMEO adviser will call you within one business day to talk through your investment brief.', button: 'Book a property consultation' },
   '/off-market': { eyebrow: 'Join our buyer network', title: 'Tell us what you’re looking for.', text: 'Register your brief and we will be in touch when a property that matches it comes through our network.', button: 'Join our buyer network' },
   '/advisory': { title: 'Make your next property decision with greater clarity.', text: 'Leave your details and a PRIMEO adviser will call you within one business day to set up a free 30-minute consultation.', button: 'Book a consultation' },
+  '/about': { title: 'Talk to Prim about your next move.', text: 'Leave your details and Prim will be in touch to talk through your situation and what a lender will want to see.', button: 'Book a conversation' },
 };
 
 // ---------- Property Investment (/investing) ----------
