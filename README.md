@@ -22,13 +22,19 @@ npm run build
 
 ## Photos
 
-Every photo area is an `<ImageSlot>` placeholder. To use a real image, drop it in `public/` and pass `src`:
+Every photo area is an `<ImageSlot>` placeholder. To use a real image, drop it in `public/images/` and pass `src`:
 
 ```tsx
-<ImageSlot src="/photos/hero.jpg" alt="…" />
+<ImageSlot src="/images/hero.jpg" alt="…" />
 ```
 
-Photos are served through `next/image` (resized per device, WebP). AVIF is deliberately off: its encode is 5-8x slower and made first views stall, see `next.config.ts`. Pass `sizes` with the slot's rendered width (e.g. `sizes="(max-width: 1000px) 100vw, 50vw"`) so phones are not sent desktop-sized files.
+Photos are never resized at request time. `scripts/build-images.mjs` pre-renders every size
+`next/image` can ask for, as AVIF (served to ~95% of browsers) and WebP (the fallback), into
+`public/_img`, along with an 8px blurred preview per photo. It runs by itself before `npm run dev`
+and `npm run build` and only encodes new or changed photos (the first run on a machine takes about
+a minute). Both the output and `lib/generated/` are gitignored. Run `npm run images` after adding a
+photo while the dev server is running; until then the dev console warns and serves the original.
+Pass `sizes` with the slot's rendered width (e.g. `sizes="(max-width: 1000px) 100vw, 50vw"`) so phones are not sent desktop-sized files.
 After adding photos to `public/images`, run `node scripts/optimize-images.mjs` once to bring the
 source files down to web size (auto-orient, max 1920px, JPEG Q80). It only rewrites files that shrink.
 

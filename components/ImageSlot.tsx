@@ -1,14 +1,20 @@
-import Image from 'next/image';
+import { getImageProps, type ImageProps } from 'next/image';
+import { avifLoader } from '@/lib/image-loader';
+import { ImagePreload } from './ImagePreload';
+import blurs from '@/lib/generated/image-blur.json';
+
+const BLUR: Record<string, string | undefined> = blurs;
 
 /**
  * Photo placeholder. Pass `src` to render a real image (object-fit: cover);
  * without it, a labelled slot is shown, matching the design mock.
  * The parent must be position:relative with a size (aspect-ratio or fixed height).
  *
- * Real images go through next/image: the server resizes them to the widths in `sizes`
- * and converts to AVIF/WebP per browser. `sizes` is the rendered width of the slot
- * (CSS media-query list, e.g. "(max-width: 1000px) 100vw, 50vw"); leaving it at the
- * default 100vw still works but fetches a bigger file than a narrow slot needs.
+ * Real images are static files pre-rendered by scripts/build-images.mjs: a <picture> with an
+ * AVIF source and a WebP fallback, in the widths `sizes` calls for. `sizes` is the rendered
+ * width of the slot (CSS media-query list, e.g. "(max-width: 1000px) 100vw, 50vw"); leaving it
+ * at the default 100vw still works but fetches a bigger file than a narrow slot needs.
+ * A blurred 8px preview of the photo shows until it arrives.
  * Images load lazily unless `priority` is set (hero / above the fold), which also
  * preloads them from <head> so they are the first bytes requested.
  */
@@ -32,7 +38,31 @@ export function ImageSlot({
   sizes?: string;
 }) {
   if (src) {
-    return <Image className="slot-img" src={src} alt={alt} fill sizes={sizes} preload={priority} />;
+    const blurDataURL = BLUR[src];
+    const common: ImageProps = {
+      src,
+      alt,
+      sizes,
+      fill: true,
+      // Painted as the img's background. It is never removed: the opaque photo covers it.
+      placeholder: blurDataURL ? 'blur' : 'empty',
+      blurDataURL,
+      // Same as .slot-img; set inline too so the blurred preview is cropped like the photo.
+      style: { objectFit: 'cover' },
+      ...(priority ? { loading: 'eager', fetchPriority: 'high' } : {}),
+    };
+    const { props: img } = getImageProps(common);
+    const { props: avif } = getImageProps({ ...common, loader: avifLoader });
+    return (
+      // .slot-pic is a block filling the slot, so [data-mask] reveals, which clip and scale their
+      // first child, animate the photo as they did when the <img> was that child.
+      <picture className="slot-pic">
+        <source type="image/avif" srcSet={avif.srcSet} sizes={avif.sizes} />
+        <img {...img} alt={alt} className="slot-img" />
+        {/* AVIF only: browsers without it skip a typed preload instead of fetching both formats. */}
+        {priority && <ImagePreload href={avif.src} as="image" type="image/avif" imageSrcSet={avif.srcSet} imageSizes={avif.sizes} fetchPriority="high" />}
+      </picture>
+    );
   }
   const label = placeholder?.trim();
   return (

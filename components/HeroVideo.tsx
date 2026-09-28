@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { preload } from 'react-dom';
 import { getImageProps } from 'next/image';
+import { avifLoader } from '@/lib/image-loader';
 
 // Portrait-cropped encode for phones and any portrait viewport; 16:9 otherwise.
 const PORTRAIT = '(max-width: 760px), (orientation: portrait)';
@@ -11,12 +12,17 @@ const SOURCES = {
   mobile: { video: '/video/hero-mobile.mp4', poster: '/video/hero-mobile-poster.jpg', width: 720, height: 1280 },
 };
 
-// Poster srcsets via next/image (resized + AVIF/WebP per browser), one per crop.
+// Poster srcsets for each crop, AVIF with a WebP fallback, from the sizes pre-rendered by
+// scripts/build-images.mjs.
 function posterProps(alt: string) {
   const common = { alt, sizes: '100vw', loading: 'eager' as const, fetchPriority: 'high' as const };
-  const { props: { srcSet: desktop } } = getImageProps({ ...common, src: SOURCES.desktop.poster, width: SOURCES.desktop.width, height: SOURCES.desktop.height });
-  const { props: { srcSet: mobile, ...img } } = getImageProps({ ...common, src: SOURCES.mobile.poster, width: SOURCES.mobile.width, height: SOURCES.mobile.height });
-  return { desktop: desktop!, mobile: mobile!, img };
+  const crop = ({ poster, width, height }: typeof SOURCES.desktop) => {
+    const { props: { srcSet: avif, src: avifSrc } } = getImageProps({ ...common, src: poster, width, height, loader: avifLoader });
+    const { props: { srcSet: webp, ...img } } = getImageProps({ ...common, src: poster, width, height });
+    return { avif: avif!, avifSrc, webp: webp!, img };
+  };
+  const desktop = crop(SOURCES.desktop), mobile = crop(SOURCES.mobile);
+  return { desktop, mobile, img: mobile.img };
 }
 
 type Connection = { saveData?: boolean; effectiveType?: string };
@@ -34,8 +40,9 @@ export default function HeroVideo({ alt }: { alt: string }) {
   const [on, setOn] = useState(false);
   const poster = posterProps(alt);
   // The poster is the LCP: ask for it from <head>, before the parser reaches the <picture>.
-  preload(SOURCES.desktop.poster, { as: 'image', imageSrcSet: poster.desktop, imageSizes: '100vw', media: LANDSCAPE, fetchPriority: 'high' });
-  preload(SOURCES.mobile.poster, { as: 'image', imageSrcSet: poster.mobile, imageSizes: '100vw', media: PORTRAIT, fetchPriority: 'high' });
+  // AVIF only: browsers without it skip a typed preload rather than download both formats.
+  preload(poster.desktop.avifSrc, { as: 'image', type: 'image/avif', imageSrcSet: poster.desktop.avif, imageSizes: '100vw', media: LANDSCAPE, fetchPriority: 'high' });
+  preload(poster.mobile.avifSrc, { as: 'image', type: 'image/avif', imageSrcSet: poster.mobile.avif, imageSizes: '100vw', media: PORTRAIT, fetchPriority: 'high' });
 
   useEffect(() => {
     const video = ref.current;
@@ -85,8 +92,10 @@ export default function HeroVideo({ alt }: { alt: string }) {
   return (
     <>
       <picture>
-        <source media={PORTRAIT} srcSet={poster.mobile} />
-        <img {...poster.img} alt={alt} srcSet={poster.desktop} className="hero-media" />
+        <source media={PORTRAIT} type="image/avif" srcSet={poster.mobile.avif} />
+        <source media={PORTRAIT} type="image/webp" srcSet={poster.mobile.webp} />
+        <source type="image/avif" srcSet={poster.desktop.avif} />
+        <img {...poster.img} alt={alt} srcSet={poster.desktop.webp} className="hero-media" />
       </picture>
       <video ref={ref} className={`hero-media hero-video${on ? ' on' : ''}`} muted loop playsInline preload="none" disablePictureInPicture tabIndex={-1} aria-hidden="true" />
     </>

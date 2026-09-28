@@ -20,6 +20,10 @@
 # production
 /build
 
+# image sizes rendered by scripts/build-images.mjs (before every dev/build)
+/public/_img/
+/lib/generated/
+
 # misc
 .DS_Store
 *.pem

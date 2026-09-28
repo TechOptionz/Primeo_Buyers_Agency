@@ -132,6 +132,7 @@ button { cursor: pointer; }
 .slot { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center; color: var(--tan); font-size: 12px; line-height: 1.45; letter-spacing: 0.02em; }
 .slot[data-tone='dark'] { color: rgba(247, 243, 236, 0.55); }
 .slot svg { opacity: 0.6; }
+.slot-pic { position: absolute; inset: 0; display: block; }
 .slot-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 [data-bg-slot] .slot { opacity: 0; }
 

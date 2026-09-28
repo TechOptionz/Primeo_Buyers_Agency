@@ -7,7 +7,7 @@
 //
 // What it does per file: auto-orient from EXIF, cap the long edge at MAX_EDGE, strip
 // metadata, and re-encode (JPEG via mozjpeg at Q80 progressive; PNG/WebP/AVIF at sane
-// defaults). next/image then resizes and converts these to AVIF/WebP per device on request.
+// defaults). scripts/build-images.mjs then renders the per-device AVIF/WebP sizes from these.
 import sharp from 'sharp';
 import { readdir, stat, rename, writeFile, unlink } from 'node:fs/promises';
 import { basename, extname, join, resolve } from 'node:path';
