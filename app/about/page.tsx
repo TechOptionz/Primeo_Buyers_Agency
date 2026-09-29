@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import PageHero from '@/components/PageHero';
 import FactBand from '@/components/FactBand';
+import ReviewStrip from '@/components/ReviewStrip';
 import { Slot } from '@/components/Slot';
 import { ABOUT as P, IMAGES } from '@/lib/data';
 
@@ -62,21 +63,21 @@ export default function About() {
             </div>
             <p className="lead" style={{ maxWidth: 400 }}>{P.journey.text}</p>
           </div>
-          <div data-track="1" className="tl">
+          <div data-track="1" className="tl tl-story">
             <span className="tl-line" aria-hidden="true" />
             {P.journey.milestones.map((m, i) => {
               const left = i % 2 === 0;
               return (
-                <div key={m.year} data-side={left ? 'left' : 'right'} className="tl-item">
+                <div key={m.year} data-inview="1" data-side={left ? 'left' : 'right'} className="tl-item">
                   <span data-node="1" className="tl-node" aria-hidden="true" />
-                  <div data-reveal="0" className="tl-text">
+                  <div className="tl-text">
                     <span className="eyebrow eyebrow-gold">{m.year}</span>
                     <h3 className="serif" style={{ fontSize: 34, lineHeight: 1.1 }}>{m.title}</h3>
                     <p style={{ fontSize: 16, lineHeight: 1.6, color: '#4A4C55', maxWidth: 440 }}>{m.text}</p>
                   </div>
                   {/* decorative: the year is already in the eyebrow, so this is hidden below 1000px where the columns stack */}
-                  <div data-desk="1" data-reveal="1" className="tl-media" aria-hidden="true" style={{ justifySelf: left ? 'start' : 'end' }}>
-                    <span className="serif" style={{ fontSize: 96, lineHeight: 1, letterSpacing: '-.03em', color: '#C6A15B', opacity: 0.55 }}>{m.mark}</span>
+                  <div data-desk="1" data-mask="1" data-drift="36" className="tl-media" aria-hidden="true" style={{ justifySelf: left ? 'start' : 'end' }}>
+                    <span className="serif tl-year">{m.mark}</span>
                   </div>
                 </div>
               );
@@ -139,7 +140,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* 5 VALUES: four cards with line icons */}
+      {/* 5 GOOGLE REVIEWS: three of the 107, with the rating summary and a link to all of them */}
+      <ReviewStrip ids={['harpreet', 'kejin-shahi', 'rohit-kamboj']} title="What clients say about working with Prim." text="Written on Google by clients Prim and the team have helped. Every review, including the one four-star, is on the reviews page." />
+
+      {/* 6 VALUES: four cards with line icons */}
       <section data-sec="1" className="sec" style={{ background: '#0B1D3A', color: '#F7F3EC' }}>
         <div data-pad="1" className="container" style={{ display: 'grid', gap: 56 }}>
           <div data-reveal="0" style={{ display: 'grid', gap: 14, maxWidth: 640 }}>
@@ -159,7 +163,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* 6 A NOTE FROM PRIM: first-person close and the booking button (the site-wide enquiry form follows via app/template.tsx) */}
+      {/* 7 A NOTE FROM PRIM: first-person close and the booking button (the site-wide enquiry form follows via app/template.tsx) */}
       <section data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 72, alignItems: 'end' }}>
           <div style={{ display: 'grid', gap: 28 }}>

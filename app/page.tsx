@@ -3,6 +3,7 @@ import HeroVideo from '@/components/HeroVideo';
 import { ImageSlot } from '@/components/ImageSlot';
 import PinnedSteps from '@/components/PinnedSteps';
 import Testimonials from '@/components/Testimonials';
+import RatingBadge from '@/components/RatingBadge';
 import { SERVICE_ITEMS, SERVICES, PROPERTIES, JOURNEY, TRUST, ARTICLES, IMAGES } from '@/lib/data';
 import { SLOTS } from '@/lib/slots';
 
@@ -10,16 +11,17 @@ const STATS = [
   { v: 350, suf: '+', label: 'Properties secured', sub: 'For buyers and investors, on and off market' },
   { v: 100, suf: '%', label: 'Independent', sub: 'Buyer-side only, never paid by a vendor' },
   { v: 60, suf: '+', label: 'Suburbs served', sub: 'From New Farm to the Moreton Bay corridor' },
-  { v: 98, suf: '%', label: 'Client satisfaction', sub: 'Would recommend PRIMEO to family' },
+  { v: 100, suf: '+', label: 'Five-star Google reviews', sub: '5.0 average rating from 107 reviews' },
 ];
 
-// Image placeholders for the three newer services live in lib/slots.ts (same slot as each page's hero).
+// Investment, off-market and advisory are chapters of the Buyer Agency page, so their cards deep-link to
+// those anchors. Their photos live in lib/slots.ts.
 const SERVICE_CARDS = [
-  { key: 'buyers', n: '01', title: 'Buyer Agency', text: 'Independent search, due diligence and negotiation on your side of the table.', ph: 'Photo: agent and buyers at a Queenslander front gate, golden hour', src: SERVICES.buyers.src, span: 4 },
-  { key: 'investing', n: '02', title: 'Property Investment', text: 'Research-led sourcing and analysis for investors.', ph: 'PROPERTY_INVESTMENT_HERO', src: SLOTS.PROPERTY_INVESTMENT_HERO, span: 2 },
-  { key: 'off-market', n: '03', title: 'Off-Market Properties', text: 'Opportunities beyond the major portals, through agent and local networks.', ph: 'OFF_MARKET_PROPERTY_IMAGE', src: SLOTS.OFF_MARKET_PROPERTY_IMAGE, span: 2 },
-  { key: 'advisory', n: '04', title: 'Property Advisory', text: 'Independent guidance on value, strategy and negotiation.', ph: 'PROPERTY_ADVISORY_MEETING', src: SLOTS.PROPERTY_ADVISORY_MEETING, span: 2 },
-  { key: 'land', n: '05', title: 'House & Land', text: 'New developments and packages in growth corridors.', ph: 'Photo: new estate streetscape', src: SERVICES.land.src, span: 2 },
+  { key: 'buyers', href: '/buyers', n: '01', title: 'Buyer Agency', text: 'Independent search, due diligence and negotiation on your side of the table.', ph: 'BUYERS_HERO', src: SLOTS.BUYERS_HERO, span: 4 },
+  { key: 'investing', href: '/buyers#investing', n: '02', title: 'Property Investment', text: 'Research-led sourcing and analysis for investors.', ph: 'PROPERTY_INVESTMENT_HERO', src: SLOTS.PROPERTY_INVESTMENT_HERO, span: 2 },
+  { key: 'off-market', href: '/buyers#off-market', n: '03', title: 'Off-Market Properties', text: 'Opportunities beyond the major portals, through agent and local networks.', ph: 'OFF_MARKET_PROPERTY_IMAGE', src: SLOTS.OFF_MARKET_PROPERTY_IMAGE, span: 2 },
+  { key: 'advisory', href: '/buyers#advisory', n: '04', title: 'Property Advisory', text: 'Independent guidance on value, strategy and negotiation.', ph: 'PROPERTY_ADVISORY_MEETING', src: SLOTS.PROPERTY_ADVISORY_MEETING, span: 2 },
+  { key: 'land', href: '/land', n: '05', title: 'House & Land', text: 'New developments and packages in growth corridors.', ph: 'Photo: new estate streetscape', src: SERVICES.land.src, span: 2 },
 ];
 
 export default function Home() {
@@ -46,6 +48,7 @@ export default function Home() {
                 <span data-reveal="5" style={{ display: 'grid' }}><Link href="/contact" className="btn btn-gold">Book a Consultation</Link></span>
                 <span data-reveal="7" style={{ display: 'grid' }}><a href="#services" className="btn btn-outline-light">Explore Services</a></span>
               </div>
+              <span data-reveal="9" style={{ display: 'grid', justifyItems: 'center', marginTop: 6 }}><RatingBadge tone="dark" size="md" /></span>
             </div>
           </div>
           <div data-reveal="5" data-desk-block="1" className="hero-band">
@@ -69,7 +72,7 @@ export default function Home() {
               <p className="eyebrow eyebrow-tan">Trusted across South East Queensland</p>
               <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Fourteen years of results, one recommendation at a time.</span></span></h2>
             </div>
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: '#4A4C55', maxWidth: 440, justifySelf: 'end' }}>Licensed, independent and accountable to one party only: the client in front of us. The numbers below are drawn from settled transactions.</p>
+            <p style={{ fontSize: 16, lineHeight: 1.65, color: '#4A4C55', maxWidth: 440, justifySelf: 'end' }}>Licensed, independent and accountable to one party only: the client in front of us. The numbers below are drawn from settled transactions and from public Google reviews.</p>
           </div>
           <div data-seq="1" data-g4="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 0, borderTop: '1px solid #E6E0D4', borderRight: '1px solid #E6E0D4' }}>
             {STATS.map((s, i) => (
@@ -95,7 +98,7 @@ export default function Home() {
           </div>
           <div data-seq="1" data-scroll-row="1" data-svc-grid="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 16 }}>
             {SERVICE_CARDS.map((c, i) => (
-              <Link key={c.key} href={`/${c.key}`} data-card="1" data-reveal={i} data-span="1" style={{ gridColumn: `span ${c.span}`, position: 'relative', display: 'block', height: 420, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', color: '#F7F3EC' }}>
+              <Link key={c.key} href={c.href} data-card="1" data-reveal={i} data-span="1" style={{ gridColumn: `span ${c.span}`, position: 'relative', display: 'block', height: 420, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', color: '#F7F3EC' }}>
                 <div data-card-img="1" className="fill"><ImageSlot src={c.src} alt={c.title} placeholder={c.ph} tone="dark" sizes={`(max-width: 760px) 100vw, ${Math.round((c.span / 6) * 100)}vw`} /></div>
                 <div className="ov-card" />
                 <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 30, display: 'grid', gap: 10, pointerEvents: 'none' }}>
@@ -212,7 +215,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 8 TESTIMONIALS */}
+      {/* 8 GOOGLE REVIEWS: featured reviews carousel (FEATURED in lib/reviews.ts) */}
       <section data-sec="1" className="sec" style={{ background: '#0B1D3A', color: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 72, alignItems: 'center' }}>
           <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#3A4A66' }}><ImageSlot src={IMAGES.clients} alt="Clients on the verandah of their new home" placeholder="Photo: clients on the verandah of their new home" tone="dark" sizes="(max-width: 1000px) 100vw, 40vw" /></div>

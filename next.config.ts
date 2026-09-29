@@ -16,6 +16,15 @@ const nextConfig: NextConfig = {
     imageSizes: [64, 128, 256, 384],
     qualities: [75],
   },
+  async redirects() {
+    // Property Investment, Off-Market and Property Advisory were folded into the Buyer Agency page
+    // (September 2026). Each old URL lands on its chapter under "What we do".
+    return [
+      { source: "/investing", destination: "/buyers#investing", permanent: true },
+      { source: "/off-market", destination: "/buyers#off-market", permanent: true },
+      { source: "/advisory", destination: "/buyers#advisory", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

@@ -13,12 +13,15 @@ npm run build
 | Route | Page |
 | --- | --- |
 | `/` | Home |
-| `/buyers` `/land` | Service pages (shared template, content in `lib/data.ts`) |
-| `/investing` | Property Investment |
-| `/off-market` | Off-Market Properties |
-| `/advisory` | Property Advisory |
+| `/buyers` | Buyer Agency: what we do (buyer agency, property investment, off-market access, property advisory), who we are, who we help, how it works, FAQ |
+| `/land` | House & Land (shared service template, content in `lib/data.ts`) |
+| `/reviews` | Client reviews: Google rating summary, two full client stories, all 107 Google reviews with topic filters (data in `lib/reviews.ts`) |
 | `/about` | About |
 | `/contact` | Contact |
+
+The former Property Investment, Off-Market and Property Advisory pages were folded into the Buyer
+Agency page. `/investing`, `/off-market` and `/advisory` redirect permanently to the matching chapter
+(`/buyers#investing`, `/buyers#off-market`, `/buyers#advisory`); see `redirects()` in `next.config.ts`.
 
 ## Photos
 
@@ -38,15 +41,16 @@ Pass `sizes` with the slot's rendered width (e.g. `sizes="(max-width: 1000px) 10
 After adding photos to `public/images`, run `node scripts/optimize-images.mjs` once to bring the
 source files down to web size (auto-orient, max 1920px, JPEG Q80). It only rewrites files that shrink.
 
-The Investing, Off-Market and Advisory pages print an identifier inside each placeholder
-(for example `PROPERTY_INVESTMENT_HERO`). To fill one, set its path in `lib/slots.ts`:
+The Buyer Agency page, the homepage service cards and the About portrait print an identifier inside
+each placeholder (for example `BUYERS_CHAPTER_INVESTING`). To fill one, set its path in `lib/slots.ts`:
 
 ```ts
-PROPERTY_INVESTMENT_HERO: '/images/investment_hero.webp',
+BUYERS_CHAPTER_INVESTING: '/images/investment_meeting.webp',
 ```
 
 ## Structure
 
-- `lib/data.ts` — all copy, stats, services, team, testimonials
+- `lib/data.ts` — all copy, stats, services, team, testimonials (`BUYERS` holds the Buyer Agency page)
 - `components/Motion.tsx` — scroll reveals, counters, pinned steps, card hover (data-attribute driven)
+- `components/SubNav.tsx`, `ServiceChapters.tsx`, `Faq.tsx`, `SectionHead.tsx` — Buyer Agency page pieces
 - `app/globals.css` — design tokens, utility classes, responsive rules
