@@ -48,6 +48,29 @@ each placeholder (for example `BUYERS_CHAPTER_INVESTING`). To fill one, set its 
 BUYERS_CHAPTER_INVESTING: '/images/investment_meeting.webp',
 ```
 
+## Enquiry emails
+
+Both forms (the contact page form and the closing call to action on every page, in
+`components/Forms.tsx`) post to the `sendEnquiry` Server Action in `app/actions.ts`, which emails the
+enquiry through [Resend](https://resend.com). Set these in `.env.local` (gitignored) and on the host:
+
+| Variable | Value |
+| --- | --- |
+| `RESEND_API_KEY` | API key from the Resend dashboard |
+| `ENQUIRY_TO` | Inbox that receives enquiries; comma-separate for several. Defaults to `CONTACT.email` in `lib/data.ts` |
+| `ENQUIRY_FROM` | Sender, e.g. `PRIMEO Website <website@primeo.com.au>`. The domain must be verified in Resend |
+
+To verify the domain, add it in Resend (Domains) and copy the DNS records it shows into the domain's
+DNS at GoDaddy. They sit on a `send` subdomain and a DKIM key, so they do not touch the mailbox's own
+MX records. Without `ENQUIRY_FROM` the action uses Resend's test sender, which only delivers to the
+Resend account owner's address. Replies go to the visitor (the email is sent with their address as
+Reply-To). Failures are logged on the server with an `[enquiry]` prefix.
+
+The email's layout is `lib/enquiry-email.ts`: a navy header with the logo, the visitor's details, their
+message, and Reply / Call buttons, in the site's colours. The logo is a small PNG stored as base64 in
+`lib/email-logo.ts` and attached inline, because inboxes do not draw SVG or load the site's fonts;
+the comment in that file says how to refresh it if the logo changes.
+
 ## Structure
 
 - `lib/data.ts` — all copy, stats, services, team (`BUYERS` holds the Buyer Agency page)

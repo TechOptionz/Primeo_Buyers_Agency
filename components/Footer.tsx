@@ -79,7 +79,7 @@ export default function Footer() {
         </div>
         <div data-reveal="3" style={{ display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', paddingTop: 24, borderTop: '1px solid rgba(247,243,236,.15)', fontSize: 12, color: 'rgba(247,243,236,.5)' }}>
           <span>© 2026 Primeo Property Group Pty Ltd · Licensed Real Estate Agency QLD</span>
-          <div style={{ display: 'flex', gap: 24 }}><a href="#" className="footer-link" style={{ color: 'rgba(247,243,236,.5)' }}>Privacy</a><a href="#" className="footer-link" style={{ color: 'rgba(247,243,236,.5)' }}>Terms</a></div>
+          <div style={{ display: 'flex', gap: 24 }}><Link href="/privacy" className="footer-link" style={{ color: 'rgba(247,243,236,.5)' }}>Privacy</Link><Link href="/terms" className="footer-link" style={{ color: 'rgba(247,243,236,.5)' }}>Terms</Link></div>
         </div>
       </div>
     </footer>

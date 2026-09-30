@@ -60,6 +60,7 @@ button { cursor: pointer; }
 .btn-outline-dark { padding: 16px 30px; border: 1px solid var(--navy); color: var(--navy); background: transparent; }
 .btn-outline-dark:hover { border-color: var(--gold); color: var(--navy); }
 .btn-fit { width: max-content; }
+.btn:disabled { opacity: 0.65; cursor: progress; transform: none; }
 .link-u {
   font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--navy); border-bottom: 1.5px solid var(--gold); padding-bottom: 6px; cursor: pointer; width: max-content;
@@ -643,3 +644,41 @@ select.input-dark option { color: var(--navy); }
   .g-badge { white-space: normal; }
 }
 @media (prefers-reduced-motion: reduce) { .dist-bar span { transform: scaleX(1); transition: none; } }
+
+/* ---------- legal pages (/privacy and /terms: components/LegalPage.tsx, copy in lib/legal.ts) ---------- */
+/* compact navy hero with no photo. It keeps [data-hero] so its reveals wait for the intro cover like
+   every other hero; the full-height rule that attribute carries on smaller screens is undone here */
+.legal-hero { position: relative; overflow: hidden; padding: 190px 0 76px; background: linear-gradient(155deg, var(--navy-2) 0%, var(--navy) 60%); color: var(--cream); border-bottom: 1px solid rgba(198, 161, 91, 0.55); }
+.legal-hero[data-hero] { min-height: 0 !important; }
+.legal-rings { position: absolute; right: 0; bottom: 0; width: 340px; height: 340px; stroke: var(--gold); opacity: 0.2; pointer-events: none; }
+/* contents list: ruled rows with a gold numeral, sticky beside the sections on desktop */
+.legal-toc { display: grid; gap: 18px; }
+.legal-toc ol { list-style: none; margin: 0; padding: 0; display: grid; border-bottom: 1px solid var(--sand); }
+.legal-toc a { display: grid; grid-template-columns: 32px 1fr; align-items: baseline; padding: 11px 0; border-top: 1px solid var(--sand); font-size: 14px; line-height: 1.35; color: var(--navy); transition: color 0.3s ease; }
+.legal-toc a span { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; font-variant-numeric: tabular-nums; color: var(--gold); }
+.legal-toc a:hover { color: var(--tan); }
+/* the sections: one readable column; anchors land below the site nav (a section that has not revealed
+   yet is still shifted 24px down when the browser measures the jump, so the margin allows for that) */
+.legal-body { display: grid; gap: 56px; max-width: 760px; }
+.legal-sec { display: grid; gap: 16px; scroll-margin-top: 130px; }
+.legal-h { display: flex; align-items: baseline; gap: 16px; font-size: 30px; line-height: 1.15; color: var(--navy); }
+.legal-n { flex: none; font-family: var(--font-sans), sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; font-variant-numeric: tabular-nums; color: var(--gold); }
+.legal-sec p, .legal-sec li { font-size: 17px; line-height: 1.7; color: var(--ink); }
+.legal-sec ul { list-style: none; padding: 0; display: grid; gap: 10px; }
+.legal-sec li { position: relative; padding-left: 24px; }
+.legal-sec li::before { content: ''; position: absolute; left: 0; top: 0.68em; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+.legal-contact { font-size: 23px; line-height: 1.25; color: var(--navy); overflow-wrap: anywhere; }
+.legal-contact:hover { color: var(--slate); }
+.legal-foot { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-top: 32px; border-top: 1px solid var(--sand); }
+.legal-foot p { font-size: 16px; line-height: 1.6; color: var(--ink); }
+@media (max-width: 1000px) {
+  .legal { gap: 44px !important; }
+  .legal-body { gap: 44px; }
+}
+@media (max-width: 760px) {
+  .legal-hero[data-hero] { padding-bottom: 48px !important; }
+  .legal-rings { width: 220px; height: 220px; }
+  .legal-h { gap: 12px; font-size: 25px; }
+  .legal-sec p, .legal-sec li { font-size: 16px; }
+  .legal-contact { font-size: 20px; }
+}

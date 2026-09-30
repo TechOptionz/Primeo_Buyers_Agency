@@ -56,7 +56,7 @@ export const IMAGES = {
 export const CONTACT = {
   phone: '0400 000 000',
   phoneHref: 'tel:0400000000',
-  email: 'hello@primeo.com.au',
+  email: 'info@primeo.com.au',
   address1: 'Level 2, 12 Example Street',
   address2: 'Brisbane QLD 4000',
   hours: 'Mon–Fri 8am–6pm · Sat 9am–2pm',
