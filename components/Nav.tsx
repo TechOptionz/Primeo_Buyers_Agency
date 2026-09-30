@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LogoMark } from './Logo';
+import { Logo } from './Logo';
 import { NAV, CONTACT } from '@/lib/data';
 
 const MENU = [{ key: 'home', label: 'Home', href: '/' }, ...NAV, { key: 'contact', label: 'Contact', href: '/contact' }];
@@ -30,9 +30,8 @@ export default function Nav() {
     <>
       <nav data-nav="1" className={`nav${on ? ' on' : ''}`}>
         <div data-pad="1" data-nav-pad="1" className="nav-inner">
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'inherit' }}>
-            <span data-nav-logo="1" style={{ display: 'flex' }}><LogoMark /></span>
-            <span data-logo-text="1" style={{ fontWeight: 700, fontSize: 19, letterSpacing: '.14em', lineHeight: 1 }}>PRIMEO</span>
+          <Link href="/" aria-label="PRIMEO, home" style={{ display: 'flex', color: 'inherit' }}>
+            <Logo flightTarget />
           </Link>
           <div data-desk="1" className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
             {NAV.map((i) => <Link key={i.key} href={i.href} className={`nav-link${isActive(i.href) ? ' active' : ''}`} aria-current={isActive(i.href) ? 'page' : undefined}>{i.label}</Link>)}
@@ -51,7 +50,7 @@ export default function Nav() {
 
       <div className={`menu${open ? ' open' : ''}`} aria-hidden={!open}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: 52 }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}><LogoMark size={28} /><span style={{ fontWeight: 700, fontSize: 16, letterSpacing: '.14em' }}>PRIMEO</span></span>
+          <Logo variant="sm" />
           <button onClick={() => setOpen(false)} aria-label="Close" style={{ width: 44, height: 44, border: '1px solid rgba(247,243,236,.35)', borderRadius: '50%', background: 'transparent', color: '#F7F3EC', fontSize: 22, lineHeight: 1 }}>×</button>
         </div>
         <div style={{ display: 'grid', alignContent: 'center', padding: '24px 0' }}>

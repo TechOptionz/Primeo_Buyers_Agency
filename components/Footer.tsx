@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { SERVICE_ITEMS, CONTACT } from '@/lib/data';
-import { LogoMark } from '@/components/Logo';
+import { Logo } from '@/components/Logo';
 
 const COMPANY = [{ label: 'About', href: '/about' }, { label: 'Market insights', href: '#' }, { label: 'Careers', href: '#' }, { label: 'Contact', href: '/contact' }];
 
@@ -23,12 +23,8 @@ export default function Footer() {
       <div data-pad="1" className="container" style={{ position: 'relative', display: 'grid', gap: 56 }}>
         <div data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1.2fr 2fr', gap: 64 }}>
           <div style={{ display: 'grid', gap: 22, alignContent: 'start' }}>
-            <Link href="/" data-reveal="0" className="flogo" aria-label="PRIMEO Buyer’s Agency, home">
-              <LogoMark size={42} />
-              <span className="flogo-text">
-                <span className="flogo-word">PRIMEO</span>
-                <span className="flogo-sub">Buyer&apos;s Agency</span>
-              </span>
+            <Link href="/" data-reveal="0" className="flogo" aria-label="PRIMEO, home">
+              <Logo variant="lg" />
             </Link>
             <p data-reveal="1" style={{ fontSize: 15, lineHeight: 1.65, color: 'rgba(247,243,236,.65)', maxWidth: 360 }}>Independent buyer agency, property investment, off-market sourcing and property advisory.</p>
             <div style={{ display: 'flex', gap: 10 }}>
