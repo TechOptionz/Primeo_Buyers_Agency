@@ -22,7 +22,7 @@ const FACTS = [
   { v: 'Verified', l: 'Published on Google' },
 ];
 // Two reviews shown in full beside the photo: real situations, in the client's own words.
-const STORIES = ['ruchika-mittal', 'matty-john'];
+const STORIES = ['ruchika-mittal', 'arunmozhi-govindan'];
 
 const asAt = (d: string) => { const [y, m] = d.split('-'); return `${['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][Number(m) - 1]} ${y}`; };
 
@@ -35,6 +35,7 @@ export default function Reviews() {
         title="Rated 5.0 on Google by more than a hundred clients."
         lead="A selection of the reviews clients have left on Google for Prim and the team, exactly as they wrote them. The full list is on Google."
         src={IMAGES.reviewsHero}
+        focus="66% 50%"
         band={<FactBand facts={FACTS} />}
       />
 

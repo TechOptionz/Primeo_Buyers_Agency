@@ -227,9 +227,10 @@ select.input-dark option { color: var(--navy); }
 .logo-rule { justify-self: stretch; height: 1px; background: currentColor; opacity: 0.45; }
 .logo-tag { --ls: 0.2em; font-size: var(--tag); font-weight: 600; letter-spacing: var(--ls); line-height: 1; text-transform: uppercase; white-space: nowrap; margin-right: calc(var(--ls) * -1); opacity: 0.92; }
 /* tagline divider (Tagline in components/Logo.tsx), shared with .intro-tag. --ls is the tagline's
-   letter-spacing: the left margin gives back the last letter's trailing spacing so both gaps match.
+   letter-spacing: the letter before the bar already trails it, so the right margin adds it back and
+   both gaps come out at --ls + 0.5em of clear space (0.49/0.44 allow for the Y and R side bearings).
    The box is cap-height so it cannot grow the line; ::before draws the bar with a slight overshoot. */
-.tag-bar { position: relative; display: inline-block; width: max(1px, 0.12em); height: 0.7em; margin: 0 0.62em 0 calc(0.65em - var(--ls)); }
+.tag-bar { position: relative; display: inline-block; width: max(1px, 0.12em); height: 0.7em; margin: 0 calc(var(--ls) + 0.44em) 0 0.49em; }
 .tag-bar::before { content: ''; position: absolute; inset: -0.1em 0; background: currentColor; }
 .tag-bar > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .logo-sm { --mark: 28px; --word: 19px; --tag: 9px; gap: 4px; }
@@ -366,22 +367,10 @@ select.input-dark option { color: var(--navy); }
 /* sticky column on desktop; [data-sticky] drops to static below 1000px */
 .stick { position: sticky; top: 120px; }
 
-/* vertical timeline: centre line drawn by scroll (--p), items alternate sides */
-.tl { position: relative; --p: 0; --axis: y; display: grid; }
-.tl-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; margin-left: -0.5px; background: var(--sand); }
-.tl-line::after { content: ''; position: absolute; inset: 0; background: var(--gold); transform: scaleY(var(--p)); transform-origin: top; }
-.tl-item { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 96px; padding: 36px 0; align-items: center; }
-.tl-node { position: absolute; left: 50%; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; border: 1px solid var(--gold); background: var(--cream); transform: scale(0.7); transition: background 0.5s ease, transform 0.8s var(--ease); }
-.tl-node.lit { background: var(--gold); transform: scale(1); }
-.tl-text { display: grid; gap: 12px; }
-.tl-item[data-side='left'] .tl-text { grid-column: 1; text-align: right; justify-items: end; }
-.tl-item[data-side='left'] .tl-media { grid-column: 2; }
-.tl-item[data-side='right'] .tl-text { grid-column: 2; }
-.tl-item[data-side='right'] .tl-media { grid-column: 1; grid-row: 1; }
-.tl-media > .media { aspect-ratio: 16/10; border-radius: 8px; background: var(--sand); }
-
-/* horizontal timeline (buyer agency process): line drawn by scroll, nodes light as it passes */
+/* horizontal timeline (buyer agency process, About background): line drawn by scroll, nodes light as it passes */
 .htl { position: relative; --p: 0; --axis: x; display: grid; grid-template-columns: repeat(6, 1fr); gap: 28px; padding-top: 44px; }
+/* four stops instead of six (About background); desktop only, so the stacked layout below still applies */
+@media (min-width: 1001px) { .htl-4 { grid-template-columns: repeat(4, 1fr); gap: 40px; } }
 .htl-line { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--sand); }
 .htl-line::after { content: ''; position: absolute; inset: 0; background: var(--gold); transform: scaleX(var(--p)); transform-origin: left; }
 .htl-step { position: relative; display: grid; gap: 12px; align-content: start; }
@@ -389,12 +378,6 @@ select.input-dark option { color: var(--navy); }
 .htl-node.lit { background: var(--gold); transform: scale(1); }
 
 @media (max-width: 1000px) {
-  .tl-line { left: 5px; }
-  .tl-item { grid-template-columns: 1fr; gap: 20px; padding: 24px 0 24px 40px; align-items: start; }
-  .tl-node { left: 5px; top: 34px; margin: 0 0 0 -5px; }
-  .tl-item[data-side='left'] .tl-text { text-align: left; justify-items: start; }
-  .tl-item[data-side='left'] .tl-text, .tl-item[data-side='right'] .tl-text { grid-column: 1; grid-row: 1; }
-  .tl-item[data-side='left'] .tl-media, .tl-item[data-side='right'] .tl-media { grid-column: 1; grid-row: 2; }
   .htl { --axis: y; grid-template-columns: 1fr; gap: 0; padding: 0 0 0 40px; }
   .htl-line { top: 0; bottom: 0; left: 5px; right: auto; width: 1px; height: auto; }
   .htl-line::after { transform: scaleY(var(--p)); transform-origin: top; }
@@ -407,26 +390,6 @@ select.input-dark option { color: var(--navy); }
   /* placeholder labels tuck into the top-right, clear of the copy */
   .slot[data-pos='top'] { align-items: flex-end; padding: 18vh 24px 0; font-size: 10px; }
   .slot[data-pos='corner'] { padding: 96px 24px; font-size: 10px; }
-}
-
-/* ---------- story timeline (About) ---------- */
-/* Each milestone opts in with data-inview (Motion adds .in as it enters). Its eyebrow, title and text
-   slide in from that milestone's side of the line, staggered; the year figure rises out of a clip and
-   drifts with the scroll (data-mask + data-drift); the node pulses once when the drawn line reaches it. */
-.tl-story .tl-text > * { opacity: 0; transform: translateX(-28px); transition: opacity 0.8s var(--ease), transform 0.9s var(--ease); }
-.tl-story .tl-item[data-side='right'] .tl-text > * { transform: translateX(28px); }
-.tl-story .tl-text > :nth-child(2) { transition-delay: 0.1s; }
-.tl-story .tl-text > :nth-child(3) { transition-delay: 0.2s; }
-.tl-story .tl-item.in .tl-text > * { opacity: 1; transform: none; }
-.tl-story .tl-year { display: block; font-size: 96px; line-height: 1; letter-spacing: -0.03em; color: var(--gold); opacity: 0.55; }
-.tl-story .tl-node { transition: background 0.5s ease, transform 0.8s var(--ease), box-shadow 0.8s ease; }
-.tl-story .tl-node.lit { box-shadow: 0 0 0 6px rgba(198, 161, 91, 0.16); }
-.tl-story .tl-node.lit::after { content: ''; position: absolute; inset: -1px; border-radius: 50%; border: 1px solid var(--gold); animation: tlPulse 1.1s ease-out both; }
-@keyframes tlPulse { from { opacity: 0.9; transform: scale(1); } to { opacity: 0; transform: scale(4.5); } }
-@media (max-width: 1000px) { .tl-story .tl-text > * { transform: translateY(20px); } .tl-story .tl-item[data-side='right'] .tl-text > * { transform: translateY(20px); } }
-@media (prefers-reduced-motion: reduce) {
-  .tl-story .tl-text > * { opacity: 1; transform: none; transition: none; }
-  .tl-story .tl-node.lit::after { display: none; }
 }
 
 /* ---------- founder spotlight (About) ---------- */

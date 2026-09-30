@@ -26,6 +26,7 @@ export function ImageSlot({
   priority = false,
   pos,
   sizes = '100vw',
+  focus,
 }: {
   src?: string;
   alt?: string;
@@ -36,6 +37,8 @@ export function ImageSlot({
   pos?: 'top' | 'corner';
   /** rendered width of the slot, as an <img sizes> value */
   sizes?: string;
+  /** which part of the photo survives the crop, as a CSS object-position (default: the centre) */
+  focus?: string;
 }) {
   if (src) {
     const blurDataURL = BLUR[src];
@@ -48,7 +51,7 @@ export function ImageSlot({
       placeholder: blurDataURL ? 'blur' : 'empty',
       blurDataURL,
       // Same as .slot-img; set inline too so the blurred preview is cropped like the photo.
-      style: { objectFit: 'cover' },
+      style: { objectFit: 'cover', objectPosition: focus },
       ...(priority ? { loading: 'eager', fetchPriority: 'high' } : {}),
     };
     const { props: img } = getImageProps(common);

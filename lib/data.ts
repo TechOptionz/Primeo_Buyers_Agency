@@ -97,42 +97,44 @@ export const TRUST = [
 const COMPANY = 'Aussie Financial Hub';
 
 export type Factor = { n: string; title: string; text: string };
-export type Milestone = { year: string; mark: string; title: string; text: string };
+export type Discipline = { kind: string; title: string; text: string };
 export type Help = { icon: string; kind: string; title: string; text: string; href: string; cta: string };
 
 export const ABOUT = {
   company: COMPANY,
   name: 'Prim Ahuja',
-  role: 'Accredited Mortgage Broker | Certified Practising Accountant (CPA)',
-  seo: `Meet Prim Ahuja, Accredited Mortgage Broker and Certified Practising Accountant (CPA) at ${COMPANY}: more than ten years in finance, accounting and compliance, applied to every home loan application.`,
+  role: 'Certified Practising Accountant (CPA)',
+  seo: `Meet Prim Ahuja, Certified Practising Accountant (CPA) at ${COMPANY}: more than ten years in finance, accounting and compliance, applied to every home loan application.`,
   hero: 'An accountant’s precision, working for you.',
-  lead: 'Prim Ahuja is a Certified Practising Accountant and accredited mortgage broker with more than twenty years of professional experience.',
+  lead: 'Prim Ahuja is a Certified Practising Accountant with more than twenty years of professional experience.',
   // "20+ years" is the overall career figure supplied by the client (the CV documents 2012 onward in Australia
   // and earlier private-sector experience in its profile); the stats strip keeps the CV's own "10+ years in
   // finance, accounting and compliance".
-  facts: [{ v: '20+ years', l: 'Professional experience' }, { v: 'CPA', l: 'Certified Practising Accountant' }, { v: 'Cert IV', l: 'Finance and Mortgage Broking' }],
+  facts: [{ v: '20+ years', l: 'Professional experience' }, { v: 'CPA', l: 'Certified Practising Accountant' }, { v: '5.0', l: 'Google rating, 107 reviews' }],
   intro: {
     eyebrow: 'About Prim',
     title: 'A career built on numbers, compliance and people.',
     p1: 'Before he prepared his first loan application, Prim had reconciled balance sheets, audited payment controls, run a business with up to 30 staff and investigated compliance breaches in state and federal government roles. It shows in how he works: nothing goes to a lender until it is right.',
     p2: 'He explains what is happening and why, answers quickly, and treats a client’s application with the same care he once brought to an audit file.',
     glance: [
-      { label: 'Role', value: 'Accredited Mortgage Broker', sub: `${COMPANY} · since 2020` },
+      { label: 'Focus', value: 'Home loans and property finance', sub: `${COMPANY} · since 2020` },
       { label: 'CPA', value: 'Certified Practising Accountant', sub: 'CPA Australia · since 2015' },
       { label: 'Education', value: 'Master of Professional Accounting', sub: 'Central Queensland University' },
-      { label: 'Languages', value: 'English, Hindi and Punjabi', sub: 'Multilingual client support' },
+      { label: 'Language', value: 'English', sub: 'Clear, plain-English client support' },
     ] as { label: string; value: string; sub?: string }[],
   },
-  journey: {
-    eyebrow: 'His story',
-    title: 'Every step built toward this.',
-    text: 'Accounting, internal audit, running a business, public-sector compliance and now mortgage broking. The thread through all of it: understanding numbers, compliance and people.',
-    milestones: [
-      { year: '2011 – 2012', mark: '2011', title: 'A master’s degree, then a foot in the door', text: 'Prim completed a Master of Professional Accounting at Central Queensland University and began his Australian career at RemServ in 2012, joining as an intern and earning a permanent role within months.' },
-      { year: '2012 – 2017', mark: '2012', title: 'Promoted through the ranks at RemServ', text: 'Over five years he moved through a series of roles, including Internal Controls Consultant and Assistant Accountant, specialising in salary packaging, novated leasing, Fringe Benefits Tax and internal audit. He won the company’s Customer Champion Award and Accuracy Superstar Award along the way.' },
-      { year: '2015', mark: '2015', title: 'Certified Practising Accountant', text: 'Prim earned his CPA designation with CPA Australia while working at RemServ, formalising the accounting discipline that still underpins every application he prepares.' },
-      { year: '2020 – 2026', mark: '2020', title: 'Certified Mortgage Broker at Queensland Fundings', text: 'Prim completed his Certificate IV in Finance and Mortgage Broking in 2020 and spent the next six years as a Certified Mortgage Broker with Queensland Fundings in Brisbane, guiding clients through every stage of their loan application, from the first conversation to lodgement and follow-up.' },
-    ] as Milestone[],
+  // The background in brief: four disciplines, with no employers and no year-by-year history (the client
+  // asked for the career timeline to go). Neither a former employer nor a broker title is named on the site.
+  background: {
+    eyebrow: 'His background',
+    title: 'The experience behind the advice.',
+    text: 'Four disciplines, and one thread through all of them: understanding numbers, compliance and people.',
+    disciplines: [
+      { kind: 'Accounting', title: 'Trained as an accountant', text: 'A Master of Professional Accounting, then the CPA designation with CPA Australia.' },
+      { kind: 'Audit and controls', title: 'Practised at checking the detail', text: 'Years in internal controls and audit, recognised with company awards for accuracy and customer service.' },
+      { kind: 'Business and compliance', title: 'Seen from both sides', text: 'He has run a business of his own, and held others to the rules in state and federal compliance roles.' },
+      { kind: 'Home finance', title: 'Beside buyers since 2020', text: 'Six years guiding clients through every stage of a loan application, from the first conversation to lodgement and follow-up.' },
+    ] as Discipline[],
   },
   together: {
     eyebrow: `At ${COMPANY}`,
@@ -145,10 +147,9 @@ export const ABOUT = {
       { n: '04', title: 'Client-first communication', text: 'Clear explanations at every step, fast responses and no jargon. Clients always know where their application is and what happens next.' },
     ] as Factor[],
     stats: [
-      { v: 10, suf: '+', label: 'Years in finance, accounting and compliance', sub: 'From RemServ in 2012 to mortgage broking today' },
+      { v: 10, suf: '+', label: 'Years in finance, accounting and compliance', sub: 'Working in Australia since 2012' },
       { v: 22, pre: '$', suf: 'M', label: 'Lodged in a single month', sub: 'Loan applications successfully lodged in one month' },
       { v: 100, suf: '+', label: 'Five-star Google reviews', sub: '5.0 average rating from 107 reviews on Google' },
-      { v: 3, label: 'Languages spoken', sub: 'English, Hindi and Punjabi' },
     ] as { v: number; pre?: string; suf?: string; label: string; sub: string }[],
   },
   // One section for what Prim does for PRIMEO clients and the standard he works to (formerly two: help cards and value cards).
@@ -156,18 +157,17 @@ export const ABOUT = {
   helps: {
     eyebrow: 'Working with Prim',
     title: 'How Prim helps, and the standard he works to.',
-    text: 'Four things every PRIMEO client gets from Prim, whether they are buying a first home, an investment or a house and land package.',
+    text: 'Three things every PRIMEO client gets from Prim, whether they are buying a first home, an investment or a house and land package.',
     items: [
-      { icon: 'shield', kind: 'Before the search', title: 'Straight answers on budget and finance', text: 'Prim works out what is realistically affordable, lines up pre-approval and says plainly what is achievable, what it costs and how long it takes.', href: '/contact', cta: 'Book a conversation' },
       { icon: 'target', kind: 'Buying a home', title: 'Search, assess and negotiate on your side', text: 'On-market and off-market search, an independent opinion of value before any offer, and negotiation or bidding with a walk-away number agreed in advance.', href: '/buyers#agency', cta: 'Buyer agency' },
-      { icon: 'home', kind: 'Investing and house & land', title: 'Research first, then the property', text: 'Suburbs, estates and builders are assessed on evidence: comparable sales, rental range, land supply and track record. Every figure is checked twice.', href: '/buyers#investing', cta: 'Property investment' },
-      { icon: 'heart', kind: 'From offer to keys', title: 'Clear, reachable and in your language', text: 'Prompt replies and plain language from the first question to settlement, with support in English, Hindi and Punjabi.', href: '/buyers#how-it-works', cta: 'How it works' },
+      { icon: 'home', kind: 'Investing and house & land', title: 'Research first, then the shortlist', text: 'Every suburb, estate and builder is assessed against our 32-point matrix: comparable sales, rental range, land supply, track record and more. Only properties that meet your requirements make the shortlist.', href: '/buyers#investing', cta: 'Property investment' },
+      { icon: 'heart', kind: 'From offer to keys', title: 'Clear, reachable and in plain English', text: 'Prompt replies and plain English from the first question to settlement, so you always know where things stand and what happens next.', href: '/buyers#how-it-works', cta: 'How it works' },
     ] as Help[],
   },
   closing: {
     eyebrow: 'A note from Prim',
     quote: 'Most people apply for a home loan only a few times in their lives. I have spent my career learning to get the numbers right, as an accountant, an auditor and a business owner, and I bring all of it to your application. If you are thinking about your next move, let’s talk it through.',
-    signature: 'Accredited Mortgage Broker · CPA',
+    signature: 'Certified Practising Accountant',
     text: 'Tell Prim what you are planning and he will explain what a lender is likely to want to see, and where to start.',
     button: 'Book a conversation',
   },
@@ -206,7 +206,7 @@ export const SERVICES: Record<string, Service> = {
     ], ['Photo: Riverbend display home', 'Photo: Ridgeview streetscape', 'Photo: Parkline townhomes'],
     ['/images/land_card_riverbend.jpg', '/images/land_card_ridgeview.jpg', '/images/land_card_parkline.jpg']),
     columns: [],
-    quote: { reviewId: 'matty-john', ph: 'Photo: couple at new home handover', src: '/images/land_quote.jpg' },
+    quote: { reviewId: 'neharika-basnet', ph: 'Photo: couple at new home handover', src: '/images/land_quote.jpg' },
     reviewStrip: { title: 'What first-home and new-build clients say.', text: 'Three of the 107 Google reviews, from clients who bought a first home or financed a build.', ids: ['dinesh-rabari', 'bhupinder-bawa', 'karan-bhatia'] },
     ctaButton: 'Register interest',
   },

@@ -10,7 +10,6 @@ export const metadata: Metadata = { title: `About ${P.name}`, description: P.seo
 
 // Value-card glyphs in the site's line-icon style (same stroke as the nav and footer icons), keyed by ABOUT.helps.items[].icon.
 const ICONS: Record<string, React.ReactNode> = {
-  shield: <><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" /><path d="m9 12 2 2 4-4" /></>,
   target: <><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3" /></>,
   heart: <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />,
   home: <><path d="M4 11 12 4l8 7v9H4z" /><path d="M10 20v-6h4v6" /></>,
@@ -59,35 +58,26 @@ export default function About() {
         </div>
       </section>
 
-      {/* 2 HIS STORY: vertical timeline drawn by scroll; on desktop the start year sits beside the line */}
+      {/* 2 HIS BACKGROUND: four disciplines along one gold line drawn by scroll (the same track as the buyer agency process) */}
       <section data-sec="1" className="sec" style={{ background: '#F7F3EC', borderTop: '1px solid #E6E0D4' }}>
-        <div data-pad="1" className="container" style={{ display: 'grid', gap: 48 }}>
+        <div data-pad="1" className="container" style={{ display: 'grid', gap: 64 }}>
           <div data-reveal="0" className="head-row">
             <div style={{ display: 'grid', gap: 14, maxWidth: 640 }}>
-              <p className="eyebrow eyebrow-tan">{P.journey.eyebrow}</p>
-              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>{P.journey.title}</span></span></h2>
+              <p className="eyebrow eyebrow-tan">{P.background.eyebrow}</p>
+              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>{P.background.title}</span></span></h2>
             </div>
-            <p className="lead" style={{ maxWidth: 400 }}>{P.journey.text}</p>
+            <p className="lead" style={{ maxWidth: 400 }}>{P.background.text}</p>
           </div>
-          <div data-track="1" className="tl tl-story">
-            <span className="tl-line" aria-hidden="true" />
-            {P.journey.milestones.map((m, i) => {
-              const left = i % 2 === 0;
-              return (
-                <div key={m.year} data-inview="1" data-side={left ? 'left' : 'right'} className="tl-item">
-                  <span data-node="1" className="tl-node" aria-hidden="true" />
-                  <div className="tl-text">
-                    <span className="eyebrow eyebrow-gold">{m.year}</span>
-                    <h3 className="serif" style={{ fontSize: 34, lineHeight: 1.1 }}>{m.title}</h3>
-                    <p style={{ fontSize: 16, lineHeight: 1.6, color: '#4A4C55', maxWidth: 440 }}>{m.text}</p>
-                  </div>
-                  {/* decorative: the year is already in the eyebrow, so this is hidden below 1000px where the columns stack */}
-                  <div data-desk="1" data-mask="1" data-drift="36" className="tl-media" aria-hidden="true" style={{ justifySelf: left ? 'start' : 'end' }}>
-                    <span className="serif tl-year">{m.mark}</span>
-                  </div>
-                </div>
-              );
-            })}
+          <div data-track="1" className="htl htl-4">
+            <span className="htl-line" aria-hidden="true" />
+            {P.background.disciplines.map((d, i) => (
+              <div key={d.kind} data-reveal={i} className="htl-step">
+                <span data-node="1" className="htl-node" aria-hidden="true" />
+                <span className="eyebrow eyebrow-gold">{d.kind}</span>
+                <h3 className="serif" style={{ fontSize: 28, lineHeight: 1.1 }}>{d.title}</h3>
+                <p style={{ fontSize: 15, lineHeight: 1.6, color: '#4A4C55' }}>{d.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -117,7 +107,7 @@ export default function About() {
               ))}
             </div>
           </div>
-          <div data-seq="1" data-g4="1" className="cells" style={{ gridTemplateColumns: 'repeat(4,1fr)' }}>
+          <div data-seq="1" data-g3="1" className="cells" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
             {P.together.stats.map((s) => (
               <div key={s.label} className="cell">
                 {/* the suffix sits outside the count-up so it can take the gold */}
@@ -129,7 +119,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* 4 WORKING WITH PRIM: what he does for clients and how he works, four icon cards linking to the service pages */}
+      {/* 4 WORKING WITH PRIM: what he does for clients and how he works, three icon cards linking to the service pages */}
       <section data-sec="1" className="sec" style={{ background: '#0B1D3A', color: '#F7F3EC' }}>
         <div data-pad="1" className="container" style={{ display: 'grid', gap: 56 }}>
           <div data-reveal="0" className="head-row">
@@ -139,7 +129,7 @@ export default function About() {
             </div>
             <p className="lead" style={{ maxWidth: 400, color: 'rgba(247,243,236,.72)' }}>{P.helps.text}</p>
           </div>
-          <div data-seq="1" data-g4="1" data-scroll-row="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24 }}>
+          <div data-seq="1" data-g3="1" data-scroll-row="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 24 }}>
             {P.helps.items.map((h, i) => (
               <div key={h.title} data-reveal={i} className="value-card" style={{ gridTemplateRows: 'auto 1fr auto' }}>
                 <span className="num-ring" style={{ borderColor: 'rgba(247,243,236,.3)' }} aria-hidden="true">

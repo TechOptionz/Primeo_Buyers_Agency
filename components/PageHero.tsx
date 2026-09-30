@@ -4,15 +4,17 @@ import { ImageSlot } from './ImageSlot';
 /**
  * Inner-page hero: dark backdrop, eyebrow with rule, serif headline, lead, optional fact band.
  * Pass `placeholder` to print an image identifier in the backdrop until a photo is supplied.
+ * `focus` is the photo's object-position, for a subject that sits off-centre and would
+ * otherwise be cropped out on a narrow screen.
  */
-export default function PageHero({ eyebrow, title, lead, band, src, placeholder }: {
-  eyebrow: string; title: string; lead: string; band?: ReactNode; src?: string; placeholder?: string;
+export default function PageHero({ eyebrow, title, lead, band, src, placeholder, focus }: {
+  eyebrow: string; title: string; lead: string; band?: ReactNode; src?: string; placeholder?: string; focus?: string;
 }) {
   const heroSrc = src ?? (placeholder ? undefined : '/images/hero_brisbane_luxury.jpg');
   return (
     <section data-hero="1" style={{ position: 'relative', minHeight: '82vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: '#0B1D3A', color: '#F7F3EC', padding: '160px 0 0' }}>
       <div data-parallax="1" style={{ position: 'absolute', inset: '-10% 0', willChange: 'transform' }}>
-        <div data-zoom="1" {...(placeholder ? {} : { 'data-bg-slot': '1' })} style={{ position: 'absolute', inset: 0, background: '#1C2F52' }}><ImageSlot src={heroSrc} tone="dark" placeholder={placeholder} priority pos="top" /></div>
+        <div data-zoom="1" {...(placeholder ? {} : { 'data-bg-slot': '1' })} style={{ position: 'absolute', inset: 0, background: '#1C2F52' }}><ImageSlot src={heroSrc} tone="dark" placeholder={placeholder} priority pos="top" focus={focus} /></div>
       </div>
       <div className="ov-hero" />
       <div style={{ position: 'relative', width: '100%', display: 'grid', gap: 56 }}>
