@@ -15,6 +15,7 @@ npm run build
 | `/` | Home |
 | `/buyers` | Buyer Agency: what we do (buyer agency, property investment, off-market access, property advisory), who we are, who we help, how it works, FAQ |
 | `/land` | House & Land (shared service template, content in `lib/data.ts`) |
+| `/reviews` | Client reviews: Google rating summary, two full client stories and a selection of 24 of the 107 Google reviews with topic filters, signed by name with no profile photos (data in `lib/reviews.ts`) |
 | `/about` | About |
 | `/contact` | Contact |
 
@@ -50,6 +51,7 @@ BUYERS_CHAPTER_INVESTING: '/images/investment_meeting.webp',
 ## Structure
 
 - `lib/data.ts` — all copy, stats, services, team (`BUYERS` holds the Buyer Agency page)
+- `lib/reviews.ts` — the selected Google reviews and the listing's rating figures
 - `components/Motion.tsx` — scroll reveals, counters, pinned steps, card hover (data-attribute driven)
 - `components/SubNav.tsx`, `ServiceChapters.tsx`, `Faq.tsx`, `SectionHead.tsx` — Buyer Agency page pieces
 - `app/globals.css` — design tokens, utility classes, responsive rules

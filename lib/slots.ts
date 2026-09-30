@@ -18,6 +18,7 @@ export const SLOTS: Record<string, string | undefined> = {
   BUYERS_CHAPTER_ADVISORY: '/images/advisory_meeting.jpg',
   BUYERS_WHO_WE_ARE_BACKDROP: '/images/advisory_negotiation_table.jpg', // full-bleed, sits under a navy wash
   BUYERS_PROCESS_WIDE: '/images/advisory_settlement_keys.jpg', // 21:9
+  BUYERS_QUOTE: '/images/testimonial_verandah.jpg', // 4:5
 
   // ---- Homepage service cards (app/page.tsx) ----
   PROPERTY_INVESTMENT_HERO: '/images/invest_hero.jpg',

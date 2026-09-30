@@ -7,8 +7,8 @@ import { intro } from '@/lib/intro';
  * Scroll-driven motion, ported from the design file. Elements opt in via data attributes:
  *  data-reveal / data-line / data-rule / data-mask  – reveal on enter
  *  data-seq                                        – stagger children on scroll
- *  data-count (+ data-prefix/-suffix)              – count-up numbers: start once the figure is on screen
- *                                                    and faded in, replay each time it scrolls back into view
+ *  data-count (+ data-prefix/-suffix)              – count-up numbers: run only while the figure is on screen
+ *                                                    and faded in; reset off screen, replay on every return
  *  data-card (+ data-card-img / data-card-overlay) – hover zoom + overlay
  *  data-pin (+ data-pin-img / data-pin-item / -bar) – pinned scroll story
  *  data-parallax / data-zoom / data-hero-content    – hero motion
@@ -23,7 +23,6 @@ export default function Motion() {
     let io: IntersectionObserver | null = null;
     let cio: IntersectionObserver | null = null;
     let dead = false;
-    const timers: ReturnType<typeof setTimeout>[] = [];
 
     const fmtOf = (el: HTMLElement) => {
       const pre = el.getAttribute('data-prefix') || '', suf = el.getAttribute('data-suffix') || '';
@@ -37,24 +36,33 @@ export default function Motion() {
       for (let n: HTMLElement | null = el; n && n !== document.body; n = n.parentElement) o *= +getComputedStyle(n).opacity;
       return o;
     };
+    // A count only ever runs in front of the visitor. Each one carries the figure's current run id;
+    // stop() bumps it, which ends a count in flight (the figure has scrolled away mid-count).
+    const runs = new WeakMap<HTMLElement, number>();
+    const stop = (el: HTMLElement) => { runs.set(el, (runs.get(el) || 0) + 1); };
+    const counters: HTMLElement[] = [];
+    let coverEnd = 0; // when the intro cover has lifted; no count starts underneath it
     const count = (el: HTMLElement, instant?: boolean) => {
       const target = +(el.getAttribute('data-count') || 0);
       const fmt = fmtOf(el);
       if (instant) { el.textContent = fmt(target); return; }
-      if (el.getAttribute('data-run')) return;
-      el.setAttribute('data-run', '1');
+      stop(el);
+      const id = runs.get(el);
       el.textContent = fmt(0);
-      const born = performance.now(), dur = 2400;
+      const born = Math.max(performance.now(), coverEnd), dur = 2400;
       let t0 = 0;
       const tick = (t: number) => {
-        if (dead) return;
+        if (dead || runs.get(el) !== id) return;
         if (!t0) {
-          if (shown(el) < 0.75 && t - born < 4000) { requestAnimationFrame(tick); return; }
+          // Hold at zero under the cover and while the figure is still hidden (a staggered cell waits
+          // for more scroll); a figure that is merely dimmed starts after 4s rather than never.
+          const o = shown(el);
+          if (t < coverEnd || o < 0.1 || (o < 0.75 && t - born < 4000)) { requestAnimationFrame(tick); return; }
           t0 = t;
         }
         const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
         el.textContent = fmt(target * e);
-        if (p < 1) requestAnimationFrame(tick); else el.removeAttribute('data-run');
+        if (p < 1) requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
     };
@@ -119,18 +127,16 @@ export default function Motion() {
         io?.unobserve(el);
       }), { threshold: 0 });
       const obs = io;
-      // Counters: start when most of the figure is on screen; once it has left the viewport entirely it
-      // is reset to zero, so it counts again on the way back. Hero figures sit above the fold, so their
-      // first run also waits for the intro cover to lift.
+      // Counters: start when most of the figure is on screen. Once it has left the viewport entirely
+      // it is reset to zero, even mid-count, so it never finishes out of sight and always counts again
+      // on the way back. Figures on screen at load wait for the intro cover to lift.
+      if (intro.pending) coverEnd = performance.now() + (delay0 + 0.5) * 1000;
       cio = new IntersectionObserver((es) => es.forEach((e) => {
         const el = e.target as HTMLElement;
-        if (!e.isIntersecting) { if (!el.getAttribute('data-run')) { el.removeAttribute('data-seen'); el.textContent = fmtOf(el)(0); } return; }
+        if (!e.isIntersecting) { stop(el); el.removeAttribute('data-seen'); el.textContent = fmtOf(el)(0); return; }
         if (e.intersectionRatio < 0.6 || el.getAttribute('data-seen')) return;
         el.setAttribute('data-seen', '1');
-        const first = !el.getAttribute('data-done');
-        el.setAttribute('data-done', '1');
-        if (first && el.closest('[data-hero]')) timers.push(setTimeout(() => count(el), (delay0 + 0.5) * 1000));
-        else count(el);
+        count(el);
       }), { threshold: [0, 0.6] });
       const cobs = cio;
       const q = (s: string) => $$(s + ':not([data-r])');
@@ -158,7 +164,7 @@ export default function Motion() {
       }
       // Counters keep their own marker, so a figure that is also a reveal target is still picked up.
       // The markup carries the final value; start from zero only when the count-up will actually run.
-      $$('[data-count]:not([data-c])').forEach((el) => { el.setAttribute('data-c', '1'); if (anim) { el.textContent = fmtOf(el)(0); cobs.observe(el); } else count(el, true); });
+      $$('[data-count]:not([data-c])').forEach((el) => { el.setAttribute('data-c', '1'); counters.push(el); if (anim) { el.textContent = fmtOf(el)(0); cobs.observe(el); } else count(el, true); });
       // Class-driven reveals: adds `.in` once the element enters the viewport (CSS does the rest).
       q('[data-inview]').forEach((el) => { mark(el); if (anim) obs.observe(el); else el.classList.add('in'); });
       q('[data-track]').forEach((el) => { mark(el); if (!anim) { el.style.setProperty('--p', '1'); el.querySelectorAll('[data-node]').forEach((n) => n.classList.add('lit')); } });
@@ -183,8 +189,9 @@ export default function Motion() {
     return () => {
       clearTimeout(t);
       dead = true;
-      timers.forEach(clearTimeout);
       cio?.disconnect();
+      // a figure that outlives this pass (same node kept across a navigation) must be observed afresh
+      counters.forEach((el) => { el.removeAttribute('data-c'); el.removeAttribute('data-seen'); });
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       io?.disconnect();

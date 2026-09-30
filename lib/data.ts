@@ -21,6 +21,10 @@ export type Service = {
   cardsTitle?: string;
   cards: ServiceCard[];
   columns: Column[];
+  // The editorial quote band: a Google review (its id in lib/reviews.ts) beside a photo.
+  quote: { reviewId: string; ph: string; src?: string };
+  // Optional band of three more Google reviews before the closing call to action.
+  reviewStrip?: { title: string; text?: string; ids: string[] };
   ctaButton: string;
 };
 
@@ -29,6 +33,7 @@ export type NavItem = { key: string; label: string; full: string; href: string }
 export const NAV: NavItem[] = [
   { key: 'buyers', label: 'Buyer Agency', full: 'Buyer Agency', href: '/buyers' },
   { key: 'land', label: 'House & Land', full: 'House & Land', href: '/land' },
+  { key: 'reviews', label: 'Reviews', full: 'Client reviews', href: '/reviews' },
   { key: 'about', label: 'About', full: 'About', href: '/about' },
 ];
 // The services alone: the homepage hero band and the footer's Services column list these.
@@ -38,11 +43,14 @@ export const SERVICE_ITEMS = NAV.filter((i) => i.key === 'buyers' || i.key === '
 export const IMAGES = {
   hero: '/images/hero_brisbane_luxury.jpg',
   why: '/images/why_primeo_review.jpg',
+  clients: '/images/testimonial_verandah.jpg',
   cta: '/images/cta_front_gate.jpg',
   aboutHero: '/images/hero_brisbane_luxury.jpg',
   contactHero: '/images/contact_hero.jpg',
   contactMap: '/images/contact_office_exterior.jpg',
   contactOffice: '/images/contact_lounge.jpg',
+  reviewsHero: '/images/reviews_hero.jpg',
+  reviewsStory: '/images/reviews_story.jpg',
 };
 
 export const CONTACT = {
@@ -53,6 +61,8 @@ export const CONTACT = {
   address2: 'Brisbane QLD 4000',
   hours: 'Mon–Fri 8am–6pm · Sat 9am–2pm',
 };
+
+// Client reviews live in lib/reviews.ts (a selection of real Google reviews); the homepage carousel reads FEATURED from there.
 
 export const ARTICLES = [
   { id: 'one', cat: 'Market update', date: 'Sep 2026', title: 'Spring market outlook: what buyers should expect', excerpt: 'Stock levels, clearance rates and where competition is heading this quarter.', placeholder: 'Photo: city skyline at dusk', src: '/images/insight_skyline.jpg', href: '/buyers#advisory' },
@@ -196,6 +206,8 @@ export const SERVICES: Record<string, Service> = {
     ], ['Photo: Riverbend display home', 'Photo: Ridgeview streetscape', 'Photo: Parkline townhomes'],
     ['/images/land_card_riverbend.jpg', '/images/land_card_ridgeview.jpg', '/images/land_card_parkline.jpg']),
     columns: [],
+    quote: { reviewId: 'matty-john', ph: 'Photo: couple at new home handover', src: '/images/land_quote.jpg' },
+    reviewStrip: { title: 'What first-home and new-build clients say.', text: 'Three of the 107 Google reviews, from clients who bought a first home or financed a build.', ids: ['dinesh-rabari', 'bhupinder-bawa', 'karan-bhatia'] },
     ctaButton: 'Register interest',
   },
 };
@@ -210,6 +222,7 @@ export const CTA_DEFAULT = {
 export const CTA_COPY: Record<string, Partial<typeof CTA_DEFAULT>> = {
   '/buyers': { title: 'Ready to have someone in your corner?', text: 'Leave your details and a PRIMEO buyer’s agent will call you within one business day to set up a free 30-minute strategy session.', button: 'Book a strategy call' },
   '/about': { title: 'Talk to Prim about your next move.', text: 'Leave your details and Prim will be in touch to talk through your situation and what a lender will want to see.', button: 'Book a conversation' },
+  '/reviews': { title: 'Join more than a hundred five-star clients.', text: 'Leave your details and we will call you within one business day to set up a free 30-minute strategy session.', button: 'Book a strategy call' },
 };
 
 // ---------- Buyer Agency (/buyers) ----------
@@ -277,10 +290,10 @@ export const BUYERS = {
     n: '02',
     eyebrow: 'Who we are',
     title: 'Independent by design. Accountable to one person: you.',
-    text: 'PRIMEO is a licensed, independent buyer’s agency based in Brisbane. We do not list, sell or take developer commissions, so the only outcome that matters is yours. Fourteen years across South East Queensland, on and off the market, means we have seen how deals are actually won.',
+    text: 'PRIMEO is a licensed, independent buyer’s agency based in Brisbane. We do not list, sell or take developer commissions, so the only outcome that matters is yours. Six years across South East Queensland, on and off the market, means we have seen how deals are actually won.',
     principles: TRUST,
     stats: [
-      { v: 14, label: 'Years in the Brisbane market', sub: 'Buying for clients since 2012' },
+      { v: 6, label: 'Years in the Brisbane market', sub: 'Buying for clients since 2020' },
       { v: 100, suf: '%', label: 'Independent', sub: 'Paid by the buyer, never by a vendor or developer' },
       { v: 60, suf: '+', label: 'Suburbs served', sub: 'From New Farm to the Moreton Bay corridor' },
       { v: 100, suf: '+', label: 'Five-star Google reviews', sub: '5.0 average rating from 107 reviews' },
@@ -336,4 +349,6 @@ export const BUYERS = {
       { q: 'I am a first-home buyer and do not know where to start.', a: 'Start with a conversation. We explain the process in plain language, what your budget really buys in the suburbs you like, the grants and concessions to raise with your broker, and the traps that catch first-timers: emotional bidding, skipped inspections and overpaying for a renovation.' },
     ] as FaqItem[],
   },
+  // Closing client story: a Google review (its id in lib/reviews.ts) beside the BUYERS_QUOTE photo.
+  quote: { reviewId: 'valeska-bezuidenhout', slot: 'BUYERS_QUOTE' },
 };

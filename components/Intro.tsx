@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { intro } from '@/lib/intro';
-import { TAGLINE } from './Logo';
+import { Tagline } from './Logo';
 
 // Skyline bar heights (px) along the bottom edge, and gold specks that drift upward.
 const BARS = [38, 64, 52, 96, 70, 128, 84, 150, 110, 172, 96, 134, 78, 112, 60, 92, 48, 70, 36];
@@ -80,7 +80,7 @@ export default function Intro() {
         </div>
         <div className="intro-word"><span>PRIMEO</span></div>
         <span className="intro-rule" />
-        <div className="intro-tag">{TAGLINE}</div>
+        <div className="intro-tag"><Tagline /></div>
       </div>
     </div>
   );

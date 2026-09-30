@@ -3,6 +3,8 @@ import CountUp from '@/components/CountUp';
 import HeroVideo from '@/components/HeroVideo';
 import { ImageSlot } from '@/components/ImageSlot';
 import PinnedSteps from '@/components/PinnedSteps';
+import Testimonials from '@/components/Testimonials';
+import RatingBadge from '@/components/RatingBadge';
 import { SERVICES, PROPERTIES, JOURNEY, TRUST, ARTICLES, IMAGES } from '@/lib/data';
 import { SLOTS } from '@/lib/slots';
 
@@ -11,14 +13,14 @@ import { SLOTS } from '@/lib/slots';
 const HERO_FACTS = [
   { v: '$200M', em: '+', l: 'Property secured' },
   { v: '350', em: '+', l: 'Purchases completed' },
-  { v: '14', em: ' yrs', l: 'In the market' },
+  { v: '6', em: ' yrs', l: 'In the market' },
   { v: '100', em: '%', l: 'Independent' },
 ];
 
 const STATS = [
   { v: 350, suf: '+', label: 'Purchases completed', sub: 'For home buyers and investors, on and off market' },
   { v: 1, suf: ' in 3', label: 'Secured off-market', sub: 'Never advertised on a public portal' },
-  { v: 14, suf: '', label: 'Years in the market', sub: 'Acting for buyers since 2012' },
+  { v: 6, suf: '', label: 'Years in the market', sub: 'Acting for buyers since 2020' },
   { v: 100, suf: '%', label: 'Independent', sub: 'Engaged by the buyer, never paid by a vendor' },
 ];
 
@@ -56,6 +58,7 @@ export default function Home() {
                 <span data-reveal="5" style={{ display: 'grid' }}><Link href="/contact" className="btn btn-gold">Book a Consultation</Link></span>
                 <span data-reveal="7" style={{ display: 'grid' }}><a href="#services" className="btn btn-outline-light">Explore Services</a></span>
               </div>
+              <span data-reveal="9" style={{ display: 'grid', justifyItems: 'center', marginTop: 6 }}><RatingBadge tone="dark" size="md" /></span>
             </div>
           </div>
           <div data-reveal="5" data-desk-block="1" className="hero-band">
@@ -103,7 +106,7 @@ export default function Home() {
         <span className="figure-watermark" aria-hidden="true">PRIMEO</span>
         <div data-pad="1" data-g2="1" className="container" style={{ position: 'relative', display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 72, alignItems: 'center' }}>
           <div style={{ display: 'grid', gap: 26, minWidth: 0 }}>
-            <div data-reveal="0" style={{ display: 'flex', alignItems: 'center', gap: 16 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold">Our track record since 2012</p></div>
+            <div data-reveal="0" style={{ display: 'flex', alignItems: 'center', gap: 16 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold">Our track record since 2020</p></div>
             {/* the count-up sits inside the reveal wrapper: Motion skips [data-count] on elements it has already marked for reveal */}
             <div data-reveal="1"><span data-count="200" data-prefix="$" data-suffix="M+" className="serif big-figure">$200M+</span></div>
             <h2 data-reveal="2" data-h2="1" className="h2" style={{ maxWidth: 560 }}><span data-line="1" className="lines"><span>in property secured for buyers and investors.</span></span></h2>
@@ -225,6 +228,14 @@ export default function Home() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* 8 GOOGLE REVIEWS: featured reviews carousel (FEATURED in lib/reviews.ts) */}
+      <section data-sec="1" className="sec" style={{ background: '#0B1D3A', color: '#F7F3EC' }}>
+        <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 72, alignItems: 'center' }}>
+          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#3A4A66' }}><ImageSlot src={IMAGES.clients} alt="Clients on the verandah of their new home" placeholder="Photo: clients on the verandah of their new home" tone="dark" sizes="(max-width: 1000px) 100vw, 40vw" /></div>
+          <Testimonials />
         </div>
       </section>
     </>

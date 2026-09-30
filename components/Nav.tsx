@@ -33,7 +33,7 @@ export default function Nav() {
           <Link href="/" aria-label="PRIMEO, home" style={{ display: 'flex', color: 'inherit' }}>
             <Logo flightTarget />
           </Link>
-          <div data-desk="1" className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
+          <div data-desk="1" className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
             {NAV.map((i) => <Link key={i.key} href={i.href} className={`nav-link${isActive(i.href) ? ' active' : ''}`} aria-current={isActive(i.href) ? 'page' : undefined}>{i.label}</Link>)}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>

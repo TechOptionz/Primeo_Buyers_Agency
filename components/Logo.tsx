@@ -1,4 +1,18 @@
-export const TAGLINE = 'Right Property, Right Price';
+export const TAGLINE = ['Right Property', 'Right Price'] as const;
+
+/**
+ * The tagline with its divider drawn rather than typed: a "|" glyph hangs below the baseline and
+ * sits off-centre in its gap. The bar keeps a hidden " | " so the text still reads and copies whole.
+ */
+export function Tagline() {
+  return (
+    <>
+      {TAGLINE[0]}
+      <span className="tag-bar"><span>{' | '}</span></span>
+      {TAGLINE[1]}
+    </>
+  );
+}
 
 export function LogoMark({ size = 30 }: { size?: number }) {
   return (
@@ -23,7 +37,7 @@ export function Logo({ variant, flightTarget }: { variant?: 'sm' | 'lg'; flightT
         <span className="logo-word">PRIMEO</span>
       </span>
       <span className="logo-rule" />
-      <span className="logo-tag">{TAGLINE}</span>
+      <span className="logo-tag"><Tagline /></span>
     </span>
   );
 }

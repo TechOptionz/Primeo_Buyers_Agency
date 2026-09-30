@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import PageHero from '@/components/PageHero';
 import { ImageSlot } from '@/components/ImageSlot';
 import { ContactForm } from '@/components/Forms';
+import RatingBadge from '@/components/RatingBadge';
 import { CONTACT, IMAGES } from '@/lib/data';
 
 export const metadata: Metadata = { title: 'Contact', description: 'Call, email or visit. Every enquiry is answered by a PRIMEO agent.' };
@@ -29,6 +30,7 @@ export default function Contact() {
               <div data-reveal="3" style={row}><span className="eyebrow eyebrow-tan">Office</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={big}>Brisbane CBD</span><span style={small}>{CONTACT.address1}, {CONTACT.address2}</span></span></div>
               <div data-reveal="4" style={{ ...row, borderBottom: '1px solid #E6E0D4' }}><span className="eyebrow eyebrow-tan">Areas</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={big}>Brisbane &amp; South East QLD</span><span style={small}>Gold Coast · Sunshine Coast · Ipswich · Logan · Moreton Bay</span></span></div>
             </div>
+            <div data-reveal="5"><RatingBadge size="md" /></div>
           </div>
           <ContactForm />
         </div>

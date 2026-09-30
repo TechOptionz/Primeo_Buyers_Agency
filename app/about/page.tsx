@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import PageHero from '@/components/PageHero';
 import FactBand from '@/components/FactBand';
+import ReviewStrip from '@/components/ReviewStrip';
 import { Slot } from '@/components/Slot';
 import { ABOUT as P, IMAGES } from '@/lib/data';
 
@@ -156,7 +157,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* 5 A NOTE FROM PRIM: centred first-person quote and signature over a ruled booking bar (the site-wide enquiry form follows via app/template.tsx) */}
+      {/* 5 GOOGLE REVIEWS: three of the selection, with the rating summary and a link to the reviews page */}
+      <ReviewStrip ids={['milan-verma', 'pramuk-shyam-pathy', 'manbeena-sethi']} title="What clients say about working with Prim." text="Written on Google by clients Prim and the team have helped. There are more on the reviews page." background="#F7F3EC" border={false} />
+
+      {/* 6 A NOTE FROM PRIM: centred first-person quote and signature over a ruled booking bar (the site-wide enquiry form follows via app/template.tsx) */}
       <section data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4' }}>
         <div data-pad="1" className="container note">
           <p data-reveal="0" className="eyebrow eyebrow-tan">{P.closing.eyebrow}</p>
