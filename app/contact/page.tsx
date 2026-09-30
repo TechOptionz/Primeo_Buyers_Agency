@@ -14,7 +14,7 @@ const small: React.CSSProperties = { fontSize: 13, color: '#4A4C55', lineHeight:
 export default function Contact() {
   return (
     <>
-      <PageHero eyebrow="Contact" title="Let’s talk about your next move." lead="Call, email or visit. Every enquiry is answered by a PRIMEO agent, not a call centre." src={IMAGES.contactHero} />
+      <PageHero eyebrow="Contact" title="Let’s talk about your next move." lead="Call, email or visit. Every enquiry is answered by a PRIMEO agent, not a call centre." src={IMAGES.contactHero} focus="74% 50%" />
 
       <section data-sec="1" className="sec" style={{ background: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.15fr', gap: 64, alignItems: 'start' }}>

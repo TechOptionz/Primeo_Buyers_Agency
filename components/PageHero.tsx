@@ -1,6 +1,11 @@
 import type { ReactNode } from 'react';
 import { ImageSlot } from './ImageSlot';
 
+// The backdrop is about 98vh tall (82vh hero plus the parallax overscan) and cropped to cover, so
+// on a portrait phone the 16:9 photo is drawn far wider than the screen. Sizing by 100vw alone
+// made phones fetch a file too small for that and stretch it soft.
+const HERO_SIZES = 'max(100vw, 175vh)';
+
 /**
  * Inner-page hero: dark backdrop, eyebrow with rule, serif headline, lead, optional fact band.
  * Pass `placeholder` to print an image identifier in the backdrop until a photo is supplied.
@@ -14,7 +19,7 @@ export default function PageHero({ eyebrow, title, lead, band, src, placeholder,
   return (
     <section data-hero="1" style={{ position: 'relative', minHeight: '82vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: '#0B1D3A', color: '#F7F3EC', padding: '160px 0 0' }}>
       <div data-parallax="1" style={{ position: 'absolute', inset: '-10% 0', willChange: 'transform' }}>
-        <div data-zoom="1" {...(placeholder ? {} : { 'data-bg-slot': '1' })} style={{ position: 'absolute', inset: 0, background: '#1C2F52' }}><ImageSlot src={heroSrc} tone="dark" placeholder={placeholder} priority pos="top" focus={focus} /></div>
+        <div data-zoom="1" {...(placeholder ? {} : { 'data-bg-slot': '1' })} style={{ position: 'absolute', inset: 0, background: '#1C2F52' }}><ImageSlot src={heroSrc} tone="dark" placeholder={placeholder} priority pos="top" sizes={HERO_SIZES} focus={focus} /></div>
       </div>
       <div className="ov-hero" />
       <div style={{ position: 'relative', width: '100%', display: 'grid', gap: 56 }}>
