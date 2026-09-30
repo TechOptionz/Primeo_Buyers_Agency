@@ -32,10 +32,10 @@ function Honeypot() {
   return <input name="confirm_topic" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: 'absolute', left: -9999, width: 1, height: 1, opacity: 0 }} />;
 }
 
-export function InterestSelect({ className }: { className: string }) {
+export function InterestSelect({ className, placeholder = 'I’m interested in…' }: { className: string; placeholder?: string }) {
   return (
     <select className={className} name="interest" defaultValue="" aria-label="I'm interested in">
-      <option value="">I&apos;m interested in…</option>
+      <option value="">{placeholder}</option>
       {INTERESTS.map((i) => <option key={i}>{i}</option>)}
     </select>
   );
@@ -44,16 +44,31 @@ export function InterestSelect({ className }: { className: string }) {
 export function ContactForm() {
   const { sent, pending, error, onSubmit } = useSubmit();
   return (
-    <form data-reveal="1" onSubmit={onSubmit} style={{ display: 'grid', gap: 14, padding: 40, background: '#F7F3EC', border: '1px solid #E6E0D4', borderRadius: 8 }}>
-      <div data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-        <input className="input" name="name" autoComplete="name" placeholder="Full name" required />
-        <input className="input" name="phone" autoComplete="tel" placeholder="Phone" type="tel" />
+    <form data-reveal="1" onSubmit={onSubmit} style={{ display: 'grid', gap: 20, padding: 40, background: '#F7F3EC', border: '1px solid #E6E0D4', borderRadius: 8 }}>
+      <div data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+        <label className="field">
+          <span className="field-label">Full name</span>
+          <input className="input" name="name" autoComplete="name" placeholder="Your full name" required />
+        </label>
+        <label className="field">
+          <span className="field-label">Phone <i>Optional</i></span>
+          <input className="input" name="phone" autoComplete="tel" placeholder="04xx xxx xxx" type="tel" inputMode="tel" />
+        </label>
       </div>
-      <input className="input" name="email" autoComplete="email" placeholder="Email" type="email" required />
-      <InterestSelect className="input" />
-      <textarea className="input" name="message" placeholder="Tell us a little about your brief" rows={4} />
+      <label className="field">
+        <span className="field-label">Email</span>
+        <input className="input" name="email" autoComplete="email" placeholder="you@example.com" type="email" inputMode="email" required />
+      </label>
+      <label className="field">
+        <span className="field-label">I&apos;m interested in <i>Optional</i></span>
+        <InterestSelect className="input" placeholder="Select an option" />
+      </label>
+      <label className="field">
+        <span className="field-label">Your brief <i>Optional</i></span>
+        <textarea className="input" name="message" placeholder="Budget, suburbs, timeframe, anything that helps us prepare" rows={4} />
+      </label>
       <Honeypot />
-      <button type="submit" className="btn btn-navy" disabled={pending} style={{ height: 54 }}>{pending ? 'Sending…' : sent ? 'Thanks — we’ll be in touch' : 'Book a strategy call'}</button>
+      <button type="submit" className="btn btn-navy" disabled={pending} style={{ height: 54, marginTop: 4 }}>{pending ? 'Sending…' : sent ? 'Thanks — we’ll be in touch' : 'Book a strategy call'}</button>
       {error && <p role="alert" style={{ fontSize: 13, color: '#A33A2A', lineHeight: 1.5 }}>{error}</p>}
       <p style={{ fontSize: 12, color: '#8A7A57', lineHeight: 1.5 }}>We reply within one business day. Your details stay private.</p>
     </form>

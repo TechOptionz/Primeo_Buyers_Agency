@@ -156,9 +156,19 @@ button { cursor: pointer; }
 
 /* forms */
 .input { height: 52px; border: 1px solid var(--sand); border-radius: 2px; padding: 0 16px; font-size: 15px; background: #fff; outline: none; color: var(--navy); width: 100%; }
-.input:focus { border-color: var(--gold); }
-select.input { padding: 0 14px; color: var(--ink); }
-textarea.input { height: auto; padding: 14px 16px; resize: vertical; }
+.input { transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.input::placeholder { color: #9a958a; }
+.input:hover { border-color: #cfc6b4; }
+.input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(198, 161, 91, 0.18); }
+/* native arrow swapped for a chevron that lines up with the text inset */
+select.input { appearance: none; padding: 0 44px 0 16px; cursor: pointer; text-overflow: ellipsis; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%238a7a57' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+select.input:has(option[value='']:checked) { color: #9a958a; }
+select.input option { color: var(--navy); }
+textarea.input { height: auto; min-height: 132px; padding: 14px 16px; line-height: 1.55; resize: vertical; }
+/* labelled field: label row above the control, "Optional" tag on the right */
+.field { display: grid; gap: 8px; min-width: 0; }
+.field-label { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy); }
+.field-label i { font-style: normal; font-weight: 500; letter-spacing: 0.04em; text-transform: none; color: var(--tan); }
 .input-dark { height: 54px; border: 1px solid rgba(247, 243, 236, 0.25); border-radius: 2px; padding: 0 16px; font-size: 15px; background: rgba(247, 243, 236, 0.06); color: var(--cream); outline: none; width: 100%; }
 .input-dark:focus { border-color: var(--gold); }
 select.input-dark { padding: 0 14px; }

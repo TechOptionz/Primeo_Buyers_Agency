@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Newsreader, Space_Grotesk } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 import Nav from '@/components/Nav';
 import Intro from '@/components/Intro';
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Motion />
           {children}
         </div>
+        <Analytics />
       </body>
     </html>
   );
