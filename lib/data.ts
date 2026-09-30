@@ -55,7 +55,7 @@ export const CONTACT = {
 };
 
 export const ARTICLES = [
-  { id: 'one', cat: 'Market update', date: 'Sep 2026', title: 'Brisbane spring market: what buyers should expect', excerpt: 'Stock levels, clearance rates and where the competition is heading this quarter.', placeholder: 'Photo: Brisbane skyline from Kangaroo Point', src: '/images/insight_skyline.jpg', href: '/buyers#advisory' },
+  { id: 'one', cat: 'Market update', date: 'Sep 2026', title: 'Spring market outlook: what buyers should expect', excerpt: 'Stock levels, clearance rates and where competition is heading this quarter.', placeholder: 'Photo: city skyline at dusk', src: '/images/insight_skyline.jpg', href: '/buyers#advisory' },
   { id: 'two', cat: 'Buying', date: 'Aug 2026', title: 'Off-market properties, explained', excerpt: 'How pre-market and off-market deals actually happen and how to access them.', placeholder: 'Photo: front door detail', src: '/images/insight_front_door.jpg', href: '/buyers#off-market' },
   { id: 'three', cat: 'Investing', date: 'Aug 2026', title: 'Growth corridors worth watching in 2027', excerpt: 'Infrastructure, land supply and the suburbs where the evidence stacks up.', placeholder: 'Photo: aerial of a new estate', src: '/images/insight_estate_aerial.jpg', href: '/buyers#investing' },
 ];
@@ -68,17 +68,17 @@ export const PROPERTIES = [
 
 export const JOURNEY: Step[] = [
   { n: '01', title: 'Discover', text: 'A strategy session to define budget, location, lifestyle and growth priorities.', ph: 'Photo: strategy meeting over coffee', src: '/images/journey_01_discover.jpg' },
-  { n: '02', title: 'Search', text: 'On-market, off-market and pre-market sourcing, shortlisted against your brief.', ph: 'Photo: Brisbane suburb streetscape', src: '/images/journey_02_search.jpg' },
+  { n: '02', title: 'Search', text: 'On-market, off-market and pre-market sourcing, shortlisted against your brief.', ph: 'Photo: suburban streetscape', src: '/images/journey_02_search.jpg' },
   { n: '03', title: 'Inspect', text: 'Walk-throughs, building and pest, comparable sales and contract review.', ph: 'Photo: inspecting a kitchen', src: '/images/journey_03_inspect.jpg' },
   { n: '04', title: 'Negotiate', text: 'Private treaty or auction, run with a clear walk-away number.', ph: 'Photo: auction paddle raised', src: '/images/journey_04_negotiate.jpg' },
   { n: '05', title: 'Secure', text: 'Contract to settlement, handled, then keys in hand.', ph: 'Photo: keys at the front door', src: '/images/journey_05_secure.jpg' },
 ];
 
 export const TRUST = [
-  { n: '01', title: 'Independent by design', text: 'No listing to push and no developer commissions. Our only client is the person in front of us.' },
-  { n: '02', title: 'Deals seen from the inside', text: 'Home buyers and investors, on and off market: we see how deals are actually won.' },
-  { n: '03', title: 'Evidence, not opinion', text: 'Each recommendation arrives with comparable sales and the reasoning behind it.' },
-  { n: '04', title: 'Calm under pressure', text: 'Auctions, deadlines and negotiations handled by people who do it weekly.' },
+  { n: '01', title: 'Independent by design', text: 'No listings to promote and no developer commissions. We act for one party only: our client.' },
+  { n: '02', title: 'Transactions understood from the inside', text: 'Home buyers and investors, on and off market: we understand how successful acquisitions are secured.' },
+  { n: '03', title: 'Evidence, not opinion', text: 'Every recommendation is supported by comparable sales and the reasoning behind it.' },
+  { n: '04', title: 'Composed under pressure', text: 'Auctions, deadlines and negotiations managed by professionals who handle them every week.' },
 ];
 
 // ---------- About (/about): Prim Ahuja ----------
@@ -88,7 +88,7 @@ const COMPANY = 'Aussie Financial Hub';
 
 export type Factor = { n: string; title: string; text: string };
 export type Milestone = { year: string; mark: string; title: string; text: string };
-export type Credential = { kind: string; title: string; meta: string };
+export type Help = { kind: string; title: string; text: string; href: string; cta: string };
 
 export const ABOUT = {
   company: COMPANY,
@@ -121,9 +121,7 @@ export const ABOUT = {
       { year: '2011 – 2012', mark: '2011', title: 'A master’s degree, then a foot in the door', text: 'Prim completed a Master of Professional Accounting at Central Queensland University and began his Australian career at RemServ in 2012, joining as an intern and earning a permanent role within months.' },
       { year: '2012 – 2017', mark: '2012', title: 'Promoted through the ranks at RemServ', text: 'Over five years he moved through a series of roles, including Internal Controls Consultant and Assistant Accountant, specialising in salary packaging, novated leasing, Fringe Benefits Tax and internal audit. He won the company’s Customer Champion Award and Accuracy Superstar Award along the way.' },
       { year: '2015', mark: '2015', title: 'Certified Practising Accountant', text: 'Prim earned his CPA designation with CPA Australia while working at RemServ, formalising the accounting discipline that still underpins every application he prepares.' },
-      { year: '2017 – 2020', mark: '2017', title: 'Owner and Managing Director', text: 'As owner and Managing Director of a Red Rooster franchise, Prim led a team of up to 30. He took the business from non-compliant to 99% compliance at external audit within two months, grew sales by 9% and halved customer complaints.' },
-      { year: '2019 – 2021', mark: '2019', title: 'Compliance and audit in government', text: 'Compliance roles with the Department of Human Services and the Department of Employment, Small Business and Training, then Financial Assessment Officer (Auditor) at the Queensland Building and Construction Commission: investigating irregularities, auditing financial records and reporting findings clearly.' },
-      { year: '2020 – present', mark: '2020', title: `Accredited Mortgage Broker at ${COMPANY}`, text: 'Prim completed his Certificate IV in Finance and Mortgage Broking in 2020 and now guides clients through every stage of their loan application, from the first conversation to lodgement and follow-up.' },
+      { year: '2020 – 2026', mark: '2020', title: 'Certified Mortgage Broker at Queensland Fundings', text: 'Prim completed his Certificate IV in Finance and Mortgage Broking in 2020 and spent the next six years as a Certified Mortgage Broker with Queensland Fundings in Brisbane, guiding clients through every stage of their loan application, from the first conversation to lodgement and follow-up.' },
     ] as Milestone[],
   },
   together: {
@@ -143,18 +141,19 @@ export const ABOUT = {
       { v: 3, label: 'Languages spoken', sub: 'English, Hindi and Punjabi' },
     ] as { v: number; pre?: string; suf?: string; label: string; sub: string }[],
   },
-  credentials: {
-    eyebrow: 'Credentials & qualifications',
-    title: 'Qualified in accounting. Accredited in broking.',
-    text: 'The designations and study behind the advice, from an economics degree to CPA Australia and the Certificate IV in Finance and Mortgage Broking.',
+  // How Prim helps PRIMEO clients: each card links to the matching chapter on the service pages.
+  helps: {
+    eyebrow: 'How Prim helps',
+    title: 'What Prim does for PRIMEO clients.',
+    text: 'Prim puts his accounting, compliance and broking background to work at every stage of a purchase, from the first budget conversation to the keys in hand.',
     items: [
-      { kind: 'Designation', title: 'Certified Practising Accountant (CPA)', meta: 'CPA Australia · 2015' },
-      { kind: 'Qualification', title: 'Certificate IV in Finance and Mortgage Broking', meta: 'Real Estate Academy Australia · 2020' },
-      { kind: 'Postgraduate', title: 'Master of Professional Accounting', meta: 'Central Queensland University · 2011' },
-      { kind: 'Undergraduate', title: 'Bachelor of Science in Economics', meta: 'Guru Nanak Dev University' },
-      { kind: 'Professional development', title: 'Fraud Awareness Training', meta: '2019' },
-      { kind: 'Professional development', title: 'Fringe Benefits Tax Workshop', meta: '2016' },
-    ] as Credential[],
+      { kind: 'Before the search', title: 'A budget that will hold up', text: 'Prim works out what is realistically affordable, lines up finance and pre-approval, and turns it into a clear brief before a single inspection is booked.', href: '/buyers#agency', cta: 'Buyer agency' },
+      { kind: 'Home buyers', title: 'Search, assess and negotiate on your side', text: 'On-market and off-market search, an independent opinion of value before any offer, and negotiation or auction bidding with a walk-away number agreed in advance.', href: '/buyers#agency', cta: 'Buyer agency' },
+      { kind: 'Investors', title: 'Research first, then the property', text: 'Suburb and growth-corridor research, rental range and holding costs, all checked against comparable sales so the decision is made on evidence rather than emotion.', href: '/buyers#investing', cta: 'Property investment' },
+      { kind: 'Off-market access', title: 'Homes that never reach the portals', text: 'Agent and local networks, direct approaches to owners and early inspections, with the same due diligence whichever door a property came through.', href: '/buyers#off-market', cta: 'Off-market access' },
+      { kind: 'House & land', title: 'Estates and builders independently assessed', text: 'Infrastructure, land supply and builder track record reviewed before a package is recommended, with fixed-price contracts and inclusions checked line by line.', href: '/land', cta: 'House & land' },
+      { kind: 'Self-employed and business owners', title: 'Finances presented the way a lender wants to see them', text: 'A CPA who has run a business himself, Prim knows how to read income, tax and financial documents and present them clearly so an application is right the first time.', href: '/contact', cta: 'Book a conversation' },
+    ] as Help[],
   },
   values: {
     eyebrow: 'How Prim works',

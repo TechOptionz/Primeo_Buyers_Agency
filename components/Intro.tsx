@@ -79,7 +79,7 @@ export default function Intro() {
         </div>
         <div className="intro-word"><span>PRIMEO</span></div>
         <span className="intro-rule" />
-        <div className="intro-tag">Property Group · Brisbane &amp; Queensland</div>
+        <div className="intro-tag">Property Group</div>
       </div>
     </div>
   );

@@ -117,22 +117,23 @@ export default function About() {
         </div>
       </section>
 
-      {/* 4 CREDENTIALS: ruled cells, three across */}
+      {/* 4 HOW PRIM HELPS: ruled cells, three across, each linking to the matching service chapter */}
       <section data-sec="1" className="sec" style={{ background: '#F7F3EC' }}>
         <div data-pad="1" className="container" style={{ display: 'grid', gap: 48 }}>
           <div data-reveal="0" className="head-row">
             <div style={{ display: 'grid', gap: 14, maxWidth: 640 }}>
-              <p className="eyebrow eyebrow-tan">{P.credentials.eyebrow}</p>
-              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>{P.credentials.title}</span></span></h2>
+              <p className="eyebrow eyebrow-tan">{P.helps.eyebrow}</p>
+              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>{P.helps.title}</span></span></h2>
             </div>
-            <p className="lead" style={{ maxWidth: 400 }}>{P.credentials.text}</p>
+            <p className="lead" style={{ maxWidth: 400 }}>{P.helps.text}</p>
           </div>
           <div data-seq="1" data-g3="1" className="cells" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
-            {P.credentials.items.map((c) => (
-              <div key={c.title} className="cell" style={{ background: '#fff' }}>
-                <span className="eyebrow eyebrow-gold">{c.kind}</span>
-                <h3 className="serif" style={{ fontSize: 25, lineHeight: 1.15 }}>{c.title}</h3>
-                <p style={{ fontSize: 14, lineHeight: 1.55, color: '#4A4C55' }}>{c.meta}</p>
+            {P.helps.items.map((h) => (
+              <div key={h.title} className="cell" style={{ background: '#fff', gridTemplateRows: 'auto auto 1fr auto' }}>
+                <span className="eyebrow eyebrow-gold">{h.kind}</span>
+                <h3 className="serif" style={{ fontSize: 25, lineHeight: 1.15 }}>{h.title}</h3>
+                <p style={{ fontSize: 15, lineHeight: 1.6, color: '#4A4C55' }}>{h.text}</p>
+                <Link href={h.href} className="link-arrow" style={{ fontSize: 13, fontWeight: 600, color: '#0B1D3A' }}>{h.cta} →</Link>
               </div>
             ))}
           </div>

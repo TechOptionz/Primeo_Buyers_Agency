@@ -9,7 +9,7 @@ const serif = Newsreader({ subsets: ['latin'], style: ['normal', 'italic'], axes
 const sans = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-sans', display: 'swap' });
 
 export const metadata: Metadata = {
-  title: { default: 'PRIMEO Property Group · Brisbane & Queensland', template: '%s · PRIMEO' },
+  title: { default: 'PRIMEO Property Group', template: '%s · PRIMEO' },
   description: 'Independent buyer agency, property investment, off-market sourcing, property advisory and house & land for people who expect clear advice and better outcomes.',
 };
 

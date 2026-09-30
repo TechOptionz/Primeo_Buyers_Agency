@@ -30,7 +30,7 @@ export default function Footer() {
                 <span className="flogo-sub">Buyer&apos;s Agency</span>
               </span>
             </Link>
-            <p data-reveal="1" style={{ fontSize: 15, lineHeight: 1.65, color: 'rgba(247,243,236,.65)', maxWidth: 360 }}>Independent buyer agency, property investment, off-market sourcing and property advisory across Brisbane and South East Queensland.</p>
+            <p data-reveal="1" style={{ fontSize: 15, lineHeight: 1.65, color: 'rgba(247,243,236,.65)', maxWidth: 360 }}>Independent buyer agency, property investment, off-market sourcing and property advisory.</p>
             <div style={{ display: 'flex', gap: 10 }}>
               {SOCIAL.map((s, i) => (
                 <a key={s.label} href="#" aria-label={s.label} className="social" data-reveal={i + 2}>

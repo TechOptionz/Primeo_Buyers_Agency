@@ -8,18 +8,18 @@ import { SLOTS } from '@/lib/slots';
 const STATS = [
   { v: 350, suf: '+', label: 'Properties secured', sub: 'For buyers and investors, on and off market' },
   { v: 100, suf: '%', label: 'Independent', sub: 'Buyer-side only, never paid by a vendor' },
-  { v: 60, suf: '+', label: 'Suburbs served', sub: 'From New Farm to the Moreton Bay corridor' },
+  { v: 60, suf: '+', label: 'Suburbs served', sub: 'Established suburbs and emerging growth corridors' },
   { v: 100, suf: '+', label: 'Five-star Google reviews', sub: '5.0 average rating from 107 reviews' },
 ];
 
 // Investment, off-market and advisory are chapters of the Buyer Agency page, so their cards deep-link to
 // those anchors. Their photos live in lib/slots.ts.
 const SERVICE_CARDS = [
-  { key: 'buyers', href: '/buyers', n: '01', title: 'Buyer Agency', text: 'Independent search, due diligence and negotiation on your side of the table.', ph: 'BUYERS_HERO', src: SLOTS.BUYERS_HERO, span: 4 },
-  { key: 'investing', href: '/buyers#investing', n: '02', title: 'Property Investment', text: 'Research-led sourcing and analysis for investors.', ph: 'PROPERTY_INVESTMENT_HERO', src: SLOTS.PROPERTY_INVESTMENT_HERO, span: 2 },
-  { key: 'off-market', href: '/buyers#off-market', n: '03', title: 'Off-Market Properties', text: 'Opportunities beyond the major portals, through agent and local networks.', ph: 'OFF_MARKET_PROPERTY_IMAGE', src: SLOTS.OFF_MARKET_PROPERTY_IMAGE, span: 2 },
-  { key: 'advisory', href: '/buyers#advisory', n: '04', title: 'Property Advisory', text: 'Independent guidance on value, strategy and negotiation.', ph: 'PROPERTY_ADVISORY_MEETING', src: SLOTS.PROPERTY_ADVISORY_MEETING, span: 2 },
-  { key: 'land', href: '/land', n: '05', title: 'House & Land', text: 'New developments and packages in growth corridors.', ph: 'Photo: new estate streetscape', src: SERVICES.land.src, span: 2 },
+  { key: 'buyers', href: '/buyers', n: '01', title: 'Buyer Agency', text: 'Independent search, due diligence and negotiation, conducted solely in your interest.', ph: 'BUYERS_HERO', src: SLOTS.BUYERS_HERO, span: 4 },
+  { key: 'investing', href: '/buyers#investing', n: '02', title: 'Property Investment', text: 'Research-led acquisition and analysis for investors.', ph: 'PROPERTY_INVESTMENT_HERO', src: SLOTS.PROPERTY_INVESTMENT_HERO, span: 2 },
+  { key: 'off-market', href: '/buyers#off-market', n: '03', title: 'Off-Market Properties', text: 'Access to opportunities beyond the major portals through established agent networks.', ph: 'OFF_MARKET_PROPERTY_IMAGE', src: SLOTS.OFF_MARKET_PROPERTY_IMAGE, span: 2 },
+  { key: 'advisory', href: '/buyers#advisory', n: '04', title: 'Property Advisory', text: 'Independent counsel on value, strategy and negotiation.', ph: 'PROPERTY_ADVISORY_MEETING', src: SLOTS.PROPERTY_ADVISORY_MEETING, span: 2 },
+  { key: 'land', href: '/land', n: '05', title: 'House & Land', text: 'New developments and packages in established growth corridors.', ph: 'Photo: new estate streetscape', src: SERVICES.land.src, span: 2 },
 ];
 
 export default function Home() {
@@ -29,19 +29,19 @@ export default function Home() {
       {/* 1 HERO */}
       <section data-hero="1" style={{ position: 'relative', minHeight: '100vh', display: 'flex', overflow: 'hidden', background: '#0B1D3A', color: '#F7F3EC', padding: '110px 0 0' }}>
         <div data-parallax="1" style={{ position: 'absolute', inset: '-10% 0', willChange: 'transform' }}>
-          <div data-zoom="1" style={{ position: 'absolute', inset: 0, background: '#1C2F52' }}><HeroVideo alt="Aerial view of waterfront homes in South East Queensland" /></div>
+          <div data-zoom="1" style={{ position: 'absolute', inset: 0, background: '#1C2F52' }}><HeroVideo alt="Aerial view of waterfront homes" /></div>
         </div>
         <div className="ov-hero-video" />
         {/* copy is centred in the space above the service band, clear of the busy lower frame */}
         <div style={{ position: 'relative', width: '100%', display: 'grid', gridTemplateRows: '1fr auto', gap: 40 }}>
           <div data-pad="1" className="container" style={{ width: '100%', display: 'grid', alignItems: 'center', justifyItems: 'center', pointerEvents: 'none' }}>
             <div data-hero-content="1" style={{ maxWidth: 900, display: 'grid', gap: 24, justifyItems: 'center', textAlign: 'center', pointerEvents: 'auto' }}>
-              <div data-reveal="0" style={{ display: 'grid', justifyItems: 'center', gap: 18 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold" style={{ letterSpacing: '.2em' }}>Property Group · Brisbane &amp; Queensland</p></div>
+              <div data-reveal="0" style={{ display: 'grid', justifyItems: 'center', gap: 18 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold" style={{ letterSpacing: '.2em' }}>Property Group</p></div>
               <h1 data-hero-h="1" className="serif" style={{ fontSize: 68, lineHeight: 1.05, letterSpacing: '-.02em', textShadow: '0 2px 28px rgba(0,0,0,.45)' }}>
-                <span data-line="1" className="lines" style={{ paddingBottom: '.06em' }}><span>Your trusted partner in</span></span>
+                <span data-line="1" className="lines" style={{ paddingBottom: '.06em' }}><span>Independent advice for</span></span>
                 <span data-line="2" className="lines" style={{ paddingBottom: '.06em' }}><span>every property <em style={{ fontStyle: 'italic', color: '#C6A15B' }}>decision.</em></span></span>
               </h1>
-              <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 540, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>Helping buyers and investors navigate the property market with confidence.</p>
+              <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 540, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>Buyer representation, investment research and property advisory for clients who expect rigour, discretion and results.</p>
               <div data-hero-cta="1" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', marginTop: 10 }}>
                 <span data-reveal="5" style={{ display: 'grid' }}><Link href="/contact" className="btn btn-gold">Book a Consultation</Link></span>
                 <span data-reveal="7" style={{ display: 'grid' }}><a href="#services" className="btn btn-outline-light">Explore Services</a></span>
@@ -66,10 +66,10 @@ export default function Home() {
         <div data-pad="1" className="container" style={{ display: 'grid', gap: 56 }}>
           <div data-reveal="0" data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 48, alignItems: 'end' }}>
             <div style={{ display: 'grid', gap: 14 }}>
-              <p className="eyebrow eyebrow-tan">Trusted across South East Queensland</p>
-              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Fourteen years of results, one recommendation at a time.</span></span></h2>
+              <p className="eyebrow eyebrow-tan">Our track record</p>
+              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Fourteen years of results, built on independent advice.</span></span></h2>
             </div>
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: '#4A4C55', maxWidth: 440, justifySelf: 'end' }}>Licensed, independent and accountable to one party only: the client in front of us. The numbers below are drawn from settled transactions and from public Google reviews.</p>
+            <p style={{ fontSize: 16, lineHeight: 1.65, color: '#4A4C55', maxWidth: 440, justifySelf: 'end' }}>Licensed, independent and accountable to one party only: our client. The figures below are drawn from settled transactions and publicly available Google reviews.</p>
           </div>
           <div data-seq="1" data-g4="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 0, borderTop: '1px solid #E6E0D4', borderRight: '1px solid #E6E0D4' }}>
             {STATS.map((s, i) => (
@@ -89,9 +89,9 @@ export default function Home() {
           <div data-reveal="0" className="head-row">
             <div style={{ display: 'grid', gap: 14, maxWidth: 620 }}>
               <p className="eyebrow eyebrow-tan">What we do</p>
-              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Five services. One team in your corner.</span></span></h2>
+              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Five services. One independent team.</span></span></h2>
             </div>
-            <p className="lead" style={{ maxWidth: 380 }}>From your first home to your next investment, the same independent advice applies to every service.</p>
+            <p className="lead" style={{ maxWidth: 380 }}>From a first home to a growing portfolio, every engagement is guided by the same independent, evidence-led advice.</p>
           </div>
           <div data-seq="1" data-scroll-row="1" data-svc-grid="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 16 }}>
             {SERVICE_CARDS.map((c, i) => (
@@ -114,7 +114,7 @@ export default function Home() {
       <PinnedSteps
         eyebrow="The buyer journey"
         title="From first conversation to keys in hand."
-        blurb="Five calm steps. Scroll to follow the journey; you make one decision, with all the evidence in front of you."
+        blurb="Five structured stages, each concluding with a clear recommendation and the evidence behind it."
         steps={JOURNEY}
        
         footer={<Link href="/buyers" className="link-u light">How buyer agency works →</Link>}
@@ -126,7 +126,7 @@ export default function Home() {
           <div data-reveal="0" className="head-row">
             <div style={{ display: 'grid', gap: 14 }}>
               <p className="eyebrow eyebrow-tan">Featured properties</p>
-              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Recently listed and secured.</span></span></h2>
+              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Recently secured for our clients.</span></span></h2>
             </div>
             <Link href="/buyers" className="link-u">View all properties →</Link>
           </div>
@@ -161,7 +161,7 @@ export default function Home() {
           <div style={{ display: 'grid', gap: 28 }}>
             <div data-reveal="0" style={{ display: 'grid', gap: 14 }}>
               <p className="eyebrow eyebrow-tan">Why PRIMEO</p>
-              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Advice you can act on, from people who work every side of the deal.</span></span></h2>
+              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Advice you can act on, informed by every side of the transaction.</span></span></h2>
             </div>
             <div style={{ display: 'grid' }}>
               {TRUST.map((t, i) => (
@@ -182,7 +182,7 @@ export default function Home() {
           <div data-reveal="0" className="head-row">
             <div style={{ display: 'grid', gap: 14 }}>
               <p className="eyebrow eyebrow-tan">Market insights</p>
-              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>What we&apos;re watching in Brisbane.</span></span></h2>
+              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>What we&apos;re watching in the market.</span></span></h2>
             </div>
             <a href="#" className="link-u">All insights →</a>
           </div>
