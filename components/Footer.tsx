@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import { SERVICE_ITEMS, CONTACT } from '@/lib/data';
 import { LogoMark } from '@/components/Logo';
-import RatingBadge from '@/components/RatingBadge';
 
-const COMPANY = [{ label: 'About', href: '/about' }, { label: 'Client reviews', href: '/reviews' }, { label: 'Market insights', href: '#' }, { label: 'Careers', href: '#' }, { label: 'Contact', href: '/contact' }];
+const COMPANY = [{ label: 'About', href: '/about' }, { label: 'Market insights', href: '#' }, { label: 'Careers', href: '#' }, { label: 'Contact', href: '/contact' }];
 
 const SOCIAL = [
   { label: 'Instagram', d: <><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" /></> },
@@ -32,7 +31,6 @@ export default function Footer() {
               </span>
             </Link>
             <p data-reveal="1" style={{ fontSize: 15, lineHeight: 1.65, color: 'rgba(247,243,236,.65)', maxWidth: 360 }}>Independent buyer agency, property investment, off-market sourcing and property advisory across Brisbane and South East Queensland.</p>
-            <div data-reveal="2"><RatingBadge tone="dark" size="sm" to="google" /></div>
             <div style={{ display: 'flex', gap: 10 }}>
               {SOCIAL.map((s, i) => (
                 <a key={s.label} href="#" aria-label={s.label} className="social" data-reveal={i + 2}>

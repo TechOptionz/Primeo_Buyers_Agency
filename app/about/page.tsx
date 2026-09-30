@@ -2,7 +2,6 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import PageHero from '@/components/PageHero';
 import FactBand from '@/components/FactBand';
-import ReviewStrip from '@/components/ReviewStrip';
 import { Slot } from '@/components/Slot';
 import { ABOUT as P, IMAGES } from '@/lib/data';
 
@@ -140,10 +139,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* 5 GOOGLE REVIEWS: three of the 107, with the rating summary and a link to all of them */}
-      <ReviewStrip ids={['harpreet', 'kejin-shahi', 'rohit-kamboj']} title="What clients say about working with Prim." text="Written on Google by clients Prim and the team have helped. Every review, including the one four-star, is on the reviews page." />
-
-      {/* 6 VALUES: four cards with line icons */}
+      {/* 5 VALUES: four cards with line icons */}
       <section data-sec="1" className="sec" style={{ background: '#0B1D3A', color: '#F7F3EC' }}>
         <div data-pad="1" className="container" style={{ display: 'grid', gap: 56 }}>
           <div data-reveal="0" style={{ display: 'grid', gap: 14, maxWidth: 640 }}>
@@ -163,7 +159,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* 7 A NOTE FROM PRIM: first-person close and the booking button (the site-wide enquiry form follows via app/template.tsx) */}
+      {/* 6 A NOTE FROM PRIM: first-person close and the booking button (the site-wide enquiry form follows via app/template.tsx) */}
       <section data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 72, alignItems: 'end' }}>
           <div style={{ display: 'grid', gap: 28 }}>

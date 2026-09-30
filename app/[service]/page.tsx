@@ -5,13 +5,7 @@ import PageHero from '@/components/PageHero';
 import PinnedSteps from '@/components/PinnedSteps';
 import FactBand from '@/components/FactBand';
 import { ImageSlot } from '@/components/ImageSlot';
-import ReviewStrip from '@/components/ReviewStrip';
-import Stars from '@/components/Stars';
-import GoogleMark from '@/components/GoogleMark';
-import RatingBadge from '@/components/RatingBadge';
-import Avatar from '@/components/Avatar';
 import { SERVICES } from '@/lib/data';
-import { byId, monthYear, GOOGLE } from '@/lib/reviews';
 
 type Params = { params: Promise<{ service: string }> };
 
@@ -27,7 +21,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function ServicePage({ params }: Params) {
   const svc = SERVICES[(await params).service];
   if (!svc) notFound();
-  const story = byId(svc.quote.reviewId)!;
 
   return (
     <>
@@ -111,27 +104,6 @@ export default async function ServicePage({ params }: Params) {
           </div>
         </section>
       )}
-
-      {/* editorial quote band: a Google review beside a photo */}
-      <section data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4' }}>
-        <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 72, alignItems: 'center' }}>
-          <div data-reveal="0" style={{ display: 'grid', gap: 24 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}><Stars n={story.rating} size={16} label={`${story.rating} out of 5 stars`} /><span className="rev-date">{monthYear(story.date)}</span></div>
-            <p className="serif" style={{ fontSize: 30, lineHeight: 1.32, textWrap: 'pretty' }}>“{story.quote ?? story.text}”</p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <Avatar review={story} />
-              <div style={{ display: 'grid', gap: 3 }}><span style={{ fontWeight: 600, fontSize: 15 }}>{story.name}</span><span className="rev-src"><GoogleMark size={12} /> Google review</span></div>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap', paddingTop: 22, borderTop: '1px solid #E6E0D4' }}>
-              <RatingBadge to="google" size="md" />
-              <Link href="/reviews" className="link-u">Read all {GOOGLE.count} reviews →</Link>
-            </div>
-          </div>
-          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={svc.quote.src} alt="Clients at their new home handover" placeholder={svc.quote.ph} sizes="(max-width: 1000px) 100vw, 45vw" /></div>
-        </div>
-      </section>
-
-      {svc.reviewStrip && <ReviewStrip ids={svc.reviewStrip.ids} title={svc.reviewStrip.title} text={svc.reviewStrip.text} background="#F7F3EC" />}
     </>
   );
 }

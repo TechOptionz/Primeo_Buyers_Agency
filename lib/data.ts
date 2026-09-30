@@ -21,10 +21,6 @@ export type Service = {
   cardsTitle?: string;
   cards: ServiceCard[];
   columns: Column[];
-  // The editorial quote band: a Google review (its id in lib/reviews.ts) beside a photo.
-  quote: { reviewId: string; ph: string; src?: string };
-  // Optional band of three more Google reviews before the closing call to action.
-  reviewStrip?: { title: string; text?: string; ids: string[] };
   ctaButton: string;
 };
 
@@ -34,7 +30,6 @@ export const NAV: NavItem[] = [
   { key: 'buyers', label: 'Buyer Agency', full: 'Buyer Agency', href: '/buyers' },
   { key: 'land', label: 'House & Land', full: 'House & Land', href: '/land' },
   { key: 'about', label: 'About', full: 'About', href: '/about' },
-  { key: 'reviews', label: 'Reviews', full: 'Client reviews', href: '/reviews' },
 ];
 // The services alone: the homepage hero band and the footer's Services column list these.
 export const SERVICE_ITEMS = NAV.filter((i) => i.key === 'buyers' || i.key === 'land');
@@ -43,14 +38,11 @@ export const SERVICE_ITEMS = NAV.filter((i) => i.key === 'buyers' || i.key === '
 export const IMAGES = {
   hero: '/images/hero_brisbane_luxury.jpg',
   why: '/images/why_primeo_review.jpg',
-  clients: '/images/testimonial_verandah.jpg',
   cta: '/images/cta_front_gate.jpg',
   aboutHero: '/images/hero_brisbane_luxury.jpg',
   contactHero: '/images/contact_hero.jpg',
   contactMap: '/images/contact_office_exterior.jpg',
   contactOffice: '/images/contact_lounge.jpg',
-  reviewsHero: '/images/reviews_hero.jpg',
-  reviewsStory: '/images/reviews_story.jpg',
 };
 
 export const CONTACT = {
@@ -61,8 +53,6 @@ export const CONTACT = {
   address2: 'Brisbane QLD 4000',
   hours: 'Mon–Fri 8am–6pm · Sat 9am–2pm',
 };
-
-// Client reviews live in lib/reviews.ts (real Google reviews); the homepage carousel reads FEATURED from there.
 
 export const ARTICLES = [
   { id: 'one', cat: 'Market update', date: 'Sep 2026', title: 'Brisbane spring market: what buyers should expect', excerpt: 'Stock levels, clearance rates and where the competition is heading this quarter.', placeholder: 'Photo: Brisbane skyline from Kangaroo Point', src: '/images/insight_skyline.jpg', href: '/buyers#advisory' },
@@ -218,8 +208,6 @@ export const SERVICES: Record<string, Service> = {
     ], ['Photo: Riverbend display home', 'Photo: Ridgeview streetscape', 'Photo: Parkline townhomes'],
     ['/images/land_card_riverbend.jpg', '/images/land_card_ridgeview.jpg', '/images/land_card_parkline.jpg']),
     columns: [],
-    quote: { reviewId: 'matty-john', ph: 'Photo: couple at new home handover', src: '/images/land_quote.jpg' },
-    reviewStrip: { title: 'What land and construction clients say.', text: 'Three of the 107 Google reviews, from clients who bought land, built, or refinanced a build.', ids: ['neharika-basnet', 'chanel-schmidt', 'natalie-hurd'] },
     ctaButton: 'Register interest',
   },
 };
@@ -234,7 +222,6 @@ export const CTA_DEFAULT = {
 export const CTA_COPY: Record<string, Partial<typeof CTA_DEFAULT>> = {
   '/buyers': { title: 'Ready to have someone in your corner?', text: 'Leave your details and a PRIMEO buyer’s agent will call you within one business day to set up a free 30-minute strategy session.', button: 'Book a strategy call' },
   '/about': { title: 'Talk to Prim about your next move.', text: 'Leave your details and Prim will be in touch to talk through your situation and what a lender will want to see.', button: 'Book a conversation' },
-  '/reviews': { title: 'Join more than a hundred five-star clients.', text: 'Leave your details and we will call you within one business day to set up a free 30-minute strategy session.', button: 'Book a strategy call' },
 };
 
 // ---------- Buyer Agency (/buyers) ----------
@@ -361,6 +348,4 @@ export const BUYERS = {
       { q: 'I am a first-home buyer and do not know where to start.', a: 'Start with a conversation. We explain the process in plain language, what your budget really buys in the suburbs you like, the grants and concessions to raise with your broker, and the traps that catch first-timers: emotional bidding, skipped inspections and overpaying for a renovation.' },
     ] as FaqItem[],
   },
-  // Closing client story: a Google review (its id in lib/reviews.ts) beside the BUYERS_QUOTE photo.
-  quote: { reviewId: 'king-cabamongan', slot: 'BUYERS_QUOTE' },
 };
