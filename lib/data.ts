@@ -88,19 +88,19 @@ const COMPANY = 'Aussie Financial Hub';
 
 export type Factor = { n: string; title: string; text: string };
 export type Milestone = { year: string; mark: string; title: string; text: string };
-export type Help = { kind: string; title: string; text: string; href: string; cta: string };
+export type Help = { icon: string; kind: string; title: string; text: string; href: string; cta: string };
 
 export const ABOUT = {
   company: COMPANY,
   name: 'Prim Ahuja',
   role: 'Accredited Mortgage Broker | Certified Practising Accountant (CPA)',
   seo: `Meet Prim Ahuja, Accredited Mortgage Broker and Certified Practising Accountant (CPA) at ${COMPANY}: more than ten years in finance, accounting and compliance, applied to every home loan application.`,
-  hero: 'An accountant’s precision. A broker’s dedication.',
-  lead: 'Prim Ahuja is an Accredited Mortgage Broker and Certified Practising Accountant with more than twenty years of professional experience, including over a decade in finance, accounting and compliance. He gets the numbers right before an application is lodged, and explains every step in plain language.',
+  hero: 'An accountant’s precision, working for you.',
+  lead: 'Prim Ahuja is a Certified Practising Accountant and accredited mortgage broker with more than twenty years of professional experience.',
   // "20+ years" is the overall career figure supplied by the client (the CV documents 2012 onward in Australia
   // and earlier private-sector experience in its profile); the stats strip keeps the CV's own "10+ years in
   // finance, accounting and compliance".
-  facts: [{ v: 'Prim Ahuja', l: `Accredited Mortgage Broker · ${COMPANY}` }, { v: '20+ years', l: 'Professional experience' }, { v: 'CPA', l: 'Certified Practising Accountant · CPA Australia' }, { v: 'Cert IV', l: 'Finance and Mortgage Broking · 2020' }],
+  facts: [{ v: '20+ years', l: 'Professional experience' }, { v: 'CPA', l: 'Certified Practising Accountant' }, { v: 'Cert IV', l: 'Finance and Mortgage Broking' }],
   intro: {
     eyebrow: 'About Prim',
     title: 'A career built on numbers, compliance and people.',
@@ -109,8 +109,8 @@ export const ABOUT = {
     glance: [
       { label: 'Role', value: 'Accredited Mortgage Broker', sub: `${COMPANY} · since 2020` },
       { label: 'CPA', value: 'Certified Practising Accountant', sub: 'CPA Australia · since 2015' },
+      { label: 'Education', value: 'Master of Professional Accounting', sub: 'Central Queensland University' },
       { label: 'Languages', value: 'English, Hindi and Punjabi', sub: 'Multilingual client support' },
-      { label: 'Based in', value: 'Brisbane, Queensland' },
     ] as { label: string; value: string; sub?: string }[],
   },
   journey: {
@@ -141,29 +141,18 @@ export const ABOUT = {
       { v: 3, label: 'Languages spoken', sub: 'English, Hindi and Punjabi' },
     ] as { v: number; pre?: string; suf?: string; label: string; sub: string }[],
   },
-  // How Prim helps PRIMEO clients: each card links to the matching chapter on the service pages.
+  // One section for what Prim does for PRIMEO clients and the standard he works to (formerly two: help cards and value cards).
+  // `icon` keys into ICONS in app/about/page.tsx; each card links to the matching part of the service pages.
   helps: {
-    eyebrow: 'How Prim helps',
-    title: 'What Prim does for PRIMEO clients.',
-    text: 'Prim puts his accounting, compliance and broking background to work at every stage of a purchase, from the first budget conversation to the keys in hand.',
+    eyebrow: 'Working with Prim',
+    title: 'How Prim helps, and the standard he works to.',
+    text: 'Four things every PRIMEO client gets from Prim, whether they are buying a first home, an investment or a house and land package.',
     items: [
-      { kind: 'Before the search', title: 'A budget that will hold up', text: 'Prim works out what is realistically affordable, lines up finance and pre-approval, and turns it into a clear brief before a single inspection is booked.', href: '/buyers#agency', cta: 'Buyer agency' },
-      { kind: 'Home buyers', title: 'Search, assess and negotiate on your side', text: 'On-market and off-market search, an independent opinion of value before any offer, and negotiation or auction bidding with a walk-away number agreed in advance.', href: '/buyers#agency', cta: 'Buyer agency' },
-      { kind: 'Investors', title: 'Research first, then the property', text: 'Suburb and growth-corridor research, rental range and holding costs, all checked against comparable sales so the decision is made on evidence rather than emotion.', href: '/buyers#investing', cta: 'Property investment' },
-      { kind: 'Off-market access', title: 'Homes that never reach the portals', text: 'Agent and local networks, direct approaches to owners and early inspections, with the same due diligence whichever door a property came through.', href: '/buyers#off-market', cta: 'Off-market access' },
-      { kind: 'House & land', title: 'Estates and builders independently assessed', text: 'Infrastructure, land supply and builder track record reviewed before a package is recommended, with fixed-price contracts and inclusions checked line by line.', href: '/land', cta: 'House & land' },
-      { kind: 'Self-employed and business owners', title: 'Finances presented the way a lender wants to see them', text: 'A CPA who has run a business himself, Prim knows how to read income, tax and financial documents and present them clearly so an application is right the first time.', href: '/contact', cta: 'Book a conversation' },
+      { icon: 'shield', kind: 'Before the search', title: 'Straight answers on budget and finance', text: 'Prim works out what is realistically affordable, lines up pre-approval and says plainly what is achievable, what it costs and how long it takes.', href: '/contact', cta: 'Book a conversation' },
+      { icon: 'target', kind: 'Buying a home', title: 'Search, assess and negotiate on your side', text: 'On-market and off-market search, an independent opinion of value before any offer, and negotiation or bidding with a walk-away number agreed in advance.', href: '/buyers#agency', cta: 'Buyer agency' },
+      { icon: 'home', kind: 'Investing and house & land', title: 'Research first, then the property', text: 'Suburbs, estates and builders are assessed on evidence: comparable sales, rental range, land supply and track record. Every figure is checked twice.', href: '/buyers#investing', cta: 'Property investment' },
+      { icon: 'heart', kind: 'From offer to keys', title: 'Clear, reachable and in your language', text: 'Prompt replies and plain language from the first question to settlement, with support in English, Hindi and Punjabi.', href: '/buyers#how-it-works', cta: 'How it works' },
     ] as Help[],
-  },
-  values: {
-    eyebrow: 'How Prim works',
-    title: 'Four commitments behind every application.',
-    items: [
-      { icon: 'shield', title: 'Integrity & transparency', text: 'Straight answers about what is achievable, what it costs and how long it takes, including when the answer is not the one a client hoped for.' },
-      { icon: 'target', title: 'Accuracy in every detail', text: 'An auditor’s habit of checking twice. Every figure and document is verified before it reaches a lender.' },
-      { icon: 'heart', title: 'Genuine client care', text: 'Prompt replies, plain language and a broker who stays reachable from the first question to the final signature.' },
-      { icon: 'globe', title: 'Serving a diverse community', text: 'Support in English, Hindi and Punjabi, so clients can work through a major financial decision in the language they are most comfortable with.' },
-    ],
   },
   closing: {
     eyebrow: 'A note from Prim',

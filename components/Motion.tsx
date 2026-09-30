@@ -7,7 +7,8 @@ import { intro } from '@/lib/intro';
  * Scroll-driven motion, ported from the design file. Elements opt in via data attributes:
  *  data-reveal / data-line / data-rule / data-mask  – reveal on enter
  *  data-seq                                        – stagger children on scroll
- *  data-count (+ data-prefix/-suffix)              – count-up numbers
+ *  data-count (+ data-prefix/-suffix)              – count-up numbers: start once the figure is on screen
+ *                                                    and faded in, replay each time it scrolls back into view
  *  data-card (+ data-card-img / data-card-overlay) – hover zoom + overlay
  *  data-pin (+ data-pin-img / data-pin-item / -bar) – pinned scroll story
  *  data-parallax / data-zoom / data-hero-content    – hero motion
@@ -20,19 +21,40 @@ export default function Motion() {
     const ease = 'cubic-bezier(.16,1,.3,1)';
     const $$ = <T extends HTMLElement = HTMLElement>(s: string) => Array.from(document.querySelectorAll<T>(s));
     let io: IntersectionObserver | null = null;
+    let cio: IntersectionObserver | null = null;
+    let dead = false;
+    const timers: ReturnType<typeof setTimeout>[] = [];
 
-    const count = (el: HTMLElement, instant?: boolean) => {
-      if (el.getAttribute('data-done')) return;
-      el.setAttribute('data-done', '1');
-      const target = +(el.getAttribute('data-count') || 0);
+    const fmtOf = (el: HTMLElement) => {
       const pre = el.getAttribute('data-prefix') || '', suf = el.getAttribute('data-suffix') || '';
-      const fmt = (v: number) => pre + Math.round(v).toLocaleString() + suf;
+      return (v: number) => pre + Math.round(v).toLocaleString() + suf;
+    };
+    // Figures usually sit inside a reveal wrapper that starts at opacity 0, so a count that begins on
+    // intersection is mostly spent while the number is still invisible. The count therefore holds at
+    // zero until the figure has actually faded in, then runs long enough to be read.
+    const shown = (el: HTMLElement) => {
+      let o = 1;
+      for (let n: HTMLElement | null = el; n && n !== document.body; n = n.parentElement) o *= +getComputedStyle(n).opacity;
+      return o;
+    };
+    const count = (el: HTMLElement, instant?: boolean) => {
+      const target = +(el.getAttribute('data-count') || 0);
+      const fmt = fmtOf(el);
       if (instant) { el.textContent = fmt(target); return; }
-      const t0 = performance.now(), dur = 1400;
+      if (el.getAttribute('data-run')) return;
+      el.setAttribute('data-run', '1');
+      el.textContent = fmt(0);
+      const born = performance.now(), dur = 2400;
+      let t0 = 0;
       const tick = (t: number) => {
-        const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 4);
+        if (dead) return;
+        if (!t0) {
+          if (shown(el) < 0.75 && t - born < 4000) { requestAnimationFrame(tick); return; }
+          t0 = t;
+        }
+        const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
         el.textContent = fmt(target * e);
-        if (p < 1) requestAnimationFrame(tick);
+        if (p < 1) requestAnimationFrame(tick); else el.removeAttribute('data-run');
       };
       requestAnimationFrame(tick);
     };
@@ -94,10 +116,23 @@ export default function Motion() {
         else if (el.hasAttribute('data-mask')) { if (inner) { inner.style.clipPath = 'inset(0 0 0 0)'; inner.style.transform = 'scale(1)'; } }
         else if (el.hasAttribute('data-rule')) { el.style.transform = 'scaleX(1)'; }
         else { el.style.opacity = '1'; el.style.transform = 'none'; }
-        if (el.hasAttribute('data-count')) count(el);
         io?.unobserve(el);
       }), { threshold: 0 });
       const obs = io;
+      // Counters: start when most of the figure is on screen; once it has left the viewport entirely it
+      // is reset to zero, so it counts again on the way back. Hero figures sit above the fold, so their
+      // first run also waits for the intro cover to lift.
+      cio = new IntersectionObserver((es) => es.forEach((e) => {
+        const el = e.target as HTMLElement;
+        if (!e.isIntersecting) { if (!el.getAttribute('data-run')) { el.removeAttribute('data-seen'); el.textContent = fmtOf(el)(0); } return; }
+        if (e.intersectionRatio < 0.6 || el.getAttribute('data-seen')) return;
+        el.setAttribute('data-seen', '1');
+        const first = !el.getAttribute('data-done');
+        el.setAttribute('data-done', '1');
+        if (first && el.closest('[data-hero]')) timers.push(setTimeout(() => count(el), (delay0 + 0.5) * 1000));
+        else count(el);
+      }), { threshold: [0, 0.6] });
+      const cobs = cio;
       const q = (s: string) => $$(s + ':not([data-r])');
       const mark = (el: HTMLElement) => el.setAttribute('data-r', '1');
       const inHero = (el: HTMLElement) => !!el.closest('[data-hero]');
@@ -121,7 +156,9 @@ export default function Motion() {
       } else {
         q('[data-reveal],[data-mask],[data-line],[data-rule]').forEach(mark);
       }
-      q('[data-count]').forEach((el) => { mark(el); if (anim) obs.observe(el); else count(el, true); });
+      // Counters keep their own marker, so a figure that is also a reveal target is still picked up.
+      // The markup carries the final value; start from zero only when the count-up will actually run.
+      $$('[data-count]:not([data-c])').forEach((el) => { el.setAttribute('data-c', '1'); if (anim) { el.textContent = fmtOf(el)(0); cobs.observe(el); } else count(el, true); });
       // Class-driven reveals: adds `.in` once the element enters the viewport (CSS does the rest).
       q('[data-inview]').forEach((el) => { mark(el); if (anim) obs.observe(el); else el.classList.add('in'); });
       q('[data-track]').forEach((el) => { mark(el); if (!anim) { el.style.setProperty('--p', '1'); el.querySelectorAll('[data-node]').forEach((n) => n.classList.add('lit')); } });
@@ -145,6 +182,9 @@ export default function Motion() {
     onScroll();
     return () => {
       clearTimeout(t);
+      dead = true;
+      timers.forEach(clearTimeout);
+      cio?.disconnect();
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       io?.disconnect();

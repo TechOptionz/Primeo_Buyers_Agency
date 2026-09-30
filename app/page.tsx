@@ -1,15 +1,25 @@
 import Link from 'next/link';
+import CountUp from '@/components/CountUp';
 import HeroVideo from '@/components/HeroVideo';
 import { ImageSlot } from '@/components/ImageSlot';
 import PinnedSteps from '@/components/PinnedSteps';
-import { SERVICE_ITEMS, SERVICES, PROPERTIES, JOURNEY, TRUST, ARTICLES, IMAGES } from '@/lib/data';
+import { SERVICES, PROPERTIES, JOURNEY, TRUST, ARTICLES, IMAGES } from '@/lib/data';
 import { SLOTS } from '@/lib/slots';
 
+// Headline figures for the hero band. Each counts up once the intro cover lifts; `em` is the gold
+// suffix, kept outside the counter so it holds its colour.
+const HERO_FACTS = [
+  { v: '$200M', em: '+', l: 'Property secured' },
+  { v: '350', em: '+', l: 'Purchases completed' },
+  { v: '14', em: ' yrs', l: 'In the market' },
+  { v: '100', em: '%', l: 'Independent' },
+];
+
 const STATS = [
-  { v: 350, suf: '+', label: 'Properties secured', sub: 'For buyers and investors, on and off market' },
-  { v: 100, suf: '%', label: 'Independent', sub: 'Buyer-side only, never paid by a vendor' },
-  { v: 60, suf: '+', label: 'Suburbs served', sub: 'Established suburbs and emerging growth corridors' },
-  { v: 100, suf: '+', label: 'Five-star Google reviews', sub: '5.0 average rating from 107 reviews' },
+  { v: 350, suf: '+', label: 'Purchases completed', sub: 'For home buyers and investors, on and off market' },
+  { v: 1, suf: ' in 3', label: 'Secured off-market', sub: 'Never advertised on a public portal' },
+  { v: 14, suf: '', label: 'Years in the market', sub: 'Acting for buyers since 2012' },
+  { v: 100, suf: '%', label: 'Independent', sub: 'Engaged by the buyer, never paid by a vendor' },
 ];
 
 // Investment, off-market and advisory are chapters of the Buyer Agency page, so their cards deep-link to
@@ -32,16 +42,16 @@ export default function Home() {
           <div data-zoom="1" style={{ position: 'absolute', inset: 0, background: '#1C2F52' }}><HeroVideo alt="Aerial view of waterfront homes" /></div>
         </div>
         <div className="ov-hero-video" />
-        {/* copy is centred in the space above the service band, clear of the busy lower frame */}
+        {/* copy is centred in the space above the facts band, clear of the busy lower frame */}
         <div style={{ position: 'relative', width: '100%', display: 'grid', gridTemplateRows: '1fr auto', gap: 40 }}>
           <div data-pad="1" className="container" style={{ width: '100%', display: 'grid', alignItems: 'center', justifyItems: 'center', pointerEvents: 'none' }}>
-            <div data-hero-content="1" style={{ maxWidth: 900, display: 'grid', gap: 24, justifyItems: 'center', textAlign: 'center', pointerEvents: 'auto' }}>
+            <div data-hero-content="1" style={{ maxWidth: 960, display: 'grid', gap: 26, justifyItems: 'center', textAlign: 'center', pointerEvents: 'auto' }}>
               <div data-reveal="0" style={{ display: 'grid', justifyItems: 'center', gap: 18 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold" style={{ letterSpacing: '.2em' }}>Property Group</p></div>
-              <h1 data-hero-h="1" className="serif" style={{ fontSize: 68, lineHeight: 1.05, letterSpacing: '-.02em', textShadow: '0 2px 28px rgba(0,0,0,.45)' }}>
-                <span data-line="1" className="lines" style={{ paddingBottom: '.06em' }}><span>Independent advice for</span></span>
-                <span data-line="2" className="lines" style={{ paddingBottom: '.06em' }}><span>every property <em style={{ fontStyle: 'italic', color: '#C6A15B' }}>decision.</em></span></span>
+              <h1 data-hero-h="1" className="serif" style={{ fontSize: 72, lineHeight: 1.04, letterSpacing: '-.02em', textShadow: '0 2px 28px rgba(0,0,0,.45)' }}>
+                <span data-line="1" className="lines" style={{ paddingBottom: '.06em' }}><span>Independent advice</span></span>
+                <span data-line="2" className="lines" style={{ paddingBottom: '.06em' }}><span>for every property <em style={{ fontStyle: 'italic', color: '#C6A15B' }}>decision.</em></span></span>
               </h1>
-              <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 540, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>Buyer representation, investment research and property advisory for clients who expect rigour, discretion and results.</p>
+              <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 580, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>Over $200 million in property secured for buyers and investors. Representation, research and advisory for clients who expect rigour, discretion and results.</p>
               <div data-hero-cta="1" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', marginTop: 10 }}>
                 <span data-reveal="5" style={{ display: 'grid' }}><Link href="/contact" className="btn btn-gold">Book a Consultation</Link></span>
                 <span data-reveal="7" style={{ display: 'grid' }}><a href="#services" className="btn btn-outline-light">Explore Services</a></span>
@@ -49,41 +59,19 @@ export default function Home() {
             </div>
           </div>
           <div data-reveal="5" data-desk-block="1" className="hero-band">
-            <div data-pad="1" data-scroll-row="1" className="container" style={{ display: 'grid', gridTemplateColumns: `repeat(${SERVICE_ITEMS.length},1fr)` }}>
-              {SERVICE_ITEMS.map((s, i) => (
-                <Link key={s.key} href={s.href} className="hero-band-link">
-                  <span className="eyebrow eyebrow-gold eyebrow-sm">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="serif" style={{ fontSize: 19 }}>{s.full}</span>
-                </Link>
+            <div data-pad="1" className="container" style={{ display: 'grid', gridTemplateColumns: `repeat(${HERO_FACTS.length},1fr)` }}>
+              {HERO_FACTS.map((f) => (
+                <div key={f.l} className="hero-fact">
+                  <b><CountUp value={f.v} /><em>{f.em}</em></b>
+                  <span>{f.l}</span>
+                </div>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2 TRUST & STATS */}
-      <section data-sec="1" className="sec" style={{ background: '#F7F3EC', borderBottom: '1px solid #E6E0D4' }}>
-        <div data-pad="1" className="container" style={{ display: 'grid', gap: 56 }}>
-          <div data-reveal="0" data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 48, alignItems: 'end' }}>
-            <div style={{ display: 'grid', gap: 14 }}>
-              <p className="eyebrow eyebrow-tan">Our track record</p>
-              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Fourteen years of results, built on independent advice.</span></span></h2>
-            </div>
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: '#4A4C55', maxWidth: 440, justifySelf: 'end' }}>Licensed, independent and accountable to one party only: our client. The figures below are drawn from settled transactions and publicly available Google reviews.</p>
-          </div>
-          <div data-seq="1" data-g4="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 0, borderTop: '1px solid #E6E0D4', borderRight: '1px solid #E6E0D4' }}>
-            {STATS.map((s, i) => (
-              <div key={s.label} data-reveal={i} style={{ display: 'grid', gap: 14, padding: '32px 28px 28px', borderLeft: '1px solid #E6E0D4', position: 'relative' }}>
-                <span style={{ position: 'absolute', top: -1, left: -1, width: 56, height: 2, background: '#C6A15B' }} />
-                <span data-count={s.v} data-suffix={s.suf} className="serif" style={{ fontSize: 64, lineHeight: 0.95, color: '#0B1D3A', letterSpacing: '-.02em' }}>0</span>
-                <div style={{ display: 'grid', gap: 4 }}><span style={{ fontSize: 15, fontWeight: 600, color: '#0B1D3A' }}>{s.label}</span><span style={{ fontSize: 13, lineHeight: 1.5, color: '#4A4C55' }}>{s.sub}</span></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3 SERVICES SHOWCASE */}
+      {/* 2 SERVICES SHOWCASE */}
       <section id="services" data-sec="1" className="sec" style={{ background: '#F7F3EC', scrollMarginTop: 72 }}>
         <div data-pad="1" className="container" style={{ display: 'grid', gap: 44 }}>
           <div data-reveal="0" className="head-row">
@@ -110,13 +98,35 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 3 SIGNATURE FIGURE: navy, like the buyer journey that follows, so a hairline closes the section */}
+      <section data-sec="1" className="sec" style={{ position: 'relative', overflow: 'hidden', background: '#0B1D3A', color: '#F7F3EC', borderTop: '1px solid rgba(198,161,91,.35)', borderBottom: '1px solid rgba(247,243,236,.14)' }}>
+        <span className="figure-watermark" aria-hidden="true">PRIMEO</span>
+        <div data-pad="1" data-g2="1" className="container" style={{ position: 'relative', display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 72, alignItems: 'center' }}>
+          <div style={{ display: 'grid', gap: 26, minWidth: 0 }}>
+            <div data-reveal="0" style={{ display: 'flex', alignItems: 'center', gap: 16 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold">Our track record since 2012</p></div>
+            {/* the count-up sits inside the reveal wrapper: Motion skips [data-count] on elements it has already marked for reveal */}
+            <div data-reveal="1"><span data-count="200" data-prefix="$" data-suffix="M+" className="serif big-figure">$200M+</span></div>
+            <h2 data-reveal="2" data-h2="1" className="h2" style={{ maxWidth: 560 }}><span data-line="1" className="lines"><span>in property secured for buyers and investors.</span></span></h2>
+            <p data-reveal="3" style={{ fontSize: 17, lineHeight: 1.65, color: 'rgba(247,243,236,.75)', maxWidth: 520 }}>More than two hundred million dollars of residential property, purchased on and off market, with every acquisition negotiated on evidence rather than emotion. Licensed, independent and accountable to one party only: our client.</p>
+            <Link href="/about" data-reveal="4" className="link-u light">About PRIMEO →</Link>
+          </div>
+          <div data-seq="1" className="cells dark" style={{ gridTemplateColumns: '1fr 1fr' }}>
+            {STATS.map((s) => (
+              <div key={s.label} className="cell" style={{ gap: 14, padding: '34px 28px 30px' }}>
+                <span data-count={s.v} data-suffix={s.suf} className="serif" style={{ fontSize: 56, lineHeight: 0.95, color: '#F7F3EC', letterSpacing: '-.02em', fontVariantNumeric: 'tabular-nums' }}>{s.v}{s.suf}</span>
+                <div style={{ display: 'grid', gap: 4 }}><span style={{ fontSize: 15, fontWeight: 600, color: '#F7F3EC' }}>{s.label}</span><span style={{ fontSize: 13, lineHeight: 1.5, color: 'rgba(247,243,236,.6)' }}>{s.sub}</span></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 4 BUYER JOURNEY */}
       <PinnedSteps
         eyebrow="The buyer journey"
         title="From first conversation to keys in hand."
         blurb="Five structured stages, each concluding with a clear recommendation and the evidence behind it."
         steps={JOURNEY}
-       
         footer={<Link href="/buyers" className="link-u light">How buyer agency works →</Link>}
       />
 
@@ -157,7 +167,13 @@ export default function Home() {
       {/* 6 WHY PRIMEO */}
       <section data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4', borderBottom: '1px solid #E6E0D4' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 72, alignItems: 'center' }}>
-          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={IMAGES.why} alt="Consultant and clients reviewing a property report" placeholder="Photo: consultant and clients reviewing a property report" sizes="(max-width: 1000px) 100vw, 50vw" /></div>
+          <div style={{ position: 'relative' }}>
+            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={IMAGES.why} alt="Consultant and clients reviewing a property report" placeholder="Photo: consultant and clients reviewing a property report" sizes="(max-width: 1000px) 100vw, 50vw" /></div>
+            <div data-reveal="2" className="why-badge">
+              <span className="serif"><CountUp value="$200M" /><em>+</em></span>
+              <span>Secured for clients</span>
+            </div>
+          </div>
           <div style={{ display: 'grid', gap: 28 }}>
             <div data-reveal="0" style={{ display: 'grid', gap: 14 }}>
               <p className="eyebrow eyebrow-tan">Why PRIMEO</p>

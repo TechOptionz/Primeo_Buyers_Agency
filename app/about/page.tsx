@@ -7,12 +7,12 @@ import { ABOUT as P, IMAGES } from '@/lib/data';
 
 export const metadata: Metadata = { title: `About ${P.name}`, description: P.seo };
 
-// Value-card glyphs in the site's line-icon style (same stroke as the nav and footer icons), keyed by ABOUT.values[].icon.
+// Value-card glyphs in the site's line-icon style (same stroke as the nav and footer icons), keyed by ABOUT.helps.items[].icon.
 const ICONS: Record<string, React.ReactNode> = {
   shield: <><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" /><path d="m9 12 2 2 4-4" /></>,
   target: <><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3" /></>,
   heart: <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />,
-  globe: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18" /></>,
+  home: <><path d="M4 11 12 4l8 7v9H4z" /><path d="M10 20v-6h4v6" /></>,
 };
 
 export default function About() {
@@ -20,14 +20,20 @@ export default function About() {
     <>
       <PageHero eyebrow={`Meet ${P.name}`} title={P.hero} lead={P.lead} src={IMAGES.aboutHero} band={<FactBand facts={P.facts} />} />
 
-      {/* 1 INTRO: portrait beside who Prim is, with the at-a-glance rows */}
+      {/* 1 INTRO: framed portrait with a name plate beside who Prim is, with the at-a-glance rows */}
       <section data-sec="1" className="sec" style={{ background: '#fff' }}>
-        <div data-pad="1" data-g2="1" className="container founder" style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 80, alignItems: 'center' }}>
-          <div className="founder-frame">
-            <div data-mask="1" className="media founder-photo" style={{ aspectRatio: '3/4', borderRadius: 8, background: '#E6E0D4' }}>
-              <Slot id="PRIM_AHUJA_PORTRAIT" alt={`${P.name}, ${P.role}`} sizes="(max-width: 640px) 100vw, 460px" />
+        <div data-pad="1" data-g2="1" className="container founder" style={{ display: 'grid', gridTemplateColumns: '0.85fr 1.15fr', gap: 88, alignItems: 'center' }}>
+          <figure className="founder-frame">
+            <div className="founder-card">
+              <div data-mask="1" className="media founder-photo" style={{ aspectRatio: '3/4' }}>
+                <Slot id="PRIM_AHUJA_PORTRAIT" alt={`${P.name}, ${P.role}`} sizes="(max-width: 640px) 100vw, 420px" />
+              </div>
+              <figcaption className="founder-plate">
+                <span className="serif founder-name">{P.name}</span>
+                <span className="eyebrow eyebrow-gold" style={{ fontSize: 11 }}>{P.closing.signature}</span>
+              </figcaption>
             </div>
-          </div>
+          </figure>
           <div style={{ display: 'grid', gap: 28 }}>
             <div data-reveal="0" style={{ display: 'grid', gap: 14 }}>
               <p className="eyebrow eyebrow-tan">{P.intro.eyebrow}</p>
@@ -85,23 +91,27 @@ export default function About() {
         </div>
       </section>
 
-      {/* 3 HOW PRIM BRINGS IT ALL TOGETHER: sticky statement beside four numbered strengths, then the numbers */}
+      {/* 3 HOW PRIM BRINGS IT ALL TOGETHER: navy statement panel beside four numbered strengths, then the numbers */}
       <section data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4', borderBottom: '1px solid #E6E0D4' }}>
         <div data-pad="1" className="container" style={{ display: 'grid', gap: 64 }}>
-          <div data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 72, alignItems: 'start' }}>
-            <div data-sticky="1" className="stick" style={{ display: 'grid', gap: 24 }}>
-              <div data-reveal="0" style={{ display: 'grid', gap: 14 }}>
-                <p className="eyebrow eyebrow-tan">{P.together.eyebrow}</p>
-                <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>{P.together.title}</span></span></h2>
+          <div data-g2="1" className="tog" style={{ display: 'grid', gridTemplateColumns: '0.85fr 1.15fr', gap: 64 }}>
+            <div data-reveal="0" className="tog-panel">
+              <svg className="tog-rings" viewBox="0 0 240 240" fill="none" aria-hidden="true"><circle cx="240" cy="240" r="80" /><circle cx="240" cy="240" r="150" /><circle cx="240" cy="240" r="220" /></svg>
+              <div style={{ display: 'grid', gap: 24 }}>
+                <div style={{ display: 'grid', gap: 14 }}>
+                  <p className="eyebrow eyebrow-gold">{P.together.eyebrow}</p>
+                  <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>{P.together.title}</span></span></h2>
+                </div>
+                <span className="rule" />
+                <p style={{ fontSize: 17, lineHeight: 1.65, color: 'rgba(247,243,236,.74)', maxWidth: 460 }}>{P.together.text}</p>
               </div>
-              <p data-reveal="1" style={{ fontSize: 17, lineHeight: 1.65, color: '#4A4C55', maxWidth: 460 }}>{P.together.text}</p>
-              <Link href="/contact" data-reveal="2" className="btn btn-navy btn-fit">{P.closing.button}</Link>
+              <Link href="/contact" className="btn btn-gold btn-fit">{P.closing.button}</Link>
             </div>
-            <div style={{ display: 'grid', borderBottom: '1px solid #E6E0D4' }}>
-              {P.together.pillars.map((t, i) => (
-                <div key={t.n} data-reveal={i} style={{ display: 'grid', gridTemplateColumns: '44px 1fr', gap: 18, padding: '22px 0', borderTop: '1px solid #E6E0D4' }}>
-                  <span className="num-ring">{t.n}</span>
-                  <div style={{ display: 'grid', gap: 6 }}><h3 style={{ fontSize: 18, fontWeight: 600 }}>{t.title}</h3><p style={{ fontSize: 15, lineHeight: 1.6, color: '#4A4C55', maxWidth: 520 }}>{t.text}</p></div>
+            <div className="tog-list">
+              {P.together.pillars.map((t) => (
+                <div key={t.n} data-inview="1" className="tog-item">
+                  <span className="serif tog-n" aria-hidden="true">{t.n}</span>
+                  <div style={{ display: 'grid', gap: 10 }}><h3 className="serif tog-t">{t.title}</h3><p style={{ fontSize: 16, lineHeight: 1.65, color: '#4A4C55', maxWidth: 560 }}>{t.text}</p></div>
                 </div>
               ))}
             </div>
@@ -109,7 +119,8 @@ export default function About() {
           <div data-seq="1" data-g4="1" className="cells" style={{ gridTemplateColumns: 'repeat(4,1fr)' }}>
             {P.together.stats.map((s) => (
               <div key={s.label} className="cell">
-                <span data-count={s.v} data-prefix={s.pre} data-suffix={s.suf} className="serif" style={{ fontSize: 56, lineHeight: 0.95, color: '#0B1D3A', letterSpacing: '-.02em' }}>0</span>
+                {/* the suffix sits outside the count-up so it can take the gold */}
+                <span className="serif stat-fig"><span data-count={s.v} data-prefix={s.pre}>0</span>{s.suf && <em>{s.suf}</em>}</span>
                 <div style={{ display: 'grid', gap: 4 }}><span style={{ fontSize: 15, fontWeight: 600, color: '#0B1D3A' }}>{s.label}</span><span style={{ fontSize: 13, lineHeight: 1.5, color: '#4A4C55' }}>{s.sub}</span></div>
               </div>
             ))}
@@ -117,66 +128,49 @@ export default function About() {
         </div>
       </section>
 
-      {/* 4 HOW PRIM HELPS: ruled cells, three across, each linking to the matching service chapter */}
-      <section data-sec="1" className="sec" style={{ background: '#F7F3EC' }}>
-        <div data-pad="1" className="container" style={{ display: 'grid', gap: 48 }}>
-          <div data-reveal="0" className="head-row">
-            <div style={{ display: 'grid', gap: 14, maxWidth: 640 }}>
-              <p className="eyebrow eyebrow-tan">{P.helps.eyebrow}</p>
-              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>{P.helps.title}</span></span></h2>
-            </div>
-            <p className="lead" style={{ maxWidth: 400 }}>{P.helps.text}</p>
-          </div>
-          <div data-seq="1" data-g3="1" className="cells" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
-            {P.helps.items.map((h) => (
-              <div key={h.title} className="cell" style={{ background: '#fff', gridTemplateRows: 'auto auto 1fr auto' }}>
-                <span className="eyebrow eyebrow-gold">{h.kind}</span>
-                <h3 className="serif" style={{ fontSize: 25, lineHeight: 1.15 }}>{h.title}</h3>
-                <p style={{ fontSize: 15, lineHeight: 1.6, color: '#4A4C55' }}>{h.text}</p>
-                <Link href={h.href} className="link-arrow" style={{ fontSize: 13, fontWeight: 600, color: '#0B1D3A' }}>{h.cta} →</Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5 VALUES: four cards with line icons */}
+      {/* 4 WORKING WITH PRIM: what he does for clients and how he works, four icon cards linking to the service pages */}
       <section data-sec="1" className="sec" style={{ background: '#0B1D3A', color: '#F7F3EC' }}>
         <div data-pad="1" className="container" style={{ display: 'grid', gap: 56 }}>
-          <div data-reveal="0" style={{ display: 'grid', gap: 14, maxWidth: 640 }}>
-            <p className="eyebrow eyebrow-gold">{P.values.eyebrow}</p>
-            <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>{P.values.title}</span></span></h2>
+          <div data-reveal="0" className="head-row">
+            <div style={{ display: 'grid', gap: 14, maxWidth: 640 }}>
+              <p className="eyebrow eyebrow-gold">{P.helps.eyebrow}</p>
+              <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>{P.helps.title}</span></span></h2>
+            </div>
+            <p className="lead" style={{ maxWidth: 400, color: 'rgba(247,243,236,.72)' }}>{P.helps.text}</p>
           </div>
           <div data-seq="1" data-g4="1" data-scroll-row="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24 }}>
-            {P.values.items.map((v, i) => (
-              <div key={v.title} data-reveal={i} className="value-card">
+            {P.helps.items.map((h, i) => (
+              <div key={h.title} data-reveal={i} className="value-card" style={{ gridTemplateRows: 'auto 1fr auto' }}>
                 <span className="num-ring" style={{ borderColor: 'rgba(247,243,236,.3)' }} aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{ICONS[v.icon]}</svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{ICONS[h.icon]}</svg>
                 </span>
-                <div style={{ display: 'grid', gap: 10, alignContent: 'start' }}><h3 className="serif" style={{ fontSize: 26, lineHeight: 1.15 }}>{v.title}</h3><p style={{ fontSize: 15, lineHeight: 1.6, color: 'rgba(247,243,236,.72)' }}>{v.text}</p></div>
+                <div style={{ display: 'grid', gap: 10, alignContent: 'start' }}>
+                  <span className="eyebrow eyebrow-gold" style={{ fontSize: 11, letterSpacing: '.16em' }}>{h.kind}</span>
+                  <h3 className="serif" style={{ fontSize: 26, lineHeight: 1.15 }}>{h.title}</h3>
+                  <p style={{ fontSize: 15, lineHeight: 1.6, color: 'rgba(247,243,236,.72)' }}>{h.text}</p>
+                </div>
+                <Link href={h.href} className="eyebrow eyebrow-gold" style={{ fontSize: 11, letterSpacing: '.16em', paddingTop: 16, borderTop: '1px solid rgba(247,243,236,.15)' }}>{h.cta} →</Link>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 6 A NOTE FROM PRIM: first-person close and the booking button (the site-wide enquiry form follows via app/template.tsx) */}
+      {/* 5 A NOTE FROM PRIM: centred first-person quote and signature over a ruled booking bar (the site-wide enquiry form follows via app/template.tsx) */}
       <section data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4' }}>
-        <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 72, alignItems: 'end' }}>
-          <div style={{ display: 'grid', gap: 28 }}>
-            <p data-reveal="0" className="eyebrow eyebrow-tan">{P.closing.eyebrow}</p>
-            <blockquote data-reveal="1" className="founder-quote">
-              <span className="founder-mark serif" aria-hidden="true">&ldquo;</span>
-              <p className="serif" style={{ fontSize: 32, lineHeight: 1.3, textWrap: 'pretty', color: '#0B1D3A' }}>{P.closing.quote}</p>
-            </blockquote>
-            <div data-reveal="2" style={{ display: 'grid', gap: 6 }}>
-              <span className="rule" />
-              <span className="serif" style={{ fontSize: 24, lineHeight: 1.15, marginTop: 14 }}>{P.name}</span>
-              <span className="eyebrow eyebrow-gold" style={{ fontSize: 11, letterSpacing: '.16em' }}>{P.closing.signature}</span>
-            </div>
+        <div data-pad="1" className="container note">
+          <p data-reveal="0" className="eyebrow eyebrow-tan">{P.closing.eyebrow}</p>
+          <blockquote data-reveal="1" className="note-quote">
+            <span className="note-mark serif" aria-hidden="true">&ldquo;</span>
+            <p className="serif">{P.closing.quote}</p>
+          </blockquote>
+          <div data-reveal="2" className="note-sign">
+            <span className="rule" />
+            <span className="serif" style={{ fontSize: 26, lineHeight: 1.15, marginTop: 16 }}>{P.name}</span>
+            <span className="eyebrow eyebrow-gold" style={{ fontSize: 11, letterSpacing: '.16em' }}>{P.closing.signature}</span>
           </div>
-          <div data-reveal="3" style={{ display: 'grid', gap: 18, justifyItems: 'start' }}>
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: '#4A4C55', maxWidth: 380 }}>{P.closing.text}</p>
+          <div data-reveal="3" className="note-cta">
+            <p>{P.closing.text}</p>
             <Link href="/contact" className="btn btn-navy">{P.closing.button}</Link>
           </div>
         </div>
