@@ -263,7 +263,7 @@ export const BUYERS = {
         id: 'investing', n: '02', label: 'Property Investment',
         title: 'Research first. Then the property.',
         text: 'Most investment mistakes happen before the search begins: the wrong suburb, the wrong property type, or a price set by emotion. We start with your objectives and test every location against the evidence: infrastructure, land supply, population, employment, rental demand and comparable sales.',
-        points: ['Suburb and growth-corridor research across Brisbane and South East Queensland', 'Comparable sales, rental range and holding costs checked before you commit', 'Established homes and house & land assessed on the same evidence', 'No promised returns, just the reasoning behind each recommendation'],
+        points: ['Suburb and growth-corridor research throughout Australia', 'Comparable sales, rental range and holding costs checked before you commit', 'Established homes and house & land assessed on the same evidence', 'No promised returns, just the reasoning behind each recommendation'],
         slot: 'BUYERS_CHAPTER_INVESTING', alt: 'Adviser and investor reviewing property figures',
         cta: { label: 'Talk through an investment brief →', href: '/contact' },
       },
