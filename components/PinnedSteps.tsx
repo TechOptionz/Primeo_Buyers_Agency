@@ -1,9 +1,7 @@
 import { ImageSlot } from './ImageSlot';
 import type { Step } from '@/lib/data';
 import type { ReactNode } from 'react';
-
-// "Photo: strategy meeting over coffee" -> "Strategy meeting over coffee"
-const altOf = (ph: string) => { const t = ph.replace(/^photo:\s*/i, ''); return t.charAt(0).toUpperCase() + t.slice(1); };
+import { altFromLabel } from '@/lib/alt';
 
 /**
  * Scroll story of numbered steps, each with a photo. One set of markup; the layout is CSS
@@ -36,7 +34,7 @@ export default function PinnedSteps({ eyebrow, title, blurb, steps, footer }: {
                     <div className="pin-body"><p>{s.text}</p></div>
                   </div>
                   <div data-pin-img={i} className="pin-img">
-                    <ImageSlot src={s.src} alt={altOf(s.ph)} placeholder={s.ph} tone="dark" sizes="(max-width: 760px) calc(100vw - 88px), (max-width: 1000px) 100vw, 55vw" />
+                    <ImageSlot src={s.src} alt={altFromLabel(s.ph)} placeholder={s.ph} tone="dark" sizes="(max-width: 760px) calc(100vw - 88px), (max-width: 1000px) 100vw, 55vw" />
                   </div>
                 </li>
               ))}

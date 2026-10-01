@@ -33,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${serif.variable} ${sans.variable}`}>
       <body>
         <div style={{ position: 'relative', minHeight: '100vh' }}>
+          <a href="#main" className="skip-link">Skip to content</a>
           <Intro />
           <Nav />
           <Motion />

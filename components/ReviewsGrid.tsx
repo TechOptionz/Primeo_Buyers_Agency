@@ -35,10 +35,10 @@ export default function ReviewsGrid({ reviews }: { reviews: Review[] }) {
       {shown < list.length ? (
         <div style={{ display: 'grid', justifyItems: 'center', gap: 14 }}>
           <button type="button" className="btn btn-outline-dark" onClick={() => setShown((n) => n + PAGE)}>Show more reviews</button>
-          <span style={{ fontSize: 13, color: '#8A7A57' }}>Showing {visible.length} of {list.length}</span>
+          <span style={{ fontSize: 13, color: '#796A47' }}>Showing {visible.length} of {list.length}</span>
         </div>
       ) : (
-        <span style={{ fontSize: 13, color: '#8A7A57', textAlign: 'center' }}>Showing all {list.length} {tag === 'all' ? 'selected reviews' : 'reviews on this topic'}</span>
+        <span style={{ fontSize: 13, color: '#796A47', textAlign: 'center' }}>Showing all {list.length} {tag === 'all' ? 'selected reviews' : 'reviews on this topic'}</span>
       )}
     </div>
   );

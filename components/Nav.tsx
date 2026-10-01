@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Logo } from './Logo';
@@ -14,6 +14,9 @@ export default function Nav() {
   const pathname = usePathname();
   const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/'));
   const close = () => setOpen(false);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const menu = useRef<HTMLDivElement>(null);
+  const wasOpen = useRef(false);
 
   useEffect(() => {
     const f = () => setOn(window.scrollY > 60);
@@ -27,11 +30,35 @@ export default function Nav() {
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
+  // Keyboard: focus moves into the menu when it opens and back to the button when it closes,
+  // Escape closes it, and Tab cycles within it while it is open.
+  useEffect(() => {
+    const el = menu.current;
+    if (!open) {
+      if (wasOpen.current) trigger.current?.focus();
+      wasOpen.current = false;
+      return;
+    }
+    wasOpen.current = true;
+    if (!el) return;
+    const items = () => Array.from(el.querySelectorAll<HTMLElement>('a[href], button'));
+    items()[0]?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { setOpen(false); return; }
+      if (e.key !== 'Tab') return;
+      const list = items(), first = list[0], last = list[list.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
+
   return (
     <>
       <nav data-nav="1" className={`nav${on ? ' on' : ''}`}>
         <div data-pad="1" data-nav-pad="1" className="nav-inner">
-          <Link href="/" aria-label="PRIMEO, home" style={{ display: 'flex', color: 'inherit' }}>
+          <Link href="/" aria-label="PRIMEO: Right Property | Right Price. Home" style={{ display: 'flex', color: 'inherit' }}>
             <Logo flightTarget />
           </Link>
           <div data-desk="1" className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
@@ -40,19 +67,19 @@ export default function Nav() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <Link href="/contact" data-desk="1" className="btn btn-gold nav-cta">Book a call</Link>
             <a data-mob="1" href={telHref(SITE.phone)} aria-label={`Call PRIMEO on ${SITE.phone}`} className="nav-round" style={{ background: '#C6A15B', color: '#0B1D3A' }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg>
             </a>
-            <button data-mob="1" onClick={() => setOpen(true)} aria-label="Menu" className="nav-round" style={{ border: '1px solid currentColor', background: 'transparent', color: 'inherit' }}>
-              <svg width="18" height="12" viewBox="0 0 20 14" stroke="currentColor" strokeWidth="1.6" style={{ transition: 'transform .4s ease', transform: open ? 'rotate(90deg)' : 'none' }}><path d="M0 1h20M0 7h14M0 13h20" /></svg>
+            <button ref={trigger} type="button" data-mob="1" onClick={() => setOpen(true)} aria-label="Open menu" aria-haspopup="dialog" aria-expanded={open} aria-controls="site-menu" className="nav-round" style={{ border: '1px solid currentColor', background: 'transparent', color: 'inherit' }}>
+              <svg width="18" height="12" viewBox="0 0 20 14" stroke="currentColor" strokeWidth="1.6" aria-hidden="true" style={{ transition: 'transform .4s ease', transform: open ? 'rotate(90deg)' : 'none' }}><path d="M0 1h20M0 7h14M0 13h20" /></svg>
             </button>
           </div>
         </div>
       </nav>
 
-      <div className={`menu${open ? ' open' : ''}`} aria-hidden={!open}>
+      <div ref={menu} id="site-menu" role="dialog" aria-modal="true" aria-label="Site menu" inert={!open} className={`menu${open ? ' open' : ''}`}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: 52 }}>
           <Logo variant="sm" />
-          <button onClick={() => setOpen(false)} aria-label="Close" style={{ width: 44, height: 44, border: '1px solid rgba(247,243,236,.35)', borderRadius: '50%', background: 'transparent', color: '#F7F3EC', fontSize: 22, lineHeight: 1 }}>×</button>
+          <button type="button" onClick={() => setOpen(false)} aria-label="Close menu" style={{ width: 44, height: 44, border: '1px solid rgba(247,243,236,.35)', borderRadius: '50%', background: 'transparent', color: '#F7F3EC', fontSize: 22, lineHeight: 1 }}>×</button>
         </div>
         <div style={{ display: 'grid', alignContent: 'center', padding: '24px 0' }}>
           {MENU.map((m, i) => (
@@ -61,7 +88,7 @@ export default function Nav() {
                 <span className="eyebrow eyebrow-gold eyebrow-sm">{String(i).padStart(2, '0')}</span>
                 <span className="serif" style={{ fontSize: 32, lineHeight: 1.05 }}>{m.label}</span>
               </span>
-              <span style={{ color: '#C6A15B' }}>→</span>
+              <span aria-hidden="true" style={{ color: '#C6A15B' }}>→</span>
             </Link>
           ))}
         </div>

@@ -10,6 +10,7 @@ import RatingBadge from '@/components/RatingBadge';
 import { SERVICES, PROPERTIES, JOURNEY, TRUST, ARTICLES, IMAGES } from '@/lib/data';
 import { FEATURED, monthYear } from '@/lib/reviews';
 import { SLOTS } from '@/lib/slots';
+import { altFromLabel } from '@/lib/alt';
 import { SITE } from '@/config/site';
 import { pageMeta, HOME_TITLE, HOME_DESCRIPTION } from '@/lib/seo';
 
@@ -104,7 +105,7 @@ export default function Home() {
           <div data-seq="1" data-scroll-row="1" data-svc-grid="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 16 }}>
             {SERVICE_CARDS.map((c, i) => (
               <Link key={c.key} href={c.href} data-card="1" data-reveal={i} data-span="1" style={{ gridColumn: `span ${c.span}`, position: 'relative', display: 'block', height: 420, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', color: '#F7F3EC' }}>
-                <div data-card-img="1" className="fill"><ImageSlot src={c.src} alt={c.title} placeholder={c.ph} tone="dark" sizes={`(max-width: 760px) 100vw, ${Math.round((c.span / 6) * 100)}vw`} /></div>
+                <div data-card-img="1" className="fill"><ImageSlot src={c.src} alt="" placeholder={c.ph} tone="dark" sizes={`(max-width: 760px) 100vw, ${Math.round((c.span / 6) * 100)}vw`} /></div>
                 <div className="ov-card" />
                 <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 30, display: 'grid', gap: 10, pointerEvents: 'none' }}>
                   <span className="eyebrow eyebrow-gold">{c.n}</span>
@@ -160,11 +161,11 @@ export default function Home() {
             </div>
             <Link href="/buyers" className="link-u">How we buy →</Link>
           </div>
-          <div data-seq="1" data-g3="1" data-scroll-row="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 24 }}>
+          <div data-seq="1" data-g3="1" data-scroll-row="1" tabIndex={0} role="group" aria-label="Recently secured properties" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 24 }}>
             {PROPERTIES.map((p, i) => (
               <div key={p.id} data-card="1" data-reveal={i} className="card card-hover">
                 <div className="media" style={{ aspectRatio: '4/3', background: '#E6E0D4' }}>
-                  <div data-card-img="1" className="fill"><ImageSlot src={p.src} alt={p.address} placeholder={p.placeholder} sizes="(max-width: 640px) 100vw, (max-width: 1240px) 50vw, 33vw" /></div>
+                  <div data-card-img="1" className="fill"><ImageSlot src={p.src} alt={altFromLabel(p.placeholder)} placeholder={p.placeholder} sizes="(max-width: 640px) 100vw, (max-width: 1240px) 50vw, 33vw" /></div>
                   <span className="tag">{p.status}</span>
                   <div data-card-overlay="1" style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '18px 20px', background: 'linear-gradient(180deg,rgba(11,29,58,0),rgba(11,29,58,.85))', color: '#F7F3EC', opacity: 0, transform: 'translateY(10px)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', pointerEvents: 'none' }}>
                     <span style={{ fontSize: 13 }}>{p.agent}</span>
@@ -225,7 +226,7 @@ export default function Home() {
           </div>
           <div data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 24 }}>
             <Link href={lead.href} data-card="1" data-reveal="0" data-lead-card="1" style={{ position: 'relative', display: 'block', minHeight: 520, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', color: '#F7F3EC' }}>
-              <div data-card-img="1" className="fill"><ImageSlot src={lead.src} alt={lead.title} placeholder={lead.placeholder} tone="dark" sizes="(max-width: 1000px) 100vw, 60vw" /></div>
+              <div data-card-img="1" className="fill"><ImageSlot src={lead.src} alt="" placeholder={lead.placeholder} tone="dark" sizes="(max-width: 1000px) 100vw, 60vw" /></div>
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(11,29,58,0) 30%,rgba(11,29,58,.92) 100%)', pointerEvents: 'none' }} />
               <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 36, display: 'grid', gap: 12, pointerEvents: 'none' }}>
                 <div className="eyebrow eyebrow-gold" style={{ display: 'flex', gap: 12, fontSize: 11 }}><span>{lead.cat}</span><span>·</span><span>{lead.date}</span></div>
@@ -236,7 +237,7 @@ export default function Home() {
             <div style={{ display: 'grid', gap: 24 }}>
               {more.map((a, i) => (
                 <Link key={a.id} href={a.href} data-card="1" data-reveal={i} data-mini-card="1" className="card card-hover soft" style={{ gridTemplateColumns: '1fr 1.2fr', gap: 0, color: '#0B1D3A' }}>
-                  <div className="media" style={{ minHeight: 220, background: '#E6E0D4' }}><div data-card-img="1" className="fill"><ImageSlot src={a.src} alt={a.title} placeholder={a.placeholder} sizes="(max-width: 760px) 100vw, (max-width: 1000px) 45vw, 18vw" /></div></div>
+                  <div className="media" style={{ minHeight: 220, background: '#E6E0D4' }}><div data-card-img="1" className="fill"><ImageSlot src={a.src} alt="" placeholder={a.placeholder} sizes="(max-width: 760px) 100vw, (max-width: 1000px) 45vw, 18vw" /></div></div>
                   <div style={{ padding: 26, display: 'grid', gap: 10, alignContent: 'center' }}>
                     <div className="eyebrow eyebrow-tan eyebrow-sm" style={{ display: 'flex', gap: 10 }}><span>{a.cat}</span><span>·</span><span>{a.date}</span></div>
                     <h3 className="serif" style={{ fontSize: 22, lineHeight: 1.2 }}>{a.title}</h3>

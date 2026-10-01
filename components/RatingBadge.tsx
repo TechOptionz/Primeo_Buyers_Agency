@@ -21,7 +21,8 @@ export default function RatingBadge({ tone = 'light', size = 'md', to = 'reviews
       <span className="g-txt"><b>{GOOGLE.rating}</b><span className="g-sub"> · {GOOGLE.count} Google reviews</span></span>
     </>
   );
-  const label = `Rated ${GOOGLE.rating} out of 5 from ${GOOGLE.count} Google reviews`;
+  // starts with the visible text, so voice control can target the badge by what it shows
+  const label = `${GOOGLE.rating} · ${GOOGLE.count} Google reviews, rated ${GOOGLE.rating} out of 5`;
   if (to === 'google' && GOOGLE.url) {
     return <a href={GOOGLE.url} target="_blank" rel="noopener noreferrer" className="g-badge" data-tone={tone} data-size={size} aria-label={`${label}. Opens Google Maps in a new tab`} style={style}>{inner}</a>;
   }

@@ -25,7 +25,7 @@ export default function ReviewStrip({ ids, eyebrow = 'Google reviews', title, te
             <Link href="/reviews" className="link-u">Read more reviews →</Link>
           </div>
         </div>
-        <div data-seq="1" data-g3="1" data-scroll-row="1" className="rev-grid">
+        <div data-seq="1" data-g3="1" data-scroll-row="1" tabIndex={0} role="group" aria-label="Google reviews" className="rev-grid">
           {items.map((r) => <ReviewCard key={r.id} review={r} />)}
         </div>
       </div>

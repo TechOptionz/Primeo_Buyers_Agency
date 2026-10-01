@@ -5,8 +5,10 @@ import Footer from '@/components/Footer';
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <div data-page="1">
-      {children}
-      <FinalCta />
+      <main id="main">
+        {children}
+        <FinalCta />
+      </main>
       <Footer />
     </div>
   );

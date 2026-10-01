@@ -6,7 +6,12 @@
   --gold-2: #d4b36e;
   --cream: #f7f3ec;
   --sand: #e6e0d4;
-  --tan: #8a7a57;
+  /* Text colours below are set for WCAG AA (4.5:1) on the cream and white backgrounds.
+     --gold is for navy backgrounds, rules and fills; on a light background small gold text reads
+     at about 2.3:1, so labels there use --gold-ink, and large numerals --gold-ink-lg (3:1). */
+  --tan: #796a47;
+  --gold-ink: #86672a;
+  --gold-ink-lg: #a5823c;
   --ink: #4a4c55;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -25,6 +30,13 @@ a { color: var(--slate); text-decoration: none; }
 a:hover { color: var(--navy); }
 input, select, button, textarea { font-family: inherit; }
 button { cursor: pointer; }
+/* Keyboard focus: a gold ring with a navy edge, so it shows on both the cream and the navy sections.
+   Form fields keep their own focus style (gold border and glow, see .input). */
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; box-shadow: 0 0 0 5px var(--navy); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* "Skip to content": off screen until it takes keyboard focus, then above the nav and the intro cover */
+.skip-link { position: fixed; top: 12px; left: 12px; z-index: 200; padding: 12px 18px; border-radius: 2px; background: var(--cream); color: var(--navy); font-size: 14px; font-weight: 600; transform: translateY(-200%); }
+.skip-link:focus { transform: none; }
 
 /* ---------- type ---------- */
 .serif { font-family: var(--font-serif), 'Newsreader', serif; font-weight: 400; }
@@ -78,10 +90,20 @@ button { cursor: pointer; }
 .fill { position: absolute; inset: 0; }
 .ov-card { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 29, 58, 0.05) 35%, rgba(11, 29, 58, 0.9) 100%); pointer-events: none; }
 .ov-hero { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 29, 58, 0.45) 0%, rgba(11, 29, 58, 0.2) 40%, rgba(11, 29, 58, 0.92) 100%); pointer-events: none; }
+/* Page heroes (PageHero): the copy is left-aligned, so a second wash darkens that side enough for
+   cream text to meet AA over a bright photo (a white wall, a pale sky) and leaves the right of the
+   photo clear. On phones the copy spans the screen, so the wash is even. Measured with the photos
+   in place: headline 3:1 or better, lead 4.5:1 or better. */
+.ov-hero-page { background: linear-gradient(90deg, rgba(11, 29, 58, 0.8) 0%, rgba(11, 29, 58, 0.7) 50%, rgba(11, 29, 58, 0.22) 82%, rgba(11, 29, 58, 0) 100%), linear-gradient(180deg, rgba(11, 29, 58, 0.45) 0%, rgba(11, 29, 58, 0.2) 40%, rgba(11, 29, 58, 0.92) 100%); }
+@media (max-width: 760px) { .ov-hero-page { background: linear-gradient(180deg, rgba(11, 29, 58, 0.72) 0%, rgba(11, 29, 58, 0.8) 30%, rgba(11, 29, 58, 0.78) 60%, rgba(11, 29, 58, 0.94) 100%); } }
+.hero-copy h1 { text-shadow: 0 2px 28px rgba(7, 10, 16, 0.45); }
+.hero-copy p { text-shadow: 0 1px 16px rgba(7, 10, 16, 0.5); }
+/* the eyebrow is small text: the lighter gold keeps it at 4.5:1 over the wash */
+.hero-copy .eyebrow-gold { color: var(--gold-2); }
 /* homepage video hero: neutral (not navy) so the footage keeps its own colour. A soft
    vignette sits behind the centred copy so it stays readable over bright interior shots;
    the vertical wash seats the nav at the top and the service band at the bottom. */
-.ov-hero-video { position: absolute; inset: 0; background: radial-gradient(ellipse 58% 46% at 50% 50%, rgba(7, 10, 16, 0.5) 0%, rgba(7, 10, 16, 0.28) 55%, rgba(7, 10, 16, 0) 100%), linear-gradient(180deg, rgba(7, 10, 16, 0.45) 0%, rgba(7, 10, 16, 0.1) 30%, rgba(7, 10, 16, 0.14) 66%, rgba(7, 10, 16, 0.78) 100%); pointer-events: none; }
+.ov-hero-video { position: absolute; inset: 0; background: radial-gradient(ellipse 64% 52% at 50% 48%, rgba(7, 10, 16, 0.66) 0%, rgba(7, 10, 16, 0.5) 55%, rgba(7, 10, 16, 0) 100%), linear-gradient(180deg, rgba(7, 10, 16, 0.45) 0%, rgba(7, 10, 16, 0.14) 30%, rgba(7, 10, 16, 0.18) 66%, rgba(7, 10, 16, 0.78) 100%); pointer-events: none; }
 .hero-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 /* short fade: the poster is frame 0, so a long dissolve ghosts the moving shot over a frozen copy of itself */
 .hero-video { opacity: 0; transition: opacity 0.35s ease; }
@@ -189,7 +211,8 @@ button { cursor: pointer; }
 }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); margin-top: 8px; flex: none; }
 .point { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-top: 1px solid var(--sand); }
-.num-ring { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--sand); display: flex; align-items: center; justify-content: center; font-family: var(--font-serif), serif; font-size: 16px; color: var(--gold); }
+.num-ring { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--sand); display: flex; align-items: center; justify-content: center; font-family: var(--font-serif), serif; font-size: 16px; color: var(--gold-ink); }
+.value-card .num-ring { color: var(--gold); }
 .value-card { display: grid; grid-template-rows: auto 1fr; gap: 18px; padding: 30px 28px; border: 1px solid rgba(247, 243, 236, 0.15); border-radius: 8px; transition: border-color 0.5s ease, background 0.5s ease; }
 .value-card:hover { border-color: var(--gold); background: rgba(247, 243, 236, 0.04); }
 
@@ -374,7 +397,7 @@ select.input-dark option { color: var(--navy); }
   [data-hero-lead] { font-size: 16px !important; }
   [data-hero-cta] { display: grid !important; grid-template-columns: 1fr !important; gap: 10px !important; }
   /* portrait: copy fills most of the screen, so use an even wash rather than a vignette */
-  .ov-hero-video { background: linear-gradient(180deg, rgba(7, 10, 16, 0.45) 0%, rgba(7, 10, 16, 0.38) 30%, rgba(7, 10, 16, 0.5) 70%, rgba(7, 10, 16, 0.8) 100%); }
+  .ov-hero-video { background: linear-gradient(180deg, rgba(7, 10, 16, 0.5) 0%, rgba(7, 10, 16, 0.56) 30%, rgba(7, 10, 16, 0.64) 70%, rgba(7, 10, 16, 0.84) 100%); }
   [data-hero-cta] { width: 100%; }
   [data-hero-cta] > * { width: 100%; }
   [data-hero-cta] .btn { width: 100%; padding-top: 18px !important; padding-bottom: 18px !important; }
@@ -385,6 +408,8 @@ select.input-dark option { color: var(--navy); }
   [data-svc-grid] h3 { font-size: 26px !important; }
   [data-cta-img] { min-height: 240px !important; }
   [data-cta-panel] { padding: 36px 24px !important; }
+  /* contact form card: less padding, and a column that may shrink below the inputs' built-in width */
+  [data-form-card] { padding: 28px 22px !important; grid-template-columns: minmax(0, 1fr); }
   [data-lead-card] { min-height: 380px !important; }
   [data-quote] { font-size: 23px !important; }
   [data-mini-card] { grid-template-columns: 1fr !important; }
@@ -404,12 +429,7 @@ select.input-dark option { color: var(--navy); }
   .footer { padding-bottom: calc(22vw + 12px); }
 }
 /* smallest phones: keep the lockup and both round buttons on one row */
-@media (max-width: 359px) {
-  .nav-inner { gap: 12px; }
-  .nav .logo { --tag: 8px; }
-  /* the rating badge is wider than a 320px column: tighten it, and let the text drop below the stars if it must */
-  .g-badge { flex-wrap: wrap; gap: 4px 7px; font-size: 13px; }
-}
+@media (max-width: 359px) { .nav-inner { gap: 12px; } .nav .logo { --tag: 8px; } }
 @media (hover: none) { a:active, button:active { opacity: 0.8; } }
 @media (min-width: 1001px) and (max-width: 1240px) {
   [data-g4] { grid-template-columns: 1fr 1fr !important; }
@@ -448,6 +468,7 @@ select.input-dark option { color: var(--navy); }
 .htl-line { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--sand); }
 .htl-line::after { content: ''; position: absolute; inset: 0; background: var(--gold); transform: scaleX(var(--p)); transform-origin: left; }
 .htl-step { position: relative; display: grid; gap: 12px; align-content: start; }
+.htl-step .eyebrow-gold, .note-sign .eyebrow-gold { color: var(--gold-ink); }
 .htl-node { position: absolute; top: -50px; left: 0; width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--gold); background: var(--cream); transform: scale(0.7); transition: background 0.5s ease, transform 0.8s var(--ease); }
 .htl-node.lit { background: var(--gold); transform: scale(1); }
 
@@ -524,7 +545,7 @@ select.input-dark option { color: var(--navy); }
 .tog-item > * { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease), transform 0.8s var(--ease); }
 .tog-item > :nth-child(2) { transition-delay: 0.08s; }
 .tog-item.in > * { opacity: 1; transform: none; }
-.tog-n { font-size: 44px; line-height: 1; letter-spacing: -0.02em; color: var(--gold); font-variant-numeric: tabular-nums; }
+.tog-n { font-size: 44px; line-height: 1; letter-spacing: -0.02em; color: var(--gold-ink-lg); font-variant-numeric: tabular-nums; }
 .tog-t { font-size: 27px; line-height: 1.15; color: var(--navy); }
 @media (hover: hover) { .tog-item.in:hover::before { width: 100%; } }
 @media (max-width: 1240px) { .tog-panel { padding: 44px 36px 40px; } }
@@ -611,8 +632,7 @@ select.input-dark option { color: var(--navy); }
 .faq { display: grid; border-bottom: 1px solid var(--sand); }
 .faq-item { border-top: 1px solid var(--sand); }
 .faq-q { display: grid; grid-template-columns: 40px 1fr 30px; gap: 16px; align-items: start; width: 100%; padding: 24px 0; background: none; border: 0; text-align: left; color: inherit; font: inherit; cursor: pointer; }
-.faq-q:focus-visible { outline: 1px solid var(--gold); outline-offset: 4px; }
-.faq-n { padding-top: 7px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; font-variant-numeric: tabular-nums; color: var(--gold); }
+.faq-n { padding-top: 7px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; font-variant-numeric: tabular-nums; color: var(--gold-ink); }
 .faq-t { font-size: 23px; line-height: 1.25; color: var(--navy); transition: color 0.3s ease; }
 .faq-q:hover .faq-t { color: var(--slate); }
 .faq-x { position: relative; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--sand); transition: border-color 0.4s ease, background 0.4s ease, transform 0.6s var(--ease); }
@@ -716,6 +736,9 @@ select.input-dark option { color: var(--navy); }
   .story-text { font-size: 18px; }
   .g-badge { white-space: normal; }
 }
+/* smallest phones: the badge is wider than a 320px column. width: max-content would hold it (and the
+   whole page) at that width, so size it to the column and let the text drop below the stars if it must. */
+@media (max-width: 359px) { .g-badge, .g-badge[data-size] { width: auto; flex-wrap: wrap; gap: 4px 7px; font-size: 13px; } }
 @media (prefers-reduced-motion: reduce) { .dist-bar span { transform: scaleX(1); transition: none; } }
 
 /* ---------- legal pages (/privacy and /terms: components/LegalPage.tsx, copy in lib/legal.ts) ---------- */
@@ -728,14 +751,14 @@ select.input-dark option { color: var(--navy); }
 .legal-toc { display: grid; gap: 18px; }
 .legal-toc ol { list-style: none; margin: 0; padding: 0; display: grid; border-bottom: 1px solid var(--sand); }
 .legal-toc a { display: grid; grid-template-columns: 32px 1fr; align-items: baseline; padding: 11px 0; border-top: 1px solid var(--sand); font-size: 14px; line-height: 1.35; color: var(--navy); transition: color 0.3s ease; }
-.legal-toc a span { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; font-variant-numeric: tabular-nums; color: var(--gold); }
+.legal-toc a span { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; font-variant-numeric: tabular-nums; color: var(--gold-ink); }
 .legal-toc a:hover { color: var(--tan); }
 /* the sections: one readable column; anchors land below the site nav (a section that has not revealed
    yet is still shifted 24px down when the browser measures the jump, so the margin allows for that) */
 .legal-body { display: grid; gap: 56px; max-width: 760px; }
 .legal-sec { display: grid; gap: 16px; scroll-margin-top: 130px; }
 .legal-h { display: flex; align-items: baseline; gap: 16px; font-size: 30px; line-height: 1.15; color: var(--navy); }
-.legal-n { flex: none; font-family: var(--font-sans), sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; font-variant-numeric: tabular-nums; color: var(--gold); }
+.legal-n { flex: none; font-family: var(--font-sans), sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; font-variant-numeric: tabular-nums; color: var(--gold-ink); }
 .legal-sec p, .legal-sec li { font-size: 17px; line-height: 1.7; color: var(--ink); }
 .legal-sec ul { list-style: none; padding: 0; display: grid; gap: 10px; }
 .legal-sec li { position: relative; padding-left: 24px; }

@@ -21,9 +21,9 @@ export default function PageHero({ eyebrow, title, lead, band, src, placeholder,
       <div data-parallax="1" style={{ position: 'absolute', inset: '-10% 0', willChange: 'transform' }}>
         <div data-zoom="1" {...(placeholder ? {} : { 'data-bg-slot': '1' })} style={{ position: 'absolute', inset: 0, background: '#1C2F52' }}><ImageSlot src={heroSrc} tone="dark" placeholder={placeholder} priority pos="top" sizes={HERO_SIZES} focus={focus} /></div>
       </div>
-      <div className="ov-hero" />
+      <div className="ov-hero ov-hero-page" />
       <div style={{ position: 'relative', width: '100%', display: 'grid', gap: 56 }}>
-        <div data-pad="1" data-hero-content="1" className="container" style={{ width: '100%', display: 'grid', gap: 22, pointerEvents: 'none' }}>
+        <div data-pad="1" data-hero-content="1" className="container hero-copy" style={{ width: '100%', display: 'grid', gap: 22, pointerEvents: 'none' }}>
           <div data-reveal="0" style={{ display: 'flex', alignItems: 'center', gap: 16 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold" style={{ letterSpacing: '.2em' }}>{eyebrow}</p></div>
           <h1 data-hero-h="1" className="serif" style={{ fontSize: 76, lineHeight: 1.02, letterSpacing: '-.02em', maxWidth: 960 }}>
             <span data-line="1" className="lines"><span>{title}</span></span>

@@ -76,7 +76,7 @@ export default function Reviews() {
                 </div>
               ))}
             </div>
-            <p style={{ fontSize: 13, lineHeight: 1.55, color: '#8A7A57' }}>{GOOGLE.fiveStar} of {GOOGLE.count} clients gave five stars. Figures as at {asAt(GOOGLE.fetched)}; the live count is on Google.</p>
+            <p style={{ fontSize: 13, lineHeight: 1.55, color: '#796A47' }}>{GOOGLE.fiveStar} of {GOOGLE.count} clients gave five stars. Figures as at {asAt(GOOGLE.fetched)}; the live count is on Google.</p>
           </div>
         </div>
       </section>
