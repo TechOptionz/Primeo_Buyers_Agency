@@ -1,0 +1,120 @@
+/**
+ * Every business detail on the site, in one place: contact details, the address, the licence, the
+ * Google listing, headline figures, social profiles and section switches. Pages and components read
+ * from here, so a value changed here changes everywhere it is shown (pages, metadata, structured data).
+ *
+ * Anything marked TODO has not been confirmed by the business. An empty string means "not known yet":
+ * the site hides whatever depends on it (a link, a button, a line of the address) rather than showing
+ * a placeholder. Search for "TODO:" in this file for the full list.
+ *
+ * Deliberately free of imports: client components (Nav, Forms, FinalCta) read it too.
+ */
+export const SITE = {
+  name: 'PRIMEO Property Group',
+  shortName: 'PRIMEO',
+  url: 'https://www.primeo.com.au',
+  // TODO: confirm the registered company name; it prints in the footer and the legal pages.
+  legalName: 'Primeo Property Group Pty Ltd',
+  // TODO: ABN. Printed on the legal pages once set.
+  abn: '',
+  // TODO: Queensland real estate licence number. Printed in the footer and on the legal pages once set.
+  licenceNumber: '',
+  // The footer and legal pages describe the business as a licensed Queensland real estate agency.
+  // TODO: confirm that wording is accurate before the licence number is added.
+  licenceLabel: 'Licensed Real Estate Agency QLD',
+
+  phone: '0439 860 639',
+  email: 'info@primeo.com.au',
+
+  address: {
+    // TODO: street address (was the placeholder "Level 2, 12 Example Street"). While empty, the
+    // site shows the suburb line only and leaves the address out of the structured data.
+    street: '',
+    // TODO: confirm suburb, state and postcode.
+    locality: 'Brisbane',
+    region: 'QLD',
+    postcode: '4000',
+    country: 'AU',
+    // Heading of the "Office" row on the contact page. TODO: confirm.
+    label: 'Brisbane CBD',
+    // TODO: Google Maps link to the office. While empty, the "Get directions" button is hidden.
+    mapsUrl: '',
+  },
+
+  // TODO: confirm opening hours.
+  hours: { full: 'Mon–Fri 8am–6pm · Sat 9am–2pm', weekdays: 'Mon–Fri 8am–6pm' },
+
+  // Where PRIMEO works: the contact page's "Areas" row and areaServed in the structured data.
+  // TODO: confirm.
+  areas: { headline: 'Brisbane & South East QLD', primary: 'Brisbane', others: ['Gold Coast', 'Sunshine Coast', 'Ipswich', 'Logan', 'Moreton Bay'] },
+
+  /**
+   * The Google Business listing behind the rating badge and the reviews page.
+   *
+   * `url` was a Google Maps link to a listing named "Queensland Fundings", not to a PRIMEO listing,
+   * so it has been removed. While `url` is empty, every "on Google" link falls back to the site's
+   * own reviews page, the "Read on Google" and "Write a review" buttons are hidden, and the rating
+   * is left out of the structured data.
+   */
+  google: {
+    // TODO: link to PRIMEO's own Google Business listing, opened on its reviews tab.
+    url: '',
+    // TODO: PRIMEO's "write a review" link: https://search.google.com/local/writereview?placeid=<place id>
+    writeReviewUrl: '',
+    // TODO: these figures were captured from the "Queensland Fundings" listing on 2026-09-29.
+    // Replace them with the rating and counts of the listing `url` points at.
+    rating: '5.0',
+    reviewCount: 107,
+    fiveStarCount: 106,
+    // "More than 100 five-star reviews": the round number used in headlines and stat cells.
+    fiveStarRounded: 100,
+    asAt: '2026-09-29',
+    // Number of reviews at each star rating across the whole listing, five first.
+    distribution: [{ stars: 5, n: 106 }, { stars: 4, n: 1 }, { stars: 3, n: 0 }, { stars: 2, n: 0 }, { stars: 1, n: 0 }],
+  },
+
+  /**
+   * Headline figures. Each is printed in several places (homepage hero band, track-record section,
+   * the Buyer Agency page, metadata).
+   * TODO: verify every figure here against the business's own records.
+   */
+  stats: {
+    foundedYear: 2020,
+    yearsInMarket: 6,
+    // Total value of property secured: `short` for figures ("$200M+"), `long` for sentences.
+    securedValue: { amount: 200, short: '$200M', long: '$200 million' },
+    purchases: 350,
+    offMarketShare: '1 in 3',
+    averageSaving: '$60k',
+    suburbsServed: 60,
+  },
+
+  // TODO: profile URLs. An icon is shown in the footer only for a profile that has one.
+  social: { instagram: '', linkedin: '', facebook: '', youtube: '' },
+
+  links: {
+    // TODO: careers page or job board URL. While empty, "Careers" is left out of the footer.
+    careers: '',
+    // TODO: index page of the market insights articles. While empty, "Market insights" is left out
+    // of the footer and the homepage section has no "All insights" link.
+    insights: '',
+  },
+
+  features: {
+    // Homepage "Market insights" section. Off until real article pages exist: the three cards in
+    // ARTICLES (lib/data.ts) are sample headlines that link to sections of the Buyer Agency page.
+    marketInsights: false,
+    // Homepage hero film on phones. Off: phones keep the still poster, which saves a 2.2 MB download
+    // and lets the page settle sooner. Tablets and desktops play the film either way.
+    heroVideoOnMobile: false,
+  },
+};
+
+/** "0439 860 639" -> "tel:0439860639". */
+export const telHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`;
+
+/** The address as display lines; the street line is dropped while it is unknown. */
+export function addressLines() {
+  const a = SITE.address;
+  return [a.street, `${a.locality} ${a.region} ${a.postcode}`].filter(Boolean);
+}

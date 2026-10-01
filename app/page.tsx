@@ -7,20 +7,24 @@ import Testimonials from '@/components/Testimonials';
 import RatingBadge from '@/components/RatingBadge';
 import { SERVICES, PROPERTIES, JOURNEY, TRUST, ARTICLES, IMAGES } from '@/lib/data';
 import { SLOTS } from '@/lib/slots';
+import { SITE } from '@/config/site';
+
+const { stats: S } = SITE;
 
 // Headline figures for the hero band. Each counts up once the intro cover lifts; `em` is the gold
 // suffix, kept outside the counter so it holds its colour.
 const HERO_FACTS = [
-  { v: '$200M', em: '+', l: 'Property secured' },
-  { v: '350', em: '+', l: 'Purchases completed' },
-  { v: '6', em: ' yrs', l: 'In the market' },
+  { v: S.securedValue.short, em: '+', l: 'Property secured' },
+  { v: String(S.purchases), em: '+', l: 'Purchases completed' },
+  { v: String(S.yearsInMarket), em: ' yrs', l: 'In the market' },
   { v: '100', em: '%', l: 'Independent' },
 ];
 
 const STATS = [
-  { v: 350, suf: '+', label: 'Purchases completed', sub: 'For home buyers and investors, on and off market' },
-  { v: 1, suf: ' in 3', label: 'Secured off-market', sub: 'Never advertised on a public portal' },
-  { v: 6, suf: '', label: 'Years in the market', sub: 'Acting for buyers since 2020' },
+  { v: S.purchases, suf: '+', label: 'Purchases completed', sub: 'For home buyers and investors, on and off market' },
+  // "1 in 3": the leading number counts up, the rest is its suffix
+  { v: parseInt(S.offMarketShare, 10), suf: S.offMarketShare.replace(/^\d+/, ''), label: 'Secured off-market', sub: 'Never advertised on a public portal' },
+  { v: S.yearsInMarket, suf: '', label: 'Years in the market', sub: `Acting for buyers since ${S.foundedYear}` },
   { v: 100, suf: '%', label: 'Independent', sub: 'Engaged by the buyer, never paid by a vendor' },
 ];
 
@@ -53,7 +57,7 @@ export default function Home() {
                 <span data-line="1" className="lines" style={{ paddingBottom: '.06em' }}><span>Independent advice</span></span>
                 <span data-line="2" className="lines" style={{ paddingBottom: '.06em' }}><span>for every property <em style={{ fontStyle: 'italic', color: '#C6A15B' }}>decision.</em></span></span>
               </h1>
-              <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 580, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>Over $200 million in property secured for buyers and investors. Representation, research and advisory for clients who expect rigour, discretion and results.</p>
+              <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 580, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>Over {S.securedValue.long} in property secured for buyers and investors. Representation, research and advisory for clients who expect rigour, discretion and results.</p>
               <div data-hero-cta="1" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', marginTop: 10 }}>
                 <span data-reveal="5" style={{ display: 'grid' }}><Link href="/contact" className="btn btn-gold">Book a Consultation</Link></span>
                 <span data-reveal="7" style={{ display: 'grid' }}><a href="#services" className="btn btn-outline-light">Explore Services</a></span>
@@ -102,15 +106,15 @@ export default function Home() {
       </section>
 
       {/* 3 SIGNATURE FIGURE: navy, like the buyer journey that follows, so a hairline closes the section */}
-      <section data-sec="1" className="sec" style={{ position: 'relative', overflow: 'hidden', background: '#0B1D3A', color: '#F7F3EC', borderTop: '1px solid rgba(198,161,91,.35)', borderBottom: '1px solid rgba(247,243,236,.14)' }}>
+      <section data-sec="1" className="sec figure-sec" style={{ position: 'relative', overflow: 'hidden', background: '#0B1D3A', color: '#F7F3EC', borderTop: '1px solid rgba(198,161,91,.35)', borderBottom: '1px solid rgba(247,243,236,.14)' }}>
         <span className="figure-watermark" aria-hidden="true">PRIMEO</span>
         <div data-pad="1" data-g2="1" className="container" style={{ position: 'relative', display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 72, alignItems: 'center' }}>
           <div style={{ display: 'grid', gap: 26, minWidth: 0 }}>
-            <div data-reveal="0" style={{ display: 'flex', alignItems: 'center', gap: 16 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold">Our track record since 2020</p></div>
+            <div data-reveal="0" style={{ display: 'flex', alignItems: 'center', gap: 16 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold">Our track record since {S.foundedYear}</p></div>
             {/* the count-up sits inside the reveal wrapper: Motion skips [data-count] on elements it has already marked for reveal */}
-            <div data-reveal="1"><span data-count="200" data-prefix="$" data-suffix="M+" className="serif big-figure">$200M+</span></div>
+            <div data-reveal="1"><span data-count={S.securedValue.amount} data-prefix="$" data-suffix="M+" className="serif big-figure">{S.securedValue.short}+</span></div>
             <h2 data-reveal="2" data-h2="1" className="h2" style={{ maxWidth: 560 }}><span data-line="1" className="lines"><span>in property secured for buyers and investors.</span></span></h2>
-            <p data-reveal="3" style={{ fontSize: 17, lineHeight: 1.65, color: 'rgba(247,243,236,.75)', maxWidth: 520 }}>More than two hundred million dollars of residential property, purchased on and off market, with every acquisition negotiated on evidence rather than emotion. Licensed, independent and accountable to one party only: our client.</p>
+            <p data-reveal="3" style={{ fontSize: 17, lineHeight: 1.65, color: 'rgba(247,243,236,.75)', maxWidth: 520 }}>More than {S.securedValue.long} of residential property, purchased on and off market, with every acquisition negotiated on evidence rather than emotion. Licensed, independent and accountable to one party only: our client.</p>
             <Link href="/about" data-reveal="4" className="link-u light">About PRIMEO →</Link>
           </div>
           <div data-seq="1" className="cells dark" style={{ gridTemplateColumns: '1fr 1fr' }}>
@@ -141,16 +145,16 @@ export default function Home() {
               <p className="eyebrow eyebrow-tan">Featured properties</p>
               <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Recently secured for our clients.</span></span></h2>
             </div>
-            <Link href="/buyers" className="link-u">View all properties →</Link>
+            <Link href="/buyers" className="link-u">How we buy →</Link>
           </div>
           <div data-seq="1" data-g3="1" data-scroll-row="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 24 }}>
             {PROPERTIES.map((p, i) => (
-              <div key={p.id} data-card="1" data-reveal={i} className="card card-hover" style={{ cursor: 'pointer' }}>
+              <div key={p.id} data-card="1" data-reveal={i} className="card card-hover">
                 <div className="media" style={{ aspectRatio: '4/3', background: '#E6E0D4' }}>
                   <div data-card-img="1" className="fill"><ImageSlot src={p.src} alt={p.address} placeholder={p.placeholder} sizes="(max-width: 640px) 100vw, (max-width: 1240px) 50vw, 33vw" /></div>
                   <span className="tag">{p.status}</span>
                   <div data-card-overlay="1" style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '18px 20px', background: 'linear-gradient(180deg,rgba(11,29,58,0),rgba(11,29,58,.85))', color: '#F7F3EC', opacity: 0, transform: 'translateY(10px)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', pointerEvents: 'none' }}>
-                    <span style={{ fontSize: 13 }}>{p.agent}</span><span className="eyebrow eyebrow-gold" style={{ fontSize: 11, letterSpacing: '.14em' }}>View →</span>
+                    <span style={{ fontSize: 13 }}>{p.agent}</span>
                   </div>
                 </div>
                 <div style={{ display: 'grid', gap: 8, padding: '22px 24px 24px' }}>
@@ -173,7 +177,7 @@ export default function Home() {
           <div style={{ position: 'relative' }}>
             <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={IMAGES.why} alt="Consultant and clients reviewing a property report" placeholder="Photo: consultant and clients reviewing a property report" sizes="(max-width: 1000px) 100vw, 50vw" /></div>
             <div data-reveal="2" className="why-badge">
-              <span className="serif"><CountUp value="$200M" /><em>+</em></span>
+              <span className="serif"><CountUp value={S.securedValue.short} /><em>+</em></span>
               <span>Secured for clients</span>
             </div>
           </div>
@@ -195,7 +199,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7 MARKET INSIGHTS */}
+      {/* 7 MARKET INSIGHTS: off until real article pages exist (SITE.features.marketInsights) */}
+      {SITE.features.marketInsights && (
       <section data-sec="1" className="sec" style={{ background: '#F7F3EC' }}>
         <div data-pad="1" className="container" style={{ display: 'grid', gap: 44 }}>
           <div data-reveal="0" className="head-row">
@@ -203,7 +208,7 @@ export default function Home() {
               <p className="eyebrow eyebrow-tan">Market insights</p>
               <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>What we&apos;re watching in the market.</span></span></h2>
             </div>
-            <a href="#" className="link-u">All insights →</a>
+            {SITE.links.insights && <Link href={SITE.links.insights} className="link-u">All insights →</Link>}
           </div>
           <div data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 24 }}>
             <Link href={lead.href} data-card="1" data-reveal="0" data-lead-card="1" style={{ position: 'relative', display: 'block', minHeight: 520, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', color: '#F7F3EC' }}>
@@ -230,6 +235,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* 8 GOOGLE REVIEWS: featured reviews carousel (FEATURED in lib/reviews.ts) */}
       <section data-sec="1" className="sec" style={{ background: '#0B1D3A', color: '#F7F3EC' }}>

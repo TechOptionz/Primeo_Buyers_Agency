@@ -1,3 +1,4 @@
+import { SITE } from '@/config/site';
 
 export type Step = { n: string; title: string; text: string; ph: string; src?: string };
 export type ServiceCard = { tag: string; title: string; text: string; foot: string; ph: string; src?: string };
@@ -53,25 +54,25 @@ export const IMAGES = {
   reviewsStory: '/images/reviews_story.jpg',
 };
 
-export const CONTACT = {
-  phone: '0439 860 639',
-  phoneHref: 'tel:0439860639',
-  email: 'info@primeo.com.au',
-  address1: 'Level 2, 12 Example Street',
-  address2: 'Brisbane QLD 4000',
-  hours: 'Mon–Fri 8am–6pm · Sat 9am–2pm',
-};
+// Contact details, the address, the Google listing and the headline figures live in config/site.ts.
+const { stats: STATS, google: GOOGLE } = SITE;
 
 // Client reviews live in lib/reviews.ts (a selection of real Google reviews); the homepage carousel reads FEATURED from there.
 
+// Sample headlines, not published articles: each card links to a section of the Buyer Agency page.
+// The homepage section that shows them is switched off (SITE.features.marketInsights in config/site.ts)
+// until real article pages exist. TODO: replace with real articles, then switch the section on.
 export const ARTICLES = [
   { id: 'one', cat: 'Market update', date: 'Sep 2026', title: 'Spring market outlook: what buyers should expect', excerpt: 'Stock levels, clearance rates and where competition is heading this quarter.', placeholder: 'Photo: city skyline at dusk', src: '/images/insight_skyline.jpg', href: '/buyers#advisory' },
   { id: 'two', cat: 'Buying', date: 'Aug 2026', title: 'Off-market properties, explained', excerpt: 'How pre-market and off-market deals actually happen and how to access them.', placeholder: 'Photo: front door detail', src: '/images/insight_front_door.jpg', href: '/buyers#off-market' },
   { id: 'three', cat: 'Investing', date: 'Aug 2026', title: 'Growth corridors worth watching in 2027', excerpt: 'Infrastructure, land supply and the suburbs where the evidence stacks up.', placeholder: 'Photo: aerial of a new estate', src: '/images/insight_estate_aerial.jpg', href: '/buyers#investing' },
 ];
 
+// The homepage's "Recently secured for our clients" cards, so every status here is a secured one.
+// TODO: these three are sample entries (addresses, prices and photos). Replace them with purchases
+// the business has actually completed and has permission to show.
 export const PROPERTIES = [
-  { id: 'a', status: 'For sale', price: '$1,850,000', address: '42 Moray Street, New Farm', type: 'House', beds: 4, baths: 3, cars: 2, agent: 'Jordan Reid · 0400 000 000', placeholder: 'Photo: renovated Queenslander exterior', src: '/images/prop_moray_st.jpg' },
+  { id: 'a', status: 'Secured', price: '$1,850,000', address: '42 Moray Street, New Farm', type: 'House', beds: 4, baths: 3, cars: 2, agent: 'Secured for a PRIMEO buyer', placeholder: 'Photo: renovated Queenslander exterior', src: '/images/prop_moray_st.jpg' },
   { id: 'b', status: 'Secured off-market', price: '$1,420,000', address: '12 Latrobe Terrace, Paddington', type: 'House', beds: 4, baths: 2, cars: 2, agent: 'Secured for a PRIMEO buyer', placeholder: 'Photo: character home with verandah', src: '/images/prop_latrobe_tce.jpg' },
   { id: 'c', status: 'Secured off-market', price: '$1,290,000', address: '8/21 Oxlade Drive, New Farm', type: 'Apartment', beds: 3, baths: 2, cars: 1, agent: 'Secured for a PRIMEO investor', placeholder: 'Photo: riverfront apartment balcony', src: '/images/prop_oxlade_dr.jpg' },
 ];
@@ -110,7 +111,7 @@ export const ABOUT = {
   // "20+ years" is the overall career figure supplied by the client (the CV documents 2012 onward in Australia
   // and earlier private-sector experience in its profile); the stats strip keeps the CV's own "10+ years in
   // finance, accounting and compliance".
-  facts: [{ v: '20+ years', l: 'Professional experience' }, { v: 'CPA', l: 'Certified Practising Accountant' }, { v: '5.0', l: 'Google rating, 107 reviews' }],
+  facts: [{ v: '20+ years', l: 'Professional experience' }, { v: 'CPA', l: 'Certified Practising Accountant' }, { v: GOOGLE.rating, l: `Google rating, ${GOOGLE.reviewCount} reviews` }],
   intro: {
     eyebrow: 'About Prim',
     title: 'A career built on numbers, compliance and people.',
@@ -149,7 +150,7 @@ export const ABOUT = {
     stats: [
       { v: 10, suf: '+', label: 'Years in finance, accounting and compliance', sub: 'Working in Australia since 2012' },
       { v: 22, pre: '$', suf: 'M', label: 'Lodged in a single month', sub: 'Loan applications successfully lodged in one month' },
-      { v: 100, suf: '+', label: 'Five-star Google reviews', sub: '5.0 average rating from 107 reviews on Google' },
+      { v: GOOGLE.fiveStarRounded, suf: '+', label: 'Five-star Google reviews', sub: `${GOOGLE.rating} average rating from ${GOOGLE.reviewCount} reviews on Google` },
     ] as { v: number; pre?: string; suf?: string; label: string; sub: string }[],
   },
   // One section for what Prim does for PRIMEO clients and the standard he works to (formerly two: help cards and value cards).
@@ -207,7 +208,7 @@ export const SERVICES: Record<string, Service> = {
     ['/images/land_card_riverbend.jpg', '/images/land_card_ridgeview.jpg', '/images/land_card_parkline.jpg']),
     columns: [],
     quote: { reviewId: 'neharika-basnet', ph: 'Photo: couple at new home handover', src: '/images/land_quote.jpg' },
-    reviewStrip: { title: 'What first-home and new-build clients say.', text: 'Three of the 107 Google reviews, from clients who bought a first home or financed a build.', ids: ['dinesh-rabari', 'bhupinder-bawa', 'karan-bhatia'] },
+    reviewStrip: { title: 'What first-home and new-build clients say.', text: `Three of the ${GOOGLE.reviewCount} Google reviews, from clients who bought a first home or financed a build.`, ids: ['dinesh-rabari', 'bhupinder-bawa', 'karan-bhatia'] },
     ctaButton: 'Register interest',
   },
 };
@@ -222,7 +223,7 @@ export const CTA_DEFAULT = {
 export const CTA_COPY: Record<string, Partial<typeof CTA_DEFAULT>> = {
   '/buyers': { title: 'Ready to have someone in your corner?', text: 'Leave your details and a PRIMEO buyer’s agent will call you within one business day to set up a free 30-minute strategy session.', button: 'Book a strategy call' },
   '/about': { title: 'Talk to Prim about your next move.', text: 'Leave your details and Prim will be in touch to talk through your situation and what a lender will want to see.', button: 'Book a conversation' },
-  '/reviews': { title: 'Join more than a hundred five-star clients.', text: 'Leave your details and we will call you within one business day to set up a free 30-minute strategy session.', button: 'Book a strategy call' },
+  '/reviews': { title: `Join more than ${GOOGLE.fiveStarRounded} five-star clients.`, text: 'Leave your details and we will call you within one business day to set up a free 30-minute strategy session.', button: 'Book a strategy call' },
 };
 
 // ---------- Buyer Agency (/buyers) ----------
@@ -238,7 +239,7 @@ export const BUYERS = {
   title: 'Buyer Agency',
   hero: 'An expert in your corner, from search to settlement.',
   lead: 'Independent representation, investment research, off-market access and property advice for buyers across Brisbane and South East Queensland.',
-  facts: [{ v: '350+', l: 'Properties secured' }, { v: '1 in 3', l: 'Bought off-market' }, { v: '$60k', l: 'Average saved vs guide' }],
+  facts: [{ v: `${STATS.purchases}+`, l: 'Properties secured' }, { v: STATS.offMarketShare, l: 'Bought off-market' }, { v: STATS.averageSaving, l: 'Average saved vs guide' }],
   sections: [
     { id: 'what-we-do', label: 'What we do' },
     { id: 'who-we-are', label: 'Who we are' },
@@ -271,7 +272,7 @@ export const BUYERS = {
       {
         id: 'off-market', n: '03', label: 'Off-Market Access',
         title: 'Some of the best homes are never advertised.',
-        text: 'Sellers choose privacy, speed or a quiet test of the market, and selling agents call the buyers they know are ready. Around one in three properties we secure never reaches a portal. Access is only half the job: every off-market home still gets the same pricing analysis and due diligence.',
+        text: `Sellers choose privacy, speed or a quiet test of the market, and selling agents call the buyers they know are ready. Around ${STATS.offMarketShare} properties we secure never reaches a portal. Access is only half the job: every off-market home still gets the same pricing analysis and due diligence.`,
         points: ['Off-market, pre-market and privately available homes through agent and local networks', 'Direct approaches to owners in the streets you want', 'Inspections before a campaign launches, ahead of the crowd', 'The same scrutiny whichever door a property came through'],
         slot: 'BUYERS_CHAPTER_OFF_MARKET', alt: 'Private home behind a gate',
         cta: { label: 'Join our buyer network →', href: '/contact' },
@@ -290,13 +291,13 @@ export const BUYERS = {
     n: '02',
     eyebrow: 'Who we are',
     title: 'Independent by design. Accountable to one person: you.',
-    text: 'PRIMEO is a licensed, independent buyer’s agency based in Brisbane. We do not list, sell or take developer commissions, so the only outcome that matters is yours. Six years across South East Queensland, on and off the market, means we have seen how deals are actually won.',
+    text: `PRIMEO is a licensed, independent buyer’s agency based in Brisbane. We do not list, sell or take developer commissions, so the only outcome that matters is yours. Buying across South East Queensland since ${STATS.foundedYear}, on and off the market, means we have seen how deals are actually won.`,
     principles: TRUST,
     stats: [
-      { v: 6, label: 'Years in the Brisbane market', sub: 'Buying for clients since 2020' },
+      { v: STATS.yearsInMarket, label: 'Years in the Brisbane market', sub: `Buying for clients since ${STATS.foundedYear}` },
       { v: 100, suf: '%', label: 'Independent', sub: 'Paid by the buyer, never by a vendor or developer' },
-      { v: 60, suf: '+', label: 'Suburbs served', sub: 'From New Farm to the Moreton Bay corridor' },
-      { v: 100, suf: '+', label: 'Five-star Google reviews', sub: '5.0 average rating from 107 reviews' },
+      { v: STATS.suburbsServed, suf: '+', label: 'Suburbs served', sub: 'From New Farm to the Moreton Bay corridor' },
+      { v: GOOGLE.fiveStarRounded, suf: '+', label: 'Five-star Google reviews', sub: `${GOOGLE.rating} average rating from ${GOOGLE.reviewCount} reviews` },
     ] as { v: number; pre?: string; suf?: string; label: string; sub: string }[],
     link: { label: 'About PRIMEO →', href: '/about' },
   },

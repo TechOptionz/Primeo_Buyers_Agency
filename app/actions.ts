@@ -1,10 +1,10 @@
 'use server';
-import { CONTACT } from '@/lib/data';
+import { SITE } from '@/config/site';
 import { buildEnquiryEmail, isEmail } from '@/lib/enquiry-email';
 
 export type EnquiryResult = { ok: true } | { ok: false; error: string };
 
-const SEND_FAILED = `Sorry, that didn’t send. Please try again, or call us on ${CONTACT.phone}.`;
+const SEND_FAILED = `Sorry, that didn’t send. Please try again, or call us on ${SITE.phone}.`;
 
 const field = (data: FormData, name: string, max: number) => {
   const v = data.get(name);
@@ -16,7 +16,7 @@ const field = (data: FormData, name: string, max: number) => {
  * through Resend; lib/enquiry-email.ts lays the email out. Configured by env vars, see "Enquiry
  * emails" in the README:
  *   RESEND_API_KEY  required
- *   ENQUIRY_TO      inbox that receives enquiries (comma-separated for several); defaults to CONTACT.email
+ *   ENQUIRY_TO      inbox that receives enquiries (comma-separated for several); defaults to SITE.email (config/site.ts)
  *   ENQUIRY_FROM    sender, must be on a domain verified in Resend, e.g. "PRIMEO Website <website@primeo.com.au>"
  */
 export async function sendEnquiry(data: FormData): Promise<EnquiryResult> {
@@ -40,7 +40,7 @@ export async function sendEnquiry(data: FormData): Promise<EnquiryResult> {
     console.error('[enquiry] RESEND_API_KEY is not set; enquiry not sent.');
     return { ok: false, error: SEND_FAILED };
   }
-  const to = (process.env.ENQUIRY_TO || CONTACT.email).split(',').map((s) => s.trim()).filter(Boolean);
+  const to = (process.env.ENQUIRY_TO || SITE.email).split(',').map((s) => s.trim()).filter(Boolean);
   // onboarding@resend.dev is Resend's test sender: it only delivers to the Resend account owner's own address.
   const from = process.env.ENQUIRY_FROM || 'PRIMEO Website <onboarding@resend.dev>';
   const { replyTo, ...mail } = buildEnquiryEmail({ name, email, phone, contact, interest, message, page });

@@ -3,7 +3,8 @@ import PageHero from '@/components/PageHero';
 import { ImageSlot } from '@/components/ImageSlot';
 import { ContactForm } from '@/components/Forms';
 import RatingBadge from '@/components/RatingBadge';
-import { CONTACT, IMAGES } from '@/lib/data';
+import { IMAGES } from '@/lib/data';
+import { SITE, telHref, addressLines } from '@/config/site';
 
 export const metadata: Metadata = { title: 'Contact', description: 'Call, email or visit. Every enquiry is answered by a PRIMEO agent.' };
 
@@ -25,10 +26,10 @@ export default function Contact() {
               <p style={{ fontSize: 17, lineHeight: 1.65, color: '#4A4C55' }}>We reply within one business day and every enquiry is read by an agent.</p>
             </div>
             <div style={{ display: 'grid' }}>
-              <a href={CONTACT.phoneHref} data-reveal="1" style={row}><span className="eyebrow eyebrow-tan">Phone</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={big}>{CONTACT.phone}</span><span style={small}>{CONTACT.hours}</span></span></a>
-              <a href={`mailto:${CONTACT.email}`} data-reveal="2" style={row}><span className="eyebrow eyebrow-tan">Email</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={{ ...big, wordBreak: 'break-word' }}>{CONTACT.email}</span><span style={small}>Replies within one business day</span></span></a>
-              <div data-reveal="3" style={row}><span className="eyebrow eyebrow-tan">Office</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={big}>Brisbane CBD</span><span style={small}>{CONTACT.address1}, {CONTACT.address2}</span></span></div>
-              <div data-reveal="4" style={{ ...row, borderBottom: '1px solid #E6E0D4' }}><span className="eyebrow eyebrow-tan">Areas</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={big}>Brisbane &amp; South East QLD</span><span style={small}>Gold Coast · Sunshine Coast · Ipswich · Logan · Moreton Bay</span></span></div>
+              <a href={telHref(SITE.phone)} data-reveal="1" style={row}><span className="eyebrow eyebrow-tan">Phone</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={big}>{SITE.phone}</span><span style={small}>{SITE.hours.full}</span></span></a>
+              <a href={`mailto:${SITE.email}`} data-reveal="2" style={row}><span className="eyebrow eyebrow-tan">Email</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={{ ...big, wordBreak: 'break-word' }}>{SITE.email}</span><span style={small}>Replies within one business day</span></span></a>
+              <div data-reveal="3" style={row}><span className="eyebrow eyebrow-tan">Office</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={big}>{SITE.address.label}</span><span style={small}>{addressLines().join(', ')}</span></span></div>
+              <div data-reveal="4" style={{ ...row, borderBottom: '1px solid #E6E0D4' }}><span className="eyebrow eyebrow-tan">Areas</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={big}>{SITE.areas.headline}</span><span style={small}>{SITE.areas.others.join(' · ')}</span></span></div>
             </div>
             <div data-reveal="5"><RatingBadge size="md" /></div>
           </div>
@@ -44,7 +45,7 @@ export default function Contact() {
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(11,29,58,0),rgba(11,29,58,.95))', pointerEvents: 'none' }} />
             <p className="eyebrow eyebrow-gold" style={{ position: 'relative' }}>Visit us</p>
             <p className="serif" style={{ position: 'relative', fontSize: 26, lineHeight: 1.2 }}>Coffee is on us. Drop in for a no-obligation chat about your brief.</p>
-            <a href="#" className="btn btn-outline-light btn-fit" style={{ position: 'relative' }}>Get directions</a>
+            {SITE.address.mapsUrl && <a href={SITE.address.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline-light btn-fit" style={{ position: 'relative' }}>Get directions</a>}
           </div>
         </div>
       </section>

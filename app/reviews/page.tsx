@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const FACTS = [
   { v: GOOGLE.rating, l: 'Google rating' },
   { v: String(GOOGLE.count), l: 'Google reviews' },
-  { v: '100+', l: 'Five-star reviews' },
+  { v: `${GOOGLE.fiveStarRounded}+`, l: 'Five-star reviews' },
   { v: 'Verified', l: 'Published on Google' },
 ];
 // Two reviews shown in full beside the photo: real situations, in the client's own words.
@@ -32,7 +32,7 @@ export default function Reviews() {
     <>
       <PageHero
         eyebrow="Client reviews"
-        title="Rated 5.0 on Google by more than a hundred clients."
+        title={`Rated ${GOOGLE.rating} on Google by more than ${GOOGLE.fiveStarRounded} clients.`}
         lead="A selection of the reviews clients have left on Google for Prim and the team, exactly as they wrote them. The full list is on Google."
         src={IMAGES.reviewsHero}
         focus="66% 50%"
@@ -52,10 +52,13 @@ export default function Reviews() {
               </div>
             </div>
             <p data-reveal="2" style={{ fontSize: 17, lineHeight: 1.65, color: '#4A4C55', maxWidth: 500 }}>Reviews are written and published by clients on Google, not by us. We cannot edit or remove them, which is exactly why they are worth reading.</p>
-            <div data-reveal="3" style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-              <a href={GOOGLE.url} target="_blank" rel="noopener noreferrer" className="btn btn-navy">Read on Google</a>
-              <a href={GOOGLE.writeUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline-dark">Write a review</a>
-            </div>
+            {/* each button waits for its link in config/site.ts */}
+            {(GOOGLE.url || GOOGLE.writeUrl) && (
+              <div data-reveal="3" style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+                {GOOGLE.url && <a href={GOOGLE.url} target="_blank" rel="noopener noreferrer" className="btn btn-navy">Read on Google</a>}
+                {GOOGLE.writeUrl && <a href={GOOGLE.writeUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline-dark">Write a review</a>}
+              </div>
+            )}
           </div>
           <div data-inview="1" className="dist-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>

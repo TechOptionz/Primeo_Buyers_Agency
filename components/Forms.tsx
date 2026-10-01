@@ -1,7 +1,7 @@
 'use client';
 import { FormEvent, useState, useTransition } from 'react';
 import { sendEnquiry } from '@/app/actions';
-import { CONTACT } from '@/lib/data';
+import { SITE } from '@/config/site';
 
 const INTERESTS = ['Buying a property', 'Investing in property', 'Off-market properties', 'Property advisory', 'House & land packages'];
 
@@ -17,7 +17,7 @@ function useSubmit() {
     const data = new FormData(form);
     data.set('page', window.location.pathname);
     startTransition(async () => {
-      const res = await sendEnquiry(data).catch(() => ({ ok: false as const, error: `Sorry, that didn’t send. Please try again, or call us on ${CONTACT.phone}.` }));
+      const res = await sendEnquiry(data).catch(() => ({ ok: false as const, error: `Sorry, that didn’t send. Please try again, or call us on ${SITE.phone}.` }));
       // Only a delivered enquiry clears the form; after a failure the visitor keeps what they typed.
       if (res.ok) form.reset();
       setSent(res.ok);

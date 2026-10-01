@@ -3,7 +3,8 @@ import { usePathname } from 'next/navigation';
 import { ImageSlot } from './ImageSlot';
 import { CtaForm } from './Forms';
 import RatingBadge from './RatingBadge';
-import { CONTACT, IMAGES, CTA_DEFAULT, CTA_COPY } from '@/lib/data';
+import { IMAGES, CTA_DEFAULT, CTA_COPY } from '@/lib/data';
+import { SITE, telHref } from '@/config/site';
 
 /** Closing call to action, appended to every page by app/template.tsx. Copy varies per route (CTA_COPY in lib/data.ts). */
 export default function FinalCta() {
@@ -24,7 +25,7 @@ export default function FinalCta() {
             <p data-reveal="2" style={{ fontSize: 16, lineHeight: 1.6, color: 'rgba(247,243,236,.75)', maxWidth: 460 }}>{c.text}</p>
             <div data-reveal="2"><RatingBadge tone="dark" size="sm" /></div>
             <CtaForm label={c.button} />
-            <p data-reveal="4" style={{ fontSize: 13, color: 'rgba(247,243,236,.55)' }}>Prefer to talk now? <a href={CONTACT.phoneHref} style={{ color: '#C6A15B', borderBottom: '1px solid rgba(198,161,91,.5)' }}>{CONTACT.phone}</a> · Mon–Fri 8am–6pm</p>
+            <p data-reveal="4" style={{ fontSize: 13, color: 'rgba(247,243,236,.55)' }}>Prefer to talk now? <a href={telHref(SITE.phone)} style={{ color: '#C6A15B', borderBottom: '1px solid rgba(198,161,91,.5)' }}>{SITE.phone}</a> · {SITE.hours.weekdays}</p>
           </div>
         </div>
       </div>

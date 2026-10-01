@@ -1,6 +1,6 @@
 /**
  * A selection of the Google reviews for Prim Ahuja's business (Queensland Fundings on Google Maps). The
- * listing had 107 reviews at a 5.0 average when it was captured on 2026-09-29 (GOOGLE below); REVIEWS is
+ * listing had 107 reviews at a 5.0 average when it was captured on 2026-09-29; REVIEWS is
  * a hand-picked 24 of them, newest first: clearly written, signed with a real name, and specific about
  * what the client was helped with. Each review's text is exactly as written on Google, never edited.
  * Reviews that call Prim a broker or mortgage broker are left out (the client does not want that title
@@ -11,23 +11,27 @@
  * fit one or two sentences; the reviews page always shows the full text.
  *
  * To add a review: copy its wording from Google unchanged, give it an id, and add it to REVIEWS in date
- * order. Keep the ids of any review a page names (see pick() calls and lib/data.ts). GOOGLE and
- * DISTRIBUTION describe the whole listing, so update them from Google, not from this list.
+ * order. Keep the ids of any review a page names (see pick() calls and lib/data.ts).
+ *
+ * The rating, the counts and the links to the listing are in config/site.ts (SITE.google); GOOGLE and
+ * DISTRIBUTION below only pass them on. They describe the whole listing, so update them from Google,
+ * not from this list.
  */
+import { SITE } from '@/config/site';
+
 export type ReviewTag = 'first-home' | 'refinance' | 'investment' | 'construction' | 'business';
 export type Review = { id: string; name: string; date: string; rating: number; tags: ReviewTag[]; quote?: string; text: string };
 
 export const GOOGLE = {
-  business: 'Queensland Fundings',
-  rating: '5.0',
-  count: 107,
-  fiveStar: 106,
-  fetched: '2026-09-29',
-  placeId: 'ChIJVVo4ONwcp2MRaQR2tObo6s0',
-  /** The listing on Google Maps, opened on its Reviews tab (the `!9m1!1b1` part of the data string). */
-  url: 'https://www.google.com/maps/place/Queensland+Fundings/@-32.205415,136.1073692,4z/data=!4m18!1m9!3m8!1s0x63a71cdc38385a55:0xcdeae8e6b4760469!2sQueensland+Fundings!8m2!3d-32.205415!4d136.1073692!9m1!1b1!16s%2Fg%2F11sqhg342l!3m7!1s0x63a71cdc38385a55:0xcdeae8e6b4760469!8m2!3d-32.205415!4d136.1073692!9m1!1b1!16s%2Fg%2F11sqhg342l',
-  /** Opens Google's write-a-review form for the listing. */
-  writeUrl: 'https://search.google.com/local/writereview?placeid=ChIJVVo4ONwcp2MRaQR2tObo6s0',
+  rating: SITE.google.rating,
+  count: SITE.google.reviewCount,
+  fiveStar: SITE.google.fiveStarCount,
+  fiveStarRounded: SITE.google.fiveStarRounded,
+  fetched: SITE.google.asAt,
+  /** The listing on Google, opened on its reviews tab. Empty until PRIMEO's own listing is confirmed. */
+  url: SITE.google.url,
+  /** Opens Google's write-a-review form for the listing. Empty until then, too. */
+  writeUrl: SITE.google.writeReviewUrl,
 };
 
 /** Topic chips on the reviews page, matched from each review's wording. */
@@ -72,8 +76,35 @@ export const pick = (ids: string[]) => ids.map(byId).filter((r): r is Review => 
 
 export const FEATURED: Review[] = pick(['anumeha-jain', 'amrit-sandhu', 'ruchika-mittal', 'pramuk-shyam-pathy', 'valeska-bezuidenhout', 'karan-bhatia']);
 
+/**
+ * TODO: reviews to replace. Every review in this file was left on the "Queensland Fundings" listing, and
+ * the ones below talk about a loan, a refinance or that business by name rather than about buying with a
+ * buyer's agent. Nothing reads this list: it is a checklist, with what each review says and where the
+ * site features it beyond the reviews page. The remaining eight (Bhupinder Bawa, Neharika Basnet, Rohit
+ * Kamboj, Jessica Monaghan, Rohtash Salyan, Karan Bhatia, Manish Mittal, Devika Nevoori Reddy) describe
+ * a purchase or the service in general terms.
+ */
+export const NOT_BUYER_AGENCY: Record<string, string> = {
+  'anumeha-jain': '"mortgage process", in the excerpt that opens the homepage carousel',
+  'pawan-pandher': 'names "QLD Funding Group"',
+  'pramuk-shyam-pathy': 'a rate and switching lenders; homepage carousel and the About page',
+  'dinesh-rabari': '"home and construction loan", names "QLD Funding"; House & Land page',
+  'narendra-rabari': '"finance approval process"',
+  'david-smith': 'a refinance and an equity loan, names "Queensland Funding"',
+  'vk-sood': 'names "Queensland Fundings"',
+  'amrit-sandhu': '"brokerage experience" in the full text; homepage carousel (the excerpt there is neutral)',
+  'milan-verma': 'names "Queensland Fundings"; About page',
+  'ruchika-mittal': 'car loan, refinancing, "mortgage advice", names "Queensland Fundings"; homepage carousel (neutral excerpt) and shown in full on the reviews page',
+  'mike-elms': '"loan process"',
+  'ishima-arora': 'names "Queensland fundings", "financial services"',
+  'prashant-mistry': 'refinancing, names "Queensland Fundings"',
+  'manbeena-sethi': 'a loan, names "Queensland fundings"; About page',
+  'arunmozhi-govindan': 'a home loan refinance; shown in full on the reviews page',
+  'valeska-bezuidenhout': '"mortgage consultant" in the full text; homepage carousel and the Buyer Agency page (neutral excerpt)',
+};
+
 /** Count of reviews at each star rating across the whole Google listing (all 107, not this selection), five first. */
-export const DISTRIBUTION = [{ stars: 5, n: 106 }, { stars: 4, n: 1 }, { stars: 3, n: 0 }, { stars: 2, n: 0 }, { stars: 1, n: 0 }];
+export const DISTRIBUTION = SITE.google.distribution;
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 /** "Apr 2026" from "2026-04-22". */

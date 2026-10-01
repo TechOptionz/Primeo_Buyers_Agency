@@ -6,7 +6,8 @@ import { GOOGLE } from '@/lib/reviews';
 
 /**
  * "G ★★★★★ 5.0 · 107 Google reviews": the rating summary used wherever the site asks for trust
- * (hero, stats, forms, footer). Links to the reviews page by default or straight to Google (`to="google"`).
+ * (hero, stats, forms, footer). Links to the reviews page by default or straight to Google (`to="google"`);
+ * until the listing's URL is set in config/site.ts, `to="google"` links to the reviews page as well.
  * `tone` follows the background: light (cream/white) or dark (navy). Styles: .g-badge in globals.css.
  */
 export default function RatingBadge({ tone = 'light', size = 'md', to = 'reviews', style }: {
@@ -21,7 +22,7 @@ export default function RatingBadge({ tone = 'light', size = 'md', to = 'reviews
     </>
   );
   const label = `Rated ${GOOGLE.rating} out of 5 from ${GOOGLE.count} Google reviews`;
-  if (to === 'google') {
+  if (to === 'google' && GOOGLE.url) {
     return <a href={GOOGLE.url} target="_blank" rel="noopener noreferrer" className="g-badge" data-tone={tone} data-size={size} aria-label={`${label}. Opens Google Maps in a new tab`} style={style}>{inner}</a>;
   }
   return <Link href="/reviews" className="g-badge" data-tone={tone} data-size={size} aria-label={`${label}. Read the reviews`} style={style}>{inner}</Link>;

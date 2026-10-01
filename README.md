@@ -23,6 +23,13 @@ The former Property Investment, Off-Market and Property Advisory pages were fold
 Agency page. `/investing`, `/off-market` and `/advisory` redirect permanently to the matching chapter
 (`/buyers#investing`, `/buyers#off-market`, `/buyers#advisory`); see `redirects()` in `next.config.ts`.
 
+## Business details
+
+Phone, email, address, licence, opening hours, the Google listing (link, rating, review count), the
+headline figures, social profiles and the switches for optional sections all live in `config/site.ts`.
+Values the business has not confirmed are marked `TODO:`; an empty value hides whatever depends on it
+(a link, a button, a social icon) instead of showing a placeholder.
+
 ## Photos
 
 Every photo area is an `<ImageSlot>` placeholder. To use a real image, drop it in `public/images/` and pass `src`:
@@ -57,7 +64,7 @@ enquiry through [Resend](https://resend.com). Set these in `.env.local` (gitigno
 | Variable | Value |
 | --- | --- |
 | `RESEND_API_KEY` | API key from the Resend dashboard |
-| `ENQUIRY_TO` | Inbox that receives enquiries; comma-separate for several. Defaults to `CONTACT.email` in `lib/data.ts` |
+| `ENQUIRY_TO` | Inbox that receives enquiries; comma-separate for several. Defaults to `SITE.email` in `config/site.ts` |
 | `ENQUIRY_FROM` | Sender, e.g. `PRIMEO Website <website@primeo.com.au>`. The domain must be verified in Resend |
 
 To verify the domain, add it in Resend (Domains) and copy the DNS records it shows into the domain's

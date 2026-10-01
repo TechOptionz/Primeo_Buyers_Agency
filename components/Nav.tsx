@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Logo } from './Logo';
-import { NAV, CONTACT } from '@/lib/data';
+import { NAV } from '@/lib/data';
+import { SITE, telHref } from '@/config/site';
 
 const MENU = [{ key: 'home', label: 'Home', href: '/' }, ...NAV, { key: 'contact', label: 'Contact', href: '/contact' }];
 
@@ -38,7 +39,7 @@ export default function Nav() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <Link href="/contact" data-desk="1" className="btn btn-gold nav-cta">Book a call</Link>
-            <a data-mob="1" href={CONTACT.phoneHref} aria-label="Call PRIMEO" className="nav-round" style={{ background: '#C6A15B', color: '#0B1D3A' }}>
+            <a data-mob="1" href={telHref(SITE.phone)} aria-label={`Call PRIMEO on ${SITE.phone}`} className="nav-round" style={{ background: '#C6A15B', color: '#0B1D3A' }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg>
             </a>
             <button data-mob="1" onClick={() => setOpen(true)} aria-label="Menu" className="nav-round" style={{ border: '1px solid currentColor', background: 'transparent', color: 'inherit' }}>
@@ -66,8 +67,8 @@ export default function Nav() {
         </div>
         <div className="menu-foot" style={{ transitionDelay: open ? `${0.12 + MENU.length * 0.05}s` : '0s' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 14, color: 'rgba(247,243,236,.75)' }}>
-            <a href={CONTACT.phoneHref} style={{ color: 'rgba(247,243,236,.85)' }}>{CONTACT.phone}</a>
-            <a href={`mailto:${CONTACT.email}`} style={{ color: 'rgba(247,243,236,.85)' }}>{CONTACT.email}</a>
+            <a href={telHref(SITE.phone)} style={{ color: 'rgba(247,243,236,.85)' }}>{SITE.phone}</a>
+            <a href={`mailto:${SITE.email}`} style={{ color: 'rgba(247,243,236,.85)' }}>{SITE.email}</a>
           </div>
           <Link href="/contact" onClick={close} className="btn btn-gold" style={{ height: 56 }}>Book a strategy call</Link>
         </div>

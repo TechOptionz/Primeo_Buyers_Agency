@@ -1,14 +1,14 @@
-import { CONTACT } from '@/lib/data';
+import { SITE, telHref, addressLines } from '@/config/site';
 
 // Copy for the legal pages (/privacy and /terms), rendered by components/LegalPage.tsx.
 // A body block is either a paragraph or a bulleted list. The closing "Contact us" section is added
-// by LegalPage from CONTACT in lib/data.ts, with `contact` as its opening line.
+// by LegalPage from SITE in config/site.ts, with `contact` as its opening line.
 export type LegalBlock = string | { list: string[] };
 export type LegalSection = { id: string; title: string; body: LegalBlock[] };
 export type LegalDoc = { title: string; seo: string; lead: string; updated: string; sections: LegalSection[]; contact: string };
 
-// The company as it is named in the footer. Add the ABN and the licence number here once the client supplies them.
-const ENTITY = 'Primeo Property Group Pty Ltd';
+// The company as it is named in the footer, with the ABN once config/site.ts has one.
+const ENTITY = SITE.abn ? `${SITE.legalName} (ABN ${SITE.abn})` : SITE.legalName;
 const UPDATED = '30 September 2026';
 
 export const PRIVACY: LegalDoc = {
@@ -228,7 +228,9 @@ export const TERMS: LegalDoc = {
 
 // The rows of the closing "Contact us" section on both pages.
 export const LEGAL_CONTACT = [
-  { label: 'Email', value: CONTACT.email, href: `mailto:${CONTACT.email}` },
-  { label: 'Phone', value: CONTACT.phone, href: CONTACT.phoneHref },
-  { label: 'Post', value: `${ENTITY}, ${CONTACT.address1}, ${CONTACT.address2}` },
+  { label: 'Email', value: SITE.email, href: `mailto:${SITE.email}` },
+  { label: 'Phone', value: SITE.phone, href: telHref(SITE.phone) },
+  // A postal address needs its street line, so the row waits for one.
+  ...(SITE.address.street ? [{ label: 'Post', value: [SITE.legalName, ...addressLines()].join(', ') }] : []),
+  ...(SITE.licenceNumber ? [{ label: 'Licence', value: SITE.licenceNumber }] : []),
 ] as { label: string; value: string; href?: string }[];
