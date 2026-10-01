@@ -30,6 +30,14 @@ headline figures, social profiles and the switches for optional sections all liv
 Values the business has not confirmed are marked `TODO:`; an empty value hides whatever depends on it
 (a link, a button, a social icon) instead of showing a placeholder.
 
+## SEO
+
+Each page sets its title, description and canonical URL with `pageMeta()` from `lib/seo.ts`; the root
+layout adds the Open Graph and Twitter defaults and the `RealEstateAgent` structured data, both built
+from `config/site.ts`. `app/sitemap.ts` and `app/robots.ts` generate `/sitemap.xml` and `/robots.txt`
+(add a new route to `ROUTES` in `lib/seo.ts`). The share card `public/og-image.jpg` is rendered by
+`node scripts/build-og.mjs`.
+
 ## Photos
 
 Every photo area is an `<ImageSlot>` placeholder. To use a real image, drop it in `public/images/` and pass `src`:

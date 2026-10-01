@@ -58,8 +58,8 @@ export default function Nav() {
     <>
       <nav data-nav="1" className={`nav${on ? ' on' : ''}`}>
         <div data-pad="1" data-nav-pad="1" className="nav-inner">
-          <Link href="/" aria-label="PRIMEO: Right Property | Right Price. Home" style={{ display: 'flex', color: 'inherit' }}>
-            <Logo flightTarget />
+          <Link href="/" style={{ display: 'flex', color: 'inherit' }}>
+            <Logo flightTarget /><span className="sr-only">, home</span>
           </Link>
           <div data-desk="1" className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
             {NAV.map((i) => <Link key={i.key} href={i.href} className={`nav-link${isActive(i.href) ? ' active' : ''}`} aria-current={isActive(i.href) ? 'page' : undefined}>{i.label}</Link>)}
