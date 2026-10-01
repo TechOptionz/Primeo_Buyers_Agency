@@ -95,8 +95,8 @@ export const SITE = {
     suburbsServed: 60,
   },
 
-  // TODO: profile URLs. An icon is shown in the footer only for a profile that has one.
-  social: { instagram: '', linkedin: '', facebook: '', youtube: '' },
+  // TODO: the remaining profile URLs. An icon is shown in the footer only for a profile that has one.
+  social: { instagram: 'https://www.instagram.com/primeobuyersagency/', linkedin: '', facebook: '', youtube: '' },
 
   links: {
     // TODO: careers page or job board URL. While empty, "Careers" is left out of the footer.
