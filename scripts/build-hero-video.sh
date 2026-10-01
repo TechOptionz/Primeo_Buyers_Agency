@@ -30,9 +30,9 @@ SHOTS=(
   "13252541_3840_2160_30fps.mp4|5|2|102|0.38|null|eq=contrast=1.05:saturation=0.9:gamma=1.08"
 )
 
-# build <name> <geometry filter using {P} for crop centre> <x264 crf> <maxrate>
+# build <name> <geometry filter using {P} for crop centre> <x264 crf> <maxrate> <av1 crf>
 build() {
-  local name="$1" geo="$2" crf="$3" maxrate="$4"
+  local name="$1" geo="$2" crf="$3" maxrate="$4" av1crf="$5"
   local inputs=() fc="" i=0
   for shot in "${SHOTS[@]}"; do
     IFS='|' read -r file ss speed frames p reframe grade <<<"$shot"
@@ -58,19 +58,23 @@ build() {
     len=$((len + frames - T)); prev="x$k"; k=$((k + 1))
   done
   local off; off=$(awk "BEGIN{printf \"%.4f\", ($len-$T)/$FPS}")
-  fc+="[$prev][head]xfade=transition=fade:duration=$(awk "BEGIN{print $T/$FPS}"):offset=$off,format=yuv420p[v]"
+  fc+="[$prev][head]xfade=transition=fade:duration=$(awk "BEGIN{print $T/$FPS}"):offset=$off,format=yuv420p,split=2[v][w]"
 
-  # H.264 only: a VP9 encode of this footage came out larger at matched quality.
+  # Two encodes of the same cut. AV1 in WebM is what most browsers play: at the CRFs below it
+  # matches the H.264 file's quality (VMAF 87-88 against the uncompressed cut) at about 60% of
+  # the size. H.264 MP4 is the fallback for browsers without AV1 (older Safari). VP9 is not
+  # used: it came out larger than H.264 at matched quality on this footage.
   echo ">> $name  ($(awk "BEGIN{print $len/$FPS}")s)"
   ffmpeg -v error -stats -y "${inputs[@]}" -filter_complex "$fc" \
     -map "[v]" -an -c:v libx264 -preset slow -profile:v high -crf "$crf" -maxrate "$maxrate" -bufsize "$maxrate" \
-      -g 60 -pix_fmt yuv420p -movflags +faststart "$OUT/$name.mp4"
+      -g 60 -pix_fmt yuv420p -movflags +faststart "$OUT/$name.mp4" \
+    -map "[w]" -an -c:v libsvtav1 -preset 5 -crf "$av1crf" -g 60 -pix_fmt yuv420p -svtav1-params tune=0 "$OUT/$name.webm"
 
   # Poster = frame 0 of the loop, so poster -> video is an invisible hand-off.
   ffmpeg -v error -y -i "$OUT/$name.mp4" -frames:v 1 -q:v 7 "$OUT/$name-poster.jpg"
 }
 
-build hero-desktop "scale=1920:1080:flags=lanczos" 27 3500k
-build hero-mobile "crop=ih*9/16:ih:(iw-ow)*{P}:0,scale=720:1280:flags=lanczos" 27 1600k
+build hero-desktop "scale=1920:1080:flags=lanczos" 27 3500k 45
+build hero-mobile "crop=ih*9/16:ih:(iw-ow)*{P}:0,scale=720:1280:flags=lanczos" 27 1600k 42
 
 ls -la "$OUT"

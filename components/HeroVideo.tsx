@@ -10,9 +10,12 @@ const PORTRAIT = '(max-width: 760px), (orientation: portrait)';
 const LANDSCAPE = '(min-width: 761px) and (orientation: landscape)';
 const PHONE = '(max-width: 760px)';
 const SOURCES = {
-  desktop: { video: '/video/hero-desktop.mp4', poster: '/video/hero-desktop-poster.jpg', width: 1920, height: 1080 },
-  mobile: { video: '/video/hero-mobile.mp4', poster: '/video/hero-mobile-poster.jpg', width: 720, height: 1280 },
+  desktop: { video: '/video/hero-desktop', poster: '/video/hero-desktop-poster.jpg', width: 1920, height: 1080 },
+  mobile: { video: '/video/hero-mobile', poster: '/video/hero-mobile-poster.jpg', width: 720, height: 1280 },
 };
+// Each cut is encoded twice (scripts/build-hero-video.sh): AV1 in WebM, about 60% of the size at the
+// same quality, and H.264 in MP4 for browsers that cannot play AV1.
+const AV1 = 'video/webm; codecs="av01.0.08M.08"';
 
 // Poster srcsets for each crop, AVIF with a WebP fallback, from the sizes pre-rendered by
 // scripts/build-images.mjs.
@@ -64,7 +67,7 @@ export default function HeroVideo({ alt }: { alt: string }) {
     const start = () => {
       video.muted = true; // React doesn't reliably reflect `muted`, and autoplay requires it
       video.preload = 'auto';
-      video.src = (window.matchMedia(PORTRAIT).matches ? SOURCES.mobile : SOURCES.desktop).video;
+      video.src = (window.matchMedia(PORTRAIT).matches ? SOURCES.mobile : SOURCES.desktop).video + (video.canPlayType(AV1) ? '.webm' : '.mp4');
       video.addEventListener('canplay', () => { ready = true; play(); }, { once: true });
       video.load();
     };
