@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import CountUp from '@/components/CountUp';
 import HeroVideo from '@/components/HeroVideo';
@@ -8,6 +9,9 @@ import RatingBadge from '@/components/RatingBadge';
 import { SERVICES, PROPERTIES, JOURNEY, TRUST, ARTICLES, IMAGES } from '@/lib/data';
 import { SLOTS } from '@/lib/slots';
 import { SITE } from '@/config/site';
+import { pageMeta, HOME_TITLE, HOME_DESCRIPTION } from '@/lib/seo';
+
+export const metadata: Metadata = pageMeta({ title: HOME_TITLE, absolute: true, description: HOME_DESCRIPTION, path: '/' });
 
 const { stats: S } = SITE;
 
@@ -55,6 +59,8 @@ export default function Home() {
               <div data-reveal="0" style={{ display: 'grid', justifyItems: 'center', gap: 18 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold" style={{ letterSpacing: '.2em' }}>Property Group</p></div>
               <h1 data-hero-h="1" className="serif" style={{ fontSize: 72, lineHeight: 1.04, letterSpacing: '-.02em', textShadow: '0 2px 28px rgba(0,0,0,.45)' }}>
                 <span data-line="1" className="lines" style={{ paddingBottom: '.06em' }}><span>Independent advice</span></span>
+                {/* the lines are block-level spans, so the heading's text needs its own space between them */}
+                {' '}
                 <span data-line="2" className="lines" style={{ paddingBottom: '.06em' }}><span>for every property <em style={{ fontStyle: 'italic', color: '#C6A15B' }}>decision.</em></span></span>
               </h1>
               <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 580, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>Over {S.securedValue.long} in property secured for buyers and investors. Representation, research and advisory for clients who expect rigour, discretion and results.</p>

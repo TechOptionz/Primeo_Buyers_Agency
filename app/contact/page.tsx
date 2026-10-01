@@ -5,8 +5,13 @@ import { ContactForm } from '@/components/Forms';
 import RatingBadge from '@/components/RatingBadge';
 import { IMAGES } from '@/lib/data';
 import { SITE, telHref, addressLines } from '@/config/site';
+import { pageMeta } from '@/lib/seo';
 
-export const metadata: Metadata = { title: 'Contact', description: 'Call, email or visit. Every enquiry is answered by a PRIMEO agent.' };
+export const metadata: Metadata = pageMeta({
+  title: 'Contact',
+  description: `Call ${SITE.phone}, email ${SITE.email} or send an enquiry. Every enquiry is answered by a PRIMEO agent within one business day.`,
+  path: '/contact',
+});
 
 const row: React.CSSProperties = { display: 'grid', gridTemplateColumns: '110px 1fr', gap: 16, padding: '20px 0', borderTop: '1px solid #E6E0D4', color: '#0B1D3A', alignItems: 'baseline' };
 const big: React.CSSProperties = { fontSize: 24 };

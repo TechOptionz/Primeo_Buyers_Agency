@@ -13,8 +13,9 @@ import RatingBadge from '@/components/RatingBadge';
 import { BUYERS as P } from '@/lib/data';
 import { byId, monthYear } from '@/lib/reviews';
 import { SLOTS } from '@/lib/slots';
+import { pageMeta } from '@/lib/seo';
 
-export const metadata: Metadata = { title: P.title, description: P.lead };
+export const metadata: Metadata = pageMeta({ title: 'Buyer Agency Brisbane', description: P.lead, path: '/buyers' });
 
 // Search engines can show the FAQ under the listing.
 const FAQ_LD = JSON.stringify({

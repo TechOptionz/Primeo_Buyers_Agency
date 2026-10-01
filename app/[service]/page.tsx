@@ -11,6 +11,7 @@ import GoogleMark from '@/components/GoogleMark';
 import RatingBadge from '@/components/RatingBadge';
 import { SERVICES } from '@/lib/data';
 import { byId, monthYear } from '@/lib/reviews';
+import { pageMeta } from '@/lib/seo';
 
 type Params = { params: Promise<{ service: string }> };
 
@@ -19,8 +20,9 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const svc = SERVICES[(await params).service];
-  return svc ? { title: svc.title, description: svc.lead } : {};
+  const { service } = await params;
+  const svc = SERVICES[service];
+  return svc ? pageMeta({ title: svc.title, description: svc.lead, path: `/${service}` }) : {};
 }
 
 export default async function ServicePage({ params }: Params) {

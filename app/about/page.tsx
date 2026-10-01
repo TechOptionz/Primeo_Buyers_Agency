@@ -5,8 +5,9 @@ import FactBand from '@/components/FactBand';
 import ReviewStrip from '@/components/ReviewStrip';
 import { Slot } from '@/components/Slot';
 import { ABOUT as P, IMAGES } from '@/lib/data';
+import { pageMeta } from '@/lib/seo';
 
-export const metadata: Metadata = { title: `About ${P.name}`, description: P.seo };
+export const metadata: Metadata = pageMeta({ title: `About ${P.name}`, description: P.seo, path: '/about' });
 
 // Value-card glyphs in the site's line-icon style (same stroke as the nav and footer icons), keyed by ABOUT.helps.items[].icon.
 const ICONS: Record<string, React.ReactNode> = {
