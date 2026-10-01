@@ -110,9 +110,9 @@ export const SITE = {
     // Homepage "Market insights" section. Off until real article pages exist: the three cards in
     // ARTICLES (lib/data.ts) are sample headlines that link to sections of the Buyer Agency page.
     marketInsights: false,
-    // Homepage hero film on phones. Off: phones keep the still poster, which saves a 2.2 MB download
-    // and lets the page settle sooner. Tablets and desktops play the film either way.
-    heroVideoOnMobile: false,
+    // Homepage hero film on phones. On: phones play the portrait cut, a 2.2 MB download that starts
+    // after the page has loaded. Off keeps the still poster. Tablets and desktops play the film either way.
+    heroVideoOnMobile: true,
   },
 };
 
