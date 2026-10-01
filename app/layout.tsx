@@ -21,7 +21,6 @@ export const metadata: Metadata = {
   title: { default: HOME_TITLE, template: `%s${TITLE_SUFFIX}` },
   description: HOME_DESCRIPTION,
   applicationName: SITE.name,
-  icons: { icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }] },
   openGraph: { type: 'website', siteName: SITE.name, locale: 'en_AU', title: HOME_TITLE, description: HOME_DESCRIPTION, images: [OG_IMAGE] },
   twitter: { card: 'summary_large_image', title: HOME_TITLE, description: HOME_DESCRIPTION, images: [OG_IMAGE.url] },
 };

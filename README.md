@@ -36,7 +36,8 @@ Each page sets its title, description and canonical URL with `pageMeta()` from `
 layout adds the Open Graph and Twitter defaults and the `RealEstateAgent` structured data, both built
 from `config/site.ts`. `app/sitemap.ts` and `app/robots.ts` generate `/sitemap.xml` and `/robots.txt`
 (add a new route to `ROUTES` in `lib/seo.ts`). The share card `public/og-image.jpg` is rendered by
-`node scripts/build-og.mjs`.
+`node scripts/build-og.mjs`. The browser and home-screen icons (`app/icon.png`, `app/apple-icon.png`)
+are cut from the official symbol in `scripts/assets/` by `node scripts/build-icons.mjs`.
 
 ## Photos
 

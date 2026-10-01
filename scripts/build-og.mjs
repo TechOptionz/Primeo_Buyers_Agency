@@ -1,5 +1,5 @@
-// Renders the social sharing card (public/og-image.jpg, 1200x630) and the home-screen icon
-// (app/apple-icon.png, 180x180). Run by hand after changing the hero photo or the wording:
+// Renders the social sharing card (public/og-image.jpg, 1200x630). Run by hand after changing
+// the hero photo or the wording:
 //
 //   node scripts/build-og.mjs
 //
@@ -48,11 +48,4 @@ await sharp(path.join(root, 'public/images/hero_brisbane_luxury.jpg'))
   .jpeg({ quality: 82, mozjpeg: true })
   .toFile(path.join(root, 'public/og-image.jpg'));
 
-const icon = `
-<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
-  <rect width="180" height="180" fill="${NAVY}"/>
-  <g transform="translate(34 34) scale(2.8)">${mark(CREAM)}</g>
-</svg>`;
-await sharp(Buffer.from(icon)).png().toFile(path.join(root, 'app/apple-icon.png'));
-
-console.log('wrote public/og-image.jpg and app/apple-icon.png');
+console.log('wrote public/og-image.jpg');
