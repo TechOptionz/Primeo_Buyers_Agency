@@ -151,7 +151,8 @@ export default function Home() {
         footer={<Link href="/buyers" className="link-u light">How buyer agency works →</Link>}
       />
 
-      {/* 5 FEATURED PROPERTIES */}
+      {/* 5 FEATURED PROPERTIES: left out while PROPERTIES (lib/data.ts) is empty */}
+      {PROPERTIES.length > 0 && (
       <section data-sec="1" className="sec" style={{ background: '#F7F3EC' }}>
         <div data-pad="1" className="container" style={{ display: 'grid', gap: 44 }}>
           <div data-reveal="0" className="head-row">
@@ -184,6 +185,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* 6 WHY PRIMEO */}
       <section data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4', borderBottom: '1px solid #E6E0D4' }}>

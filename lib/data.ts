@@ -63,13 +63,12 @@ export const ARTICLES = [
 ];
 
 // The homepage's "Recently secured for our clients" cards, so every status here is a secured one.
-// TODO: these three are sample entries (addresses, prices and photos). Replace them with purchases
-// the business has actually completed and has permission to show.
-export const PROPERTIES = [
-  { id: 'a', status: 'Secured', price: '$1,850,000', address: '42 Moray Street, New Farm', type: 'House', beds: 4, baths: 3, cars: 2, agent: 'Secured for a PRIMEO buyer', placeholder: 'Photo: renovated Queenslander exterior', src: '/images/prop_moray_st.jpg' },
-  { id: 'b', status: 'Secured off-market', price: '$1,420,000', address: '12 Latrobe Terrace, Paddington', type: 'House', beds: 4, baths: 2, cars: 2, agent: 'Secured for a PRIMEO buyer', placeholder: 'Photo: character home with verandah', src: '/images/prop_latrobe_tce.jpg' },
-  { id: 'c', status: 'Secured off-market', price: '$1,290,000', address: '8/21 Oxlade Drive, New Farm', type: 'Apartment', beds: 3, baths: 2, cars: 1, agent: 'Secured for a PRIMEO investor', placeholder: 'Photo: riverfront apartment balcony', src: '/images/prop_oxlade_dr.jpg' },
-];
+// Empty until the business supplies purchases it has actually completed and has permission to show
+// (the sample addresses and prices were removed); while it is empty the homepage leaves the section out.
+// TODO: add real purchases, e.g.
+//   { id: 'a', status: 'Secured off-market', price: '$1,420,000', address: '<street>, <suburb>', type: 'House', beds: 4, baths: 2, cars: 2, agent: 'Secured for a PRIMEO buyer', placeholder: 'Photo: character home with verandah', src: '/images/<file>.jpg' }
+export type Property = { id: string; status: string; price: string; address: string; type: string; beds: number; baths: number; cars: number; agent: string; placeholder: string; src?: string };
+export const PROPERTIES: Property[] = [];
 
 export const JOURNEY: Step[] = [
   { n: '01', title: 'Discover', text: 'A strategy session to define budget, location, lifestyle and growth priorities.', ph: 'Photo: strategy meeting over coffee', src: '/images/journey_01_discover.jpg' },
@@ -194,12 +193,10 @@ export const SERVICES: Record<string, Service> = {
     ['/images/why_primeo_review.jpg', '/images/land_step_select.jpg', '/images/land_step_contract.jpg', '/images/land_step_build.jpg']),
     cardsEyebrow: 'Current packages',
     cardsTitle: 'Selected developments.',
-    cards: withPh([
-      { tag: 'Moreton Bay', title: 'Riverbend Estate', text: '4 bed · 2 bath · 2 car on 450 m². Fixed-price turnkey, 12-month build.', foot: 'From $785,000' },
-      { tag: 'Ipswich', title: 'Ridgeview Rise', text: '4 bed · 2 bath · 2 car on 400 m². Close to rail and new schools.', foot: 'From $712,000' },
-      { tag: 'Logan', title: 'Parkline Terraces', text: '3 bed · 2.5 bath townhomes with private courtyards. Low-maintenance investment.', foot: 'From $598,000' },
-    ], ['Photo: Riverbend display home', 'Photo: Ridgeview streetscape', 'Photo: Parkline townhomes'],
-    ['/images/land_card_riverbend.jpg', '/images/land_card_ridgeview.jpg', '/images/land_card_parkline.jpg']),
+    // Empty until there are real packages to list (the sample estate names and prices were removed);
+    // while it is empty the page leaves the "Current packages" section out.
+    // TODO: add real developments: { tag: '<region>', title: '<estate>', text: '…', foot: 'From $…', ph: 'Photo: …', src: '/images/<file>.jpg' }
+    cards: [],
     columns: [],
     quote: { reviewId: 'neharika-basnet', ph: 'Photo: couple at new home handover', src: '/images/land_quote.jpg' },
     reviewStrip: { title: 'What first-home and new-build clients say.', text: `Three of the ${GOOGLE.reviewCount} Google reviews, from clients who bought a first home or financed a build.`, ids: ['dinesh-rabari', 'bhupinder-bawa', 'karan-bhatia'] },
