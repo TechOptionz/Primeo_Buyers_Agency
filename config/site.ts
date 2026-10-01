@@ -96,7 +96,7 @@ export const SITE = {
   },
 
   // TODO: the remaining profile URLs. An icon is shown in the footer only for a profile that has one.
-  social: { instagram: 'https://www.instagram.com/primeobuyersagency/', linkedin: '', facebook: 'https://www.facebook.com/primeopropertygroup', youtube: '' },
+  social: { instagram: 'https://www.instagram.com/primeopropertygroup/', linkedin: '', facebook: 'https://www.facebook.com/primeopropertygroup', youtube: '' },
 
   links: {
     // TODO: careers page or job board URL. While empty, "Careers" is left out of the footer.
