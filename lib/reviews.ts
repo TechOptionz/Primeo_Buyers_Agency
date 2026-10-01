@@ -18,9 +18,11 @@
  * not from this list.
  */
 import { SITE } from '@/config/site';
+import type { Review } from './review-meta';
 
-export type ReviewTag = 'first-home' | 'refinance' | 'investment' | 'construction' | 'business';
-export type Review = { id: string; name: string; date: string; rating: number; tags: ReviewTag[]; quote?: string; text: string };
+// Types, the topic chips and the date formatter are in lib/review-meta.ts, so client components can
+// use them without bundling the reviews.
+export { TAGS, monthYear, type Review, type ReviewTag } from './review-meta';
 
 export const GOOGLE = {
   rating: SITE.google.rating,
@@ -33,15 +35,6 @@ export const GOOGLE = {
   /** Opens Google's write-a-review form for the listing. Empty until then, too. */
   writeUrl: SITE.google.writeReviewUrl,
 };
-
-/** Topic chips on the reviews page, matched from each review's wording. */
-export const TAGS: { key: ReviewTag; label: string }[] = [
-  { key: 'first-home', label: 'First home' },
-  { key: 'refinance', label: 'Refinance' },
-  { key: 'investment', label: 'Investment' },
-  { key: 'construction', label: 'Land & construction' },
-  { key: 'business', label: 'Business & other loans' },
-];
 
 export const REVIEWS: Review[] = [
   { id: 'anumeha-jain', name: 'Anumeha Jain', date: '2026-04-22', rating: 5, tags: [], quote: 'He made the whole mortgage process feel simple and stress‑free, always taking the time to explain things clearly and check in along the way.', text: 'Prim is fantastic to work with, and I’d highly recommend him. He made the whole mortgage process feel simple and stress‑free, always taking the time to explain things clearly and check in along the way. He and his team are super responsive, genuinely helpful, and really professional throughout the entire process.' },
@@ -105,10 +98,3 @@ export const NOT_BUYER_AGENCY: Record<string, string> = {
 
 /** Count of reviews at each star rating across the whole Google listing (all 107, not this selection), five first. */
 export const DISTRIBUTION = SITE.google.distribution;
-
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-/** "Apr 2026" from "2026-04-22". */
-export function monthYear(date: string) {
-  const [y, m] = date.split('-');
-  return `${MONTHS[Number(m) - 1] ?? ''} ${y}`;
-}

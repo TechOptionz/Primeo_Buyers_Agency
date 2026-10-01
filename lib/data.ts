@@ -29,16 +29,10 @@ export type Service = {
   ctaButton: string;
 };
 
-export type NavItem = { key: string; label: string; full: string; href: string };
-// `label` is the short nav wording; `full` is used where there is room (footer, hero band).
-export const NAV: NavItem[] = [
-  { key: 'buyers', label: 'Buyer Agency', full: 'Buyer Agency', href: '/buyers' },
-  { key: 'land', label: 'House & Land', full: 'House & Land', href: '/land' },
-  { key: 'reviews', label: 'Reviews', full: 'Client reviews', href: '/reviews' },
-  { key: 'about', label: 'About', full: 'About', href: '/about' },
-];
-// The services alone: the homepage hero band and the footer's Services column list these.
-export const SERVICE_ITEMS = NAV.filter((i) => i.key === 'buyers' || i.key === 'land');
+// Navigation lives in lib/nav.ts and the closing call-to-action copy in lib/cta.ts: client components
+// read those, and importing them from this file would ship all the page copy to the browser.
+export { NAV, SERVICE_ITEMS, type NavItem } from './nav';
+export { CTA_DEFAULT, CTA_COPY } from './cta';
 
 // Page-level photos (files live in public/images).
 export const IMAGES = {
@@ -211,19 +205,6 @@ export const SERVICES: Record<string, Service> = {
     reviewStrip: { title: 'What first-home and new-build clients say.', text: `Three of the ${GOOGLE.reviewCount} Google reviews, from clients who bought a first home or financed a build.`, ids: ['dinesh-rabari', 'bhupinder-bawa', 'karan-bhatia'] },
     ctaButton: 'Register interest',
   },
-};
-
-// ---------- closing call to action (app/template.tsx appends it to every page) ----------
-export const CTA_DEFAULT = {
-  eyebrow: 'Start a conversation',
-  title: 'Ready to make your next property move?',
-  text: 'Leave your details and a PRIMEO agent will call you within one business day to set up a free 30-minute strategy session.',
-  button: 'Book a strategy call',
-};
-export const CTA_COPY: Record<string, Partial<typeof CTA_DEFAULT>> = {
-  '/buyers': { title: 'Ready to have someone in your corner?', text: 'Leave your details and a PRIMEO buyer’s agent will call you within one business day to set up a free 30-minute strategy session.', button: 'Book a strategy call' },
-  '/about': { title: 'Talk to Prim about your next move.', text: 'Leave your details and Prim will be in touch to talk through your situation and what a lender will want to see.', button: 'Book a conversation' },
-  '/reviews': { title: `Join more than ${GOOGLE.fiveStarRounded} five-star clients.`, text: 'Leave your details and we will call you within one business day to set up a free 30-minute strategy session.', button: 'Book a strategy call' },
 };
 
 // ---------- Buyer Agency (/buyers) ----------

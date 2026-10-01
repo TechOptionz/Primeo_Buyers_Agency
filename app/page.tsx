@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Newsreader } from 'next/font/google';
 import CountUp from '@/components/CountUp';
 import HeroVideo from '@/components/HeroVideo';
 import { ImageSlot } from '@/components/ImageSlot';
 import PinnedSteps from '@/components/PinnedSteps';
-import Testimonials from '@/components/Testimonials';
+import Testimonials, { type Slide } from '@/components/Testimonials';
 import RatingBadge from '@/components/RatingBadge';
 import { SERVICES, PROPERTIES, JOURNEY, TRUST, ARTICLES, IMAGES } from '@/lib/data';
+import { FEATURED, monthYear } from '@/lib/reviews';
 import { SLOTS } from '@/lib/slots';
 import { SITE } from '@/config/site';
 import { pageMeta, HOME_TITLE, HOME_DESCRIPTION } from '@/lib/seo';
@@ -14,6 +16,9 @@ import { pageMeta, HOME_TITLE, HOME_DESCRIPTION } from '@/lib/seo';
 export const metadata: Metadata = pageMeta({ title: HOME_TITLE, absolute: true, description: HOME_DESCRIPTION, path: '/' });
 
 const { stats: S } = SITE;
+
+// The serif italic, for the last word of the hero headline. The layout loads the upright face only.
+const serifItalic = Newsreader({ subsets: ['latin'], style: ['italic'], axes: ['opsz'], variable: '--font-serif-italic', display: 'swap' });
 
 // Headline figures for the hero band. Each counts up once the intro cover lifts; `em` is the gold
 // suffix, kept outside the counter so it holds its colour.
@@ -42,6 +47,8 @@ const SERVICE_CARDS = [
   { key: 'land', href: '/land', n: '05', title: 'House & Land', text: 'New developments and packages in established growth corridors.', ph: 'Photo: new estate streetscape', src: SERVICES.land.src, span: 2 },
 ];
 
+const SLIDES: Slide[] = FEATURED.map((r) => ({ id: r.id, name: r.name, rating: r.rating, quote: r.quote ?? r.text, when: monthYear(r.date) }));
+
 export default function Home() {
   const [lead, ...more] = ARTICLES;
   return (
@@ -57,11 +64,11 @@ export default function Home() {
           <div data-pad="1" className="container" style={{ width: '100%', display: 'grid', alignItems: 'center', justifyItems: 'center', pointerEvents: 'none' }}>
             <div data-hero-content="1" style={{ maxWidth: 960, display: 'grid', gap: 26, justifyItems: 'center', textAlign: 'center', pointerEvents: 'auto' }}>
               <div data-reveal="0" style={{ display: 'grid', justifyItems: 'center', gap: 18 }}><span data-rule="1" className="rule" /><p className="eyebrow eyebrow-gold" style={{ letterSpacing: '.2em' }}>Property Group</p></div>
-              <h1 data-hero-h="1" className="serif" style={{ fontSize: 72, lineHeight: 1.04, letterSpacing: '-.02em', textShadow: '0 2px 28px rgba(0,0,0,.45)' }}>
+              <h1 data-hero-h="1" className={`serif ${serifItalic.variable}`} style={{ fontSize: 72, lineHeight: 1.04, letterSpacing: '-.02em', textShadow: '0 2px 28px rgba(0,0,0,.45)' }}>
                 <span data-line="1" className="lines" style={{ paddingBottom: '.06em' }}><span>Independent advice</span></span>
                 {/* the lines are block-level spans, so the heading's text needs its own space between them */}
                 {' '}
-                <span data-line="2" className="lines" style={{ paddingBottom: '.06em' }}><span>for every property <em style={{ fontStyle: 'italic', color: '#C6A15B' }}>decision.</em></span></span>
+                <span data-line="2" className="lines" style={{ paddingBottom: '.06em' }}><span>for every property <em style={{ fontFamily: 'var(--font-serif-italic), var(--font-serif), serif', fontStyle: 'italic', color: '#C6A15B' }}>decision.</em></span></span>
               </h1>
               <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 580, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>Over {S.securedValue.long} in property secured for buyers and investors. Representation, research and advisory for clients who expect rigour, discretion and results.</p>
               <div data-hero-cta="1" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', marginTop: 10 }}>
@@ -247,7 +254,7 @@ export default function Home() {
       <section data-sec="1" className="sec" style={{ background: '#0B1D3A', color: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 72, alignItems: 'center' }}>
           <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#3A4A66' }}><ImageSlot src={IMAGES.clients} alt="Clients on the verandah of their new home" placeholder="Photo: clients on the verandah of their new home" tone="dark" sizes="(max-width: 1000px) 100vw, 40vw" /></div>
-          <Testimonials />
+          <Testimonials items={SLIDES} badge={<RatingBadge tone="dark" size="md" to="google" />} />
         </div>
       </section>
     </>

@@ -32,7 +32,7 @@ export default function Contact() {
             </div>
             <div style={{ display: 'grid' }}>
               <a href={telHref(SITE.phone)} data-reveal="1" style={row}><span className="eyebrow eyebrow-tan">Phone</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={big}>{SITE.phone}</span><span style={small}>{SITE.hours.full}</span></span></a>
-              <a href={`mailto:${SITE.email}`} data-reveal="2" style={row}><span className="eyebrow eyebrow-tan">Email</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={{ ...big, wordBreak: 'break-word' }}>{SITE.email}</span><span style={small}>Replies within one business day</span></span></a>
+              <a href={`mailto:${SITE.email}`} data-reveal="2" style={row}><span className="eyebrow eyebrow-tan">Email</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={{ ...big, overflowWrap: 'anywhere' }}>{SITE.email}</span><span style={small}>Replies within one business day</span></span></a>
               <div data-reveal="3" style={row}><span className="eyebrow eyebrow-tan">Office</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={big}>{SITE.address.label}</span><span style={small}>{addressLines().join(', ')}</span></span></div>
               <div data-reveal="4" style={{ ...row, borderBottom: '1px solid #E6E0D4' }}><span className="eyebrow eyebrow-tan">Areas</span><span style={{ display: 'grid', gap: 2 }}><span className="serif" style={big}>{SITE.areas.headline}</span><span style={small}>{SITE.areas.others.join(' · ')}</span></span></div>
             </div>

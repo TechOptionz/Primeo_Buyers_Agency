@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Logo } from './Logo';
-import { NAV } from '@/lib/data';
+import { NAV } from '@/lib/nav';
 import { SITE, telHref } from '@/config/site';
 
 const MENU = [{ key: 'home', label: 'Home', href: '/' }, ...NAV, { key: 'contact', label: 'Contact', href: '/contact' }];

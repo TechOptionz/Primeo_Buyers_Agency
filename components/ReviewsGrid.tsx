@@ -1,7 +1,7 @@
 'use client';
 import { useMemo, useState } from 'react';
 import ReviewCard from './ReviewCard';
-import { TAGS, type Review, type ReviewTag } from '@/lib/reviews';
+import { TAGS, type Review, type ReviewTag } from '@/lib/review-meta';
 
 const PAGE = 12;
 

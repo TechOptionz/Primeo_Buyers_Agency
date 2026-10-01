@@ -111,30 +111,82 @@ button { cursor: pointer; }
 @media (max-width: 760px) { [data-count].big-figure { font-size: clamp(64px, 23vw, 120px) !important; } }
 .fact { padding: 22px 24px 22px 0; display: grid; gap: 4px; border-right: 1px solid rgba(247, 243, 236, 0.15); margin-right: 24px; }
 .fact:last-child { border-right: none; }
-/* pinned steps index: ruled rows, the active row opens its description (state set by Motion) */
-.pin-list { display: grid; border-bottom: 1px solid rgba(247, 243, 236, 0.14); }
-.pin-step { position: relative; display: grid; grid-template-columns: 56px 1fr; padding: 20px 0; border-top: 1px solid rgba(247, 243, 236, 0.14); }
-.pin-step::before { content: ''; position: absolute; top: -1px; left: 0; width: 100%; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.9s var(--ease); }
-.pin-step[data-state='on']::before { transform: scaleX(1); }
-.pin-num { padding-top: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; font-variant-numeric: tabular-nums; color: rgba(247, 243, 236, 0.4); transition: color 0.6s ease; }
-.pin-title { font-size: 26px; line-height: 1.15; color: rgba(247, 243, 236, 0.45); transition: color 0.6s ease; }
-.pin-body { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.8s var(--ease), opacity 0.6s ease; }
-.pin-body > p, .pin-body > span { display: block; min-height: 0; overflow: hidden; font-size: 15px; line-height: 1.6; color: rgba(247, 243, 236, 0.72); max-width: 420px; }
-.pin-body > p::before, .pin-body > span::before { content: ''; display: block; height: 10px; }
+/* ---------- pinned scroll story (components/PinnedSteps.tsx) ----------
+   One set of markup, three layouts. Each step is a row of text (.pin-copy) and its photo (.pin-img);
+   Motion marks the active step with data-state and fades the photos (inline opacity / transform).
+   .pin-step and .pin-list must stay unpositioned on desktop: the photo is placed against .pin-grid. */
+.pin { position: relative; background: var(--navy); color: var(--cream); }
+.pin-stage { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.pin-stage > .container { width: 100%; }
+.pin-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); column-gap: 64px; }
+.pin-grid > * { grid-column: 1; }
+.pin-head { display: grid; gap: 14px; }
+.pin-blurb { font-size: 16px; line-height: 1.6; color: rgba(247, 243, 236, 0.72); max-width: 440px; }
+.pin-list { list-style: none; margin: 36px 0 0; padding: 0; border-bottom: 1px solid rgba(247, 243, 236, 0.14); }
+/* the index row: ruled, and the active row opens its description */
+.pin-copy { position: relative; display: grid; grid-template-columns: 56px 1fr; padding: 20px 0; border-top: 1px solid rgba(247, 243, 236, 0.14); }
+.pin-copy::before { content: ''; position: absolute; top: -1px; left: 0; width: 100%; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.9s var(--ease); }
+.pin-step[data-state='on'] .pin-copy::before { transform: scaleX(1); }
+.pin-num { grid-row: 1 / span 2; padding-top: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; font-variant-numeric: tabular-nums; color: rgba(247, 243, 236, 0.4); transition: color 0.6s ease; }
+.pin-title { grid-column: 2; font-size: 26px; line-height: 1.15; color: rgba(247, 243, 236, 0.45); transition: color 0.6s ease; }
+.pin-body { grid-column: 2; display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.8s var(--ease), opacity 0.6s ease; }
+.pin-body > p { display: block; min-height: 0; overflow: hidden; font-size: 15px; line-height: 1.6; color: rgba(247, 243, 236, 0.72); max-width: 420px; }
+.pin-body > p::before { content: ''; display: block; height: 10px; }
 .pin-step[data-state='done'] .pin-title { color: rgba(247, 243, 236, 0.7); }
 .pin-step[data-state='on'] .pin-num { color: var(--gold); }
 .pin-step[data-state='on'] .pin-title { color: var(--cream); }
 .pin-step[data-state='on'] .pin-body { grid-template-rows: 1fr; opacity: 1; }
-.pin-list.compact .pin-step { padding: 13px 0; }
+.pin-list.compact .pin-copy { padding: 13px 0; }
 .pin-list.compact .pin-num { padding-top: 6px; }
 .pin-list.compact .pin-title { font-size: 22px; }
 .pin-list.compact .pin-body > p::before { height: 6px; }
-.pin-progress { display: flex; align-items: center; gap: 16px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; font-variant-numeric: tabular-nums; color: rgba(247, 243, 236, 0.5); }
+/* the photos share one frame in the right-hand column, centred on the grid; the first shows until Motion takes over */
+.pin-img { position: absolute; right: 0; top: calc(50% - min(36vh, 330px)); width: calc((100% - 64px) * 1.25 / 2.25); height: min(72vh, 660px); border-radius: 8px; overflow: hidden; background: var(--slate); opacity: 0; transform: scale(1.06); transition: opacity 1.4s ease, transform 2.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.pin-step:first-child .pin-img { opacity: 1; transform: none; }
+.pin-progress { display: flex; align-items: center; gap: 16px; margin-top: 22px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; font-variant-numeric: tabular-nums; color: rgba(247, 243, 236, 0.5); }
 .pin-progress b { color: var(--gold); font-weight: 600; }
 .pin-track { position: relative; flex: 1; height: 1px; background: rgba(247, 243, 236, 0.14); }
 .pin-track span { position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; }
-.pin-cap { display: none; }
-@media (max-width: 1000px) { .pin-cap { display: grid; } }
+.pin-foot { margin-top: 36px; }
+@media (max-width: 1000px) {
+  .pin-grid { grid-template-columns: minmax(0, 1fr); }
+  .pin-blurb, .pin-progress { display: none; }
+  .pin-foot { margin-top: 24px; }
+}
+/* tablet: still pinned. The list becomes the photo frame and the active step's text is its caption. */
+@media (min-width: 761px) and (max-width: 1000px) {
+  .pin-list { position: relative; height: 56vh; margin-top: 24px; border-bottom: 0; border-radius: 8px; overflow: hidden; background: var(--slate); }
+  .pin-img { inset: 0; width: auto; height: auto; border-radius: 0; }
+  .pin-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 29, 58, 0) 40%, rgba(11, 29, 58, 0.92) 100%); pointer-events: none; }
+  .pin-copy { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 40px; border-top: 0; pointer-events: none; }
+  .pin-copy::before { display: none; }
+  .pin-step:not([data-state='on']) .pin-copy { visibility: hidden; }
+  .pin-num { grid-row: auto; padding: 0; color: var(--gold); text-transform: uppercase; }
+  .pin-num::before { content: 'Step '; }
+  .pin-title, .pin-body { grid-column: 1; }
+  .pin-title { font-size: 40px; line-height: 1.05; color: var(--cream); }
+  .pin-body { grid-template-rows: 1fr; opacity: 1; }
+  .pin-body > p { font-size: 16px; color: rgba(247, 243, 236, 0.82); max-width: 520px; }
+  .pin-body > p::before { display: none; }
+}
+/* phone: not pinned. A timeline; every step is open and followed by its photo.
+   !important only where Motion writes the same property inline (section height, photo fade). */
+@media (max-width: 760px) {
+  .pin { height: auto !important; }
+  .pin-stage { position: static; height: auto; display: block; overflow: visible; padding: 56px 0; }
+  .pin-head { gap: 10px; }
+  .pin-list { margin-top: 28px; border-bottom: 0; }
+  .pin-step { padding: 22px 0 26px; border-top: 1px solid rgba(247, 243, 236, 0.14); }
+  .pin-copy { grid-template-columns: 40px 1fr; row-gap: 8px; padding: 0; border-top: 0; }
+  .pin-copy::before { display: none; }
+  .pin-num { padding-top: 7px; color: var(--gold); }
+  .pin-title { font-size: 24px; color: var(--cream); }
+  .pin-body { grid-template-rows: 1fr; opacity: 1; }
+  .pin-body > p { color: rgba(247, 243, 236, 0.75); max-width: none; }
+  .pin-body > p::before { display: none; }
+  .pin-img { position: relative; top: auto; width: auto; height: auto; aspect-ratio: 16 / 9; margin: 16px 0 0 40px; border-radius: 6px; opacity: 1 !important; transform: none !important; }
+  .pin-foot { margin-top: 8px; }
+}
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); margin-top: 8px; flex: none; }
 .point { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-top: 1px solid var(--sand); }
 .num-ring { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--sand); display: flex; align-items: center; justify-content: center; font-family: var(--font-serif), serif; font-size: 16px; color: var(--gold); }
@@ -306,8 +358,7 @@ select.input-dark option { color: var(--navy); }
   [data-scroll-row] > * { flex: 0 0 76%; scroll-snap-align: start; min-width: 0; }
   [data-span] { grid-column: auto !important; }
   [data-svc-grid] > * { height: 380px !important; }
-  [data-pin-media] { height: 56vh !important; }
-  [data-pin] [data-g2] { gap: 24px !important; align-content: center; }}
+}
 @media (max-width: 640px) {
   [data-g3], [data-g4] { grid-template-columns: 1fr !important; }
   [data-hero-h] { font-size: 38px !important; }
@@ -353,7 +404,12 @@ select.input-dark option { color: var(--navy); }
   .footer { padding-bottom: calc(22vw + 12px); }
 }
 /* smallest phones: keep the lockup and both round buttons on one row */
-@media (max-width: 359px) { .nav-inner { gap: 12px; } .nav .logo { --tag: 8px; } }
+@media (max-width: 359px) {
+  .nav-inner { gap: 12px; }
+  .nav .logo { --tag: 8px; }
+  /* the rating badge is wider than a 320px column: tighten it, and let the text drop below the stars if it must */
+  .g-badge { flex-wrap: wrap; gap: 4px 7px; font-size: 13px; }
+}
 @media (hover: none) { a:active, button:active { opacity: 0.8; } }
 @media (min-width: 1001px) and (max-width: 1240px) {
   [data-g4] { grid-template-columns: 1fr 1fr !important; }

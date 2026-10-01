@@ -3,10 +3,12 @@ import { useEffect, useRef, useState } from 'react';
 import { preload } from 'react-dom';
 import { getImageProps } from 'next/image';
 import { avifLoader } from '@/lib/image-loader';
+import { SITE } from '@/config/site';
 
 // Portrait-cropped encode for phones and any portrait viewport; 16:9 otherwise.
 const PORTRAIT = '(max-width: 760px), (orientation: portrait)';
 const LANDSCAPE = '(min-width: 761px) and (orientation: landscape)';
+const PHONE = '(max-width: 760px)';
 const SOURCES = {
   desktop: { video: '/video/hero-desktop.mp4', poster: '/video/hero-desktop-poster.jpg', width: 1920, height: 1080 },
   mobile: { video: '/video/hero-mobile.mp4', poster: '/video/hero-mobile-poster.jpg', width: 720, height: 1280 },
@@ -31,8 +33,9 @@ type Connection = { saveData?: boolean; effectiveType?: string };
  * Homepage hero background. The poster (frame 0 of the loop) paints first and is the
  * LCP image; the video has no src in the markup, so nothing downloads until the page
  * has loaded. It then fades in over the poster once it is actually playing.
- * Stays on the poster for reduced-motion, Save-Data and 2g/3g visitors, or if the
- * browser refuses autoplay (e.g. iOS Low Power Mode).
+ * Stays on the poster for reduced-motion, Save-Data and 2g/3g visitors, on phones (unless
+ * SITE.features.heroVideoOnMobile is on in config/site.ts), or if the browser refuses
+ * autoplay (e.g. iOS Low Power Mode).
  * The parent must be position:relative with a size.
  */
 export default function HeroVideo({ alt }: { alt: string }) {
@@ -50,6 +53,7 @@ export default function HeroVideo({ alt }: { alt: string }) {
     const conn = (navigator as Navigator & { connection?: Connection }).connection;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (conn?.saveData || /(^|-)[23]g$/.test(conn?.effectiveType || '')) return;
+    if (!SITE.features.heroVideoOnMobile && window.matchMedia(PHONE).matches) return;
 
     // Playback waits for three things: data buffered, the intro cover lifted, hero on screen.
     // The file downloads while the intro plays, but the film is held on frame 0 (= the poster)

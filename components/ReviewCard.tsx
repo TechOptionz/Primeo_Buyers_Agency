@@ -1,6 +1,6 @@
 import Stars from './Stars';
 import GoogleMark from './GoogleMark';
-import { monthYear, type Review } from '@/lib/reviews';
+import { monthYear, type Review } from '@/lib/review-meta';
 
 /**
  * One Google review: stars and month, the review as written, then the reviewer's name and the Google mark
