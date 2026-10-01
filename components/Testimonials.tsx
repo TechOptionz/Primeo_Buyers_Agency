@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Stars from './Stars';
 import GoogleMark from './GoogleMark';
 import type { Review } from '@/lib/review-meta';
+import { SITE } from '@/config/site';
 
 /**
  * Homepage carousel of featured Google reviews (FEATURED in lib/reviews.ts, in that order), under the
@@ -51,6 +52,7 @@ export default function Testimonials({ items, badge }: { items: Slide[]; badge: 
         <p className="eyebrow eyebrow-gold">Google reviews</p>
         <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>Trusted by clients across Queensland, in their own words.</span></span></h2>
         {badge}
+        <p className="rev-note" data-tone="dark">{SITE.google.sourceNote}</p>
       </div>
       <div role="group" aria-roledescription="slide" aria-label={`Review ${i + 1} of ${items.length}`} aria-live={manual ? 'polite' : 'off'} style={{ display: 'grid', gap: 24, transition: 'opacity .4s ease,transform .4s ease', opacity: fade ? 0 : 1, transform: fade ? 'translateY(12px)' : 'none' }}>
         <Stars n={cur.rating} size={16} label={cur.rating + ' out of 5 stars'} />
@@ -64,7 +66,7 @@ export default function Testimonials({ items, badge }: { items: Slide[]; badge: 
         <div onKeyDown={onKey} style={{ display: 'flex', gap: 10 }}>
           {/* a 3px bar inside a 27px-tall button: the padding is the tap target */}
           {items.map((t, k) => (
-            <button key={t.id} type="button" onClick={() => go(k, true)} aria-label={`Show review ${k + 1} of ${items.length}`} aria-current={k === i ? 'true' : undefined} style={{ boxSizing: 'content-box', width: 32, height: 3, border: 'none', borderRadius: 2, background: k === i ? '#C6A15B' : 'rgba(247,243,236,.3)', backgroundClip: 'content-box', padding: '12px 0', transition: 'background-color .4s ease' }} />
+            <button key={t.id} type="button" onClick={() => go(k, true)} aria-label={`Show review ${k + 1} of ${items.length}`} aria-current={k === i ? 'true' : undefined} style={{ boxSizing: 'content-box', width: 32, height: 3, border: 'none', borderRadius: 2, backgroundColor: k === i ? '#C6A15B' : 'rgba(247,243,236,.3)', backgroundClip: 'content-box', padding: '12px 0', transition: 'background-color .4s ease' }} />
           ))}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 22, flexWrap: 'wrap' }}>

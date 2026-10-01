@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import ReviewCard from './ReviewCard';
 import RatingBadge from './RatingBadge';
-import { pick } from '@/lib/reviews';
+import { GOOGLE, pick } from '@/lib/reviews';
 
 /**
  * A short band of three Google reviews with the rating summary, for inner pages (About, House & Land).
@@ -19,9 +19,10 @@ export default function ReviewStrip({ ids, eyebrow = 'Google reviews', title, te
             <p className="eyebrow eyebrow-tan">{eyebrow}</p>
             <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>{title}</span></span></h2>
             {text && <p className="lead" style={{ maxWidth: 520 }}>{text}</p>}
+            <p className="rev-note">{GOOGLE.sourceNote}</p>
           </div>
           <div style={{ display: 'grid', gap: 16, justifyItems: 'start' }}>
-            <RatingBadge to="google" size="md" />
+            <RatingBadge to="google" size="md" label="full" />
             <Link href="/reviews" className="link-u">Read more reviews →</Link>
           </div>
         </div>

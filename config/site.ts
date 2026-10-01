@@ -51,18 +51,24 @@ export const SITE = {
   /**
    * The Google Business listing behind the rating badge and the reviews page.
    *
-   * `url` was a Google Maps link to a listing named "Queensland Fundings", not to a PRIMEO listing,
-   * so it has been removed. While `url` is empty, every "on Google" link falls back to the site's
-   * own reviews page, the "Read on Google" and "Write a review" buttons are hidden, and the rating
-   * is left out of the structured data.
+   * The listing is Queensland Fundings, the mortgage business Prim Ahuja also runs; PRIMEO has no
+   * Google listing of its own yet. Wherever the rating or the reviews are shown, the site names
+   * Queensland Fundings as their source (`listingName`, `sourceNote`), and they are kept out of
+   * PRIMEO's structured data (lib/seo.ts): a rating has to belong to the business it describes.
+   * While `url` is empty, every "on Google" link falls back to the site's own reviews page and the
+   * "Read Queensland Fundings reviews on Google" button is hidden.
    */
   google: {
-    // TODO: link to PRIMEO's own Google Business listing, opened on its reviews tab.
-    url: '',
-    // TODO: PRIMEO's "write a review" link: https://search.google.com/local/writereview?placeid=<place id>
+    // The business the listing, the rating and the reviews belong to.
+    listingName: 'Queensland Fundings',
+    // Printed with the reviews on the homepage, the review strips and the reviews page.
+    sourceNote: 'PRIMEO is founded by Prim Ahuja, who also runs Queensland Fundings. These reviews are from Queensland Fundings clients.',
+    // The Queensland Fundings listing on Google Maps.
+    url: 'https://maps.app.goo.gl/m97WQLdhyjrNPZvd6',
+    // TODO: PRIMEO's own "write a review" link, once it has a listing:
+    // https://search.google.com/local/writereview?placeid=<place id>. While empty, "Write a review" is hidden.
     writeReviewUrl: '',
-    // TODO: these figures were captured from the "Queensland Fundings" listing on 2026-09-29.
-    // Replace them with the rating and counts of the listing `url` points at.
+    // Captured from the Queensland Fundings listing on 2026-09-29.
     rating: '5.0',
     reviewCount: 107,
     fiveStarCount: 106,

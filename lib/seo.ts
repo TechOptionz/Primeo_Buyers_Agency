@@ -30,12 +30,15 @@ export const ROUTES = ['/', '/buyers', '/land', '/reviews', '/about', '/contact'
 
 /**
  * schema.org RealEstateAgent for the root layout, built from config/site.ts. A field is included
- * only when its value is known: no street address means no `address`, and the rating waits for the
- * link to PRIMEO's own Google listing, since a rating has to belong to the business it describes.
+ * only when its value is known: no street address means no `address`.
+ *
+ * No `aggregateRating` or `review` here, and none anywhere else on the site: the Google rating and
+ * reviews belong to Queensland Fundings (SITE.google), and a rating has to belong to the business it
+ * describes. For the same reason that listing is not one of PRIMEO's `sameAs` profiles.
  */
 export function businessJsonLd() {
-  const { address: a, google: g, areas } = SITE;
-  const sameAs = [g.url, ...Object.values(SITE.social)].filter(Boolean);
+  const { address: a, areas } = SITE;
+  const sameAs = Object.values(SITE.social).filter(Boolean);
   const ld = {
     '@context': 'https://schema.org',
     '@type': 'RealEstateAgent',
@@ -51,9 +54,6 @@ export function businessJsonLd() {
       address: { '@type': 'PostalAddress', streetAddress: a.street, addressLocality: a.locality, addressRegion: a.region, postalCode: a.postcode, addressCountry: a.country },
     }),
     areaServed: [areas.primary, ...areas.others].map((name) => ({ '@type': 'City', name })),
-    ...(g.url && g.reviewCount > 0 && {
-      aggregateRating: { '@type': 'AggregateRating', ratingValue: g.rating, bestRating: '5', reviewCount: g.reviewCount },
-    }),
     ...(sameAs.length > 0 && { sameAs }),
   };
   // "<" is escaped so the JSON can never close its own <script> tag.

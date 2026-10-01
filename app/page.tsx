@@ -257,7 +257,7 @@ export default function Home() {
       <section data-sec="1" className="sec" style={{ background: '#0B1D3A', color: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 72, alignItems: 'center' }}>
           <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#3A4A66' }}><ImageSlot src={IMAGES.clients} alt="Clients on the verandah of their new home" placeholder="Photo: clients on the verandah of their new home" tone="dark" sizes="(max-width: 1000px) 100vw, 40vw" /></div>
-          <Testimonials items={SLIDES} badge={<RatingBadge tone="dark" size="md" to="google" />} />
+          <Testimonials items={SLIDES} badge={<RatingBadge tone="dark" size="md" to="google" label="full" />} />
         </div>
       </section>
     </>

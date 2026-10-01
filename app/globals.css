@@ -685,8 +685,9 @@ select.input-dark option { color: var(--navy); }
 
 
 /* ---------- Google reviews (lib/reviews.ts: RatingBadge, ReviewCard, ReviewsGrid, ReviewStrip and /reviews) ---------- */
-/* rating summary line: G, five stars, "5.0 · 107 Google reviews" */
-.g-badge { display: inline-flex; align-items: center; gap: 10px; width: max-content; max-width: 100%; color: var(--navy); font-size: 14px; line-height: 1.2; white-space: nowrap; transition: opacity 0.3s ease; }
+/* rating summary line: G, five stars, "5.0 · 107 Google reviews · Queensland Fundings". One line where
+   there is room; in a column narrower than the badge the text wraps beside the stars. */
+.g-badge { display: inline-flex; align-items: center; gap: 10px; width: max-content; max-width: 100%; min-width: 0; color: var(--navy); font-size: 14px; line-height: 1.3; transition: opacity 0.3s ease; }
 .g-badge:hover { color: var(--navy); opacity: 0.85; }
 .g-badge[data-tone='dark'], .g-badge[data-tone='dark']:hover { color: var(--cream); }
 .g-badge b { font-weight: 700; font-size: 16px; }
@@ -695,6 +696,11 @@ select.input-dark option { color: var(--navy); }
 .g-badge[data-size='sm'] b { font-size: 14px; }
 .g-badge[data-size='lg'] { font-size: 16px; gap: 12px; }
 .g-badge[data-size='lg'] b { font-size: 20px; }
+/* the long label ("... for Queensland Fundings, our sister mortgage business") wraps beside the stars */
+.g-badge[data-label='full'] .g-txt { max-width: 34ch; text-wrap: balance; }
+/* whose clients wrote the reviews: one line with the reviews (SITE.google.sourceNote) */
+.rev-note { font-size: 13px; line-height: 1.55; color: var(--tan); max-width: 520px; }
+.rev-note[data-tone='dark'] { color: rgba(247, 243, 236, 0.7); }
 /* review card: signed with the reviewer's name only, no profile photo */
 .rev-card { display: grid; gap: 16px; align-content: start; padding: 26px 26px 24px; background: #fff; border: 1px solid var(--sand); border-radius: 8px; min-width: 0; }
 .rev-card[data-tone='dark'] { background: rgba(247, 243, 236, 0.04); border-color: rgba(247, 243, 236, 0.15); color: var(--cream); }
@@ -736,7 +742,9 @@ select.input-dark option { color: var(--navy); }
   .dist-card { padding: 24px 20px; }
   .rating-big { font-size: 84px; }
   .story-text { font-size: 18px; }
-  .g-badge { white-space: normal; }
+  /* the badge names Queensland Fundings, so it is wider than a phone column: size it to the column
+     (width: max-content would hold the page at the badge's width) and let the text wrap beside the stars */
+  .g-badge { width: auto; }
 }
 /* smallest phones: the badge is wider than a 320px column. width: max-content would hold it (and the
    whole page) at that width, so size it to the column and let the text drop below the stars if it must. */

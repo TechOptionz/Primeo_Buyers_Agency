@@ -122,7 +122,7 @@ export default async function ServicePage({ params }: Params) {
             <p className="serif" style={{ fontSize: 30, lineHeight: 1.32, textWrap: 'pretty' }}>“{story.quote ?? story.text}”</p>
             <div style={{ display: 'grid', gap: 3 }}><span style={{ fontWeight: 600, fontSize: 15 }}>{story.name}</span><span className="rev-src"><GoogleMark size={12} /> Google review</span></div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap', paddingTop: 22, borderTop: '1px solid #E6E0D4' }}>
-              <RatingBadge to="google" size="md" />
+              <RatingBadge to="google" size="md" label="full" />
               <Link href="/reviews" className="link-u">Read more reviews →</Link>
             </div>
           </div>

@@ -30,9 +30,13 @@ export const GOOGLE = {
   fiveStar: SITE.google.fiveStarCount,
   fiveStarRounded: SITE.google.fiveStarRounded,
   fetched: SITE.google.asAt,
-  /** The listing on Google, opened on its reviews tab. Empty until PRIMEO's own listing is confirmed. */
+  /** The business the listing belongs to: Queensland Fundings, PRIMEO's sister mortgage business. */
+  business: SITE.google.listingName,
+  /** The one-line statement of whose clients wrote the reviews, shown with them. */
+  sourceNote: SITE.google.sourceNote,
+  /** The Queensland Fundings listing on Google. */
   url: SITE.google.url,
-  /** Opens Google's write-a-review form for the listing. Empty until then, too. */
+  /** Opens Google's write-a-review form. Empty until PRIMEO has a listing of its own. */
   writeUrl: SITE.google.writeReviewUrl,
 };
 
