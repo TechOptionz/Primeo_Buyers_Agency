@@ -40,7 +40,7 @@ export default function Footer() {
             <Link href="/" data-reveal="0" className="flogo">
               <Logo variant="lg" /><span className="sr-only">, home</span>
             </Link>
-            <p data-reveal="1" style={{ fontSize: 15, lineHeight: 1.65, color: 'rgba(247,243,236,.65)', maxWidth: 360 }}>Independent buyer agency, property investment, off-market sourcing and property advisory.</p>
+            <p data-reveal="1" style={{ fontSize: 15, lineHeight: 1.65, color: 'rgba(247,243,236,.65)', maxWidth: 360 }}>{SITE.name} is an independent buyer’s agency in Brisbane, acting only for buyers and investors across South East Queensland.</p>
             <div data-reveal="2"><RatingBadge tone="dark" size="sm" to="google" /></div>
             {(SOCIAL.length > 0 || SITE.google.profileUrl) && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
