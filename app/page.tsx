@@ -7,7 +7,8 @@ import { ImageSlot } from '@/components/ImageSlot';
 import PinnedSteps from '@/components/PinnedSteps';
 import Testimonials, { type Slide } from '@/components/Testimonials';
 import RatingBadge from '@/components/RatingBadge';
-import { SERVICES, PROPERTIES, JOURNEY, TRUST, ARTICLES, IMAGES } from '@/lib/data';
+import Faq from '@/components/Faq';
+import { SERVICES, PROPERTIES, JOURNEY, TRUST, ARTICLES, IMAGES, HOME_FAQ } from '@/lib/data';
 import { FEATURED, monthYear } from '@/lib/reviews';
 import { SLOTS } from '@/lib/slots';
 import { altFromLabel } from '@/lib/alt';
@@ -15,6 +16,13 @@ import { SITE } from '@/config/site';
 import { pageMeta, HOME_TITLE, HOME_DESCRIPTION } from '@/lib/seo';
 
 export const metadata: Metadata = pageMeta({ title: HOME_TITLE, absolute: true, description: HOME_DESCRIPTION, path: '/' });
+
+// The homepage FAQ as FAQPage structured data (search engines and answer engines quote from it).
+const FAQ_LD = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: HOME_FAQ.items.map((i) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a } })),
+}).replace(/</g, '\\u003c');
 
 const { stats: S } = SITE;
 
@@ -71,7 +79,7 @@ export default function Home() {
                 {' '}
                 <span data-line="2" className="lines" style={{ paddingBottom: '.06em' }}><span>for every property <em style={{ fontFamily: 'var(--font-serif-italic), var(--font-serif), serif', fontStyle: 'italic', color: '#C6A15B' }}>decision.</em></span></span>
               </h1>
-              <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 580, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>Over {S.securedValue.long} in property secured for buyers and investors. Representation, research and advisory for clients who expect rigour, discretion and results.</p>
+              <p data-reveal="3" data-hero-lead="1" style={{ fontSize: 19, lineHeight: 1.6, color: 'rgba(247,243,236,.9)', maxWidth: 580, textShadow: '0 1px 16px rgba(0,0,0,.5)' }}>{SITE.name} is an independent buyer’s agency in Brisbane, founded in {S.foundedYear} by {SITE.founder.name}. We act only for buyers across South East Queensland, with over {S.securedValue.long} in property secured.</p>
               <div data-hero-cta="1" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', marginTop: 10 }}>
                 <span data-reveal="5" style={{ display: 'grid' }}><Link href="/contact" className="btn btn-gold">Book a Consultation</Link></span>
                 <span data-reveal="7" style={{ display: 'grid' }}><a href="#services" className="btn btn-outline-light">Explore Services</a></span>
@@ -259,6 +267,22 @@ export default function Home() {
           <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#3A4A66' }}><ImageSlot src={IMAGES.clients} alt="Clients on the verandah of their new home" placeholder="Photo: clients on the verandah of their new home" tone="dark" sizes="(max-width: 1000px) 100vw, 40vw" /></div>
           <Testimonials items={SLIDES} badge={<RatingBadge tone="dark" size="md" to="google" label="full" />} />
         </div>
+      </section>
+
+      {/* 9 FAQ: sticky heading beside the accordion, as on the Buyer Agency page */}
+      <section id="faq" data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4', scrollMarginTop: 72 }}>
+        <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 72, alignItems: 'start' }}>
+          <div data-sticky="1" className="stick stick-low" style={{ display: 'grid', gap: 28 }}>
+            <div data-reveal="0" style={{ display: 'grid', gap: 14 }}>
+              <p className="eyebrow eyebrow-tan">{HOME_FAQ.eyebrow}</p>
+              <h2 data-h2="1" className="h2" style={{ maxWidth: 420 }}><span data-line="1" className="lines"><span>{HOME_FAQ.title}</span></span></h2>
+              <p className="lead" style={{ maxWidth: 400 }}>{HOME_FAQ.text}</p>
+            </div>
+            <Link href="/contact" data-reveal="2" className="btn btn-navy btn-fit">{HOME_FAQ.button}</Link>
+          </div>
+          <Faq items={HOME_FAQ.items} />
+        </div>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: FAQ_LD }} />
       </section>
     </>
   );

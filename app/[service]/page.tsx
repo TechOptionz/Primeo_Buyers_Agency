@@ -6,6 +6,7 @@ import PinnedSteps from '@/components/PinnedSteps';
 import FactBand from '@/components/FactBand';
 import { ImageSlot } from '@/components/ImageSlot';
 import ReviewStrip from '@/components/ReviewStrip';
+import Faq from '@/components/Faq';
 import Stars from '@/components/Stars';
 import GoogleMark from '@/components/GoogleMark';
 import RatingBadge from '@/components/RatingBadge';
@@ -30,6 +31,12 @@ export default async function ServicePage({ params }: Params) {
   const svc = SERVICES[(await params).service];
   if (!svc) notFound();
   const story = byId(svc.quote.reviewId)!;
+  // The page's FAQ as FAQPage structured data, when it has one.
+  const faqLd = svc.faq && JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: svc.faq.items.map((i) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a } })),
+  }).replace(/</g, '\\u003c');
 
   return (
     <>
@@ -131,6 +138,24 @@ export default async function ServicePage({ params }: Params) {
       </section>
 
       {svc.reviewStrip && <ReviewStrip ids={svc.reviewStrip.ids} title={svc.reviewStrip.title} text={svc.reviewStrip.text} background="#F7F3EC" />}
+
+      {/* FAQ: sticky heading beside the accordion, as on the Buyer Agency page */}
+      {svc.faq && (
+        <section id="faq" data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4', scrollMarginTop: 72 }}>
+          <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 72, alignItems: 'start' }}>
+            <div data-sticky="1" className="stick stick-low" style={{ display: 'grid', gap: 28 }}>
+              <div data-reveal="0" style={{ display: 'grid', gap: 14 }}>
+                <p className="eyebrow eyebrow-tan">{svc.faq.eyebrow}</p>
+                <h2 data-h2="1" className="h2" style={{ maxWidth: 420 }}><span data-line="1" className="lines"><span>{svc.faq.title}</span></span></h2>
+                <p className="lead" style={{ maxWidth: 400 }}>{svc.faq.text}</p>
+              </div>
+              <Link href="/contact" data-reveal="2" className="btn btn-navy btn-fit">{svc.ctaButton}</Link>
+            </div>
+            <Faq items={svc.faq.items} />
+          </div>
+          {faqLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqLd }} />}
+        </section>
+      )}
     </>
   );
 }

@@ -37,7 +37,10 @@ layout adds the Open Graph and Twitter defaults and the structured data (`RealEs
 founder, opening hours and `sameAs` profiles including the Google Business Profile, plus `WebSite` for
 the site name), all built from `config/site.ts`; `/about` adds a `Person` for the founder. Icons
 (`app/favicon.ico`, `app/icon.png`, `app/apple-icon.png`) and the schema logo (`public/logo.png`) are
-rendered by `scripts/build-icons.mjs`. The structured data carries no `aggregateRating` or `review`: the Google reviews
+rendered by `scripts/build-icons.mjs`. The homepage, `/buyers` and `/land` each carry a FAQ emitted as
+`FAQPage` structured data (`HOME_FAQ`, `BUYERS.faq`, `SERVICES.land.faq` in `lib/data.ts`), and
+`app/llms.txt/route.ts` serves `/llms.txt`, a plain-text summary of the business and its pages for AI
+crawlers, built from the same sources. The structured data carries no `aggregateRating` or `review`: the Google reviews
 on the site belong to Queensland Fundings, the owner's mortgage business, and are labelled that way
 wherever they appear. `app/sitemap.ts` and `app/robots.ts` generate `/sitemap.xml` and `/robots.txt`
 (add a new route to `ROUTES` in `lib/seo.ts`). The share card `public/og-image.jpg` is rendered by

@@ -29,6 +29,8 @@ export type Service = {
   quote: { reviewId: string; ph: string; src?: string };
   // Optional band of three more Google reviews before the closing call to action.
   reviewStrip?: { title: string; text?: string; ids: string[] };
+  // Optional FAQ, rendered as an accordion and as FAQPage structured data.
+  faq?: { eyebrow: string; title: string; text: string; items: FaqItem[] };
   ctaButton: string;
 };
 
@@ -208,8 +210,38 @@ export const SERVICES: Record<string, Service> = {
     columns: [],
     quote: { reviewId: 'neharika-basnet', ph: 'Photo: couple at new home handover', src: '/images/land_quote.jpg' },
     reviewStrip: { title: 'What first-home and new-build clients say.', text: `Three of the ${GOOGLE.reviewCount} Google reviews, from clients who bought a first home or financed a build.`, ids: ['dinesh-rabari', 'bhupinder-bawa', 'karan-bhatia'] },
+    // Answers restate what this page and the Buyer Agency page already say; no new figures.
+    faq: {
+      eyebrow: 'FAQ',
+      title: 'House and land, answered plainly.',
+      text: 'The questions buyers ask before committing to a new build. If yours is not here, ask us.',
+      items: [
+        { q: 'What is a house and land package?', a: 'A block of land in a new estate paired with a build contract from a builder, usually offered as one turnkey price. PRIMEO assesses the estate, the land and the builder separately before recommending a package, so you know what each part is worth.' },
+        { q: 'Are house and land packages a good investment in South East Queensland?', a: 'Some are, and the difference is the estate. We test each one against infrastructure, land supply, population and employment growth, rental demand, the builder’s track record and resale evidence. Of the estates we assessed in the past year, we recommended about one in three.' },
+        { q: 'What is a fixed-price build contract?', a: 'A build contract whose price is set before construction starts, so the cost does not rise with materials or labour. We review both the land and the build contract, and confirm the inclusions and the build timeline, before you sign either.' },
+        { q: 'Is PRIMEO paid by the builder or the developer?', a: 'No. PRIMEO acts only for the buyer and takes no developer or builder commissions. Our recommendation is paid for by you, so it answers to you alone.' },
+        { q: 'What happens after the contracts are signed?', a: 'We carry out progress inspections during the build and a final handover check before you move in, so defects are raised with the builder while they are still the builder’s to fix.' },
+      ] as FaqItem[],
+    },
     ctaButton: 'Register interest',
   },
+};
+
+// ---------- Homepage FAQ ----------
+// Short, quotable answers for people (and answer engines) asking what a buyer's agent is and who
+// PRIMEO is. Every fact restates something already on the site: config/site.ts, TRUST, BUYERS.
+export const HOME_FAQ = {
+  eyebrow: 'Common questions',
+  title: 'What a buyer’s agent does, and who PRIMEO is.',
+  text: 'Plain answers to the questions people ask before their first conversation with us. More on the Buyer Agency page.',
+  button: 'Ask us a question',
+  items: [
+    { q: 'What does a buyer’s agent do?', a: 'A buyer’s agent works only for the buyer. PRIMEO takes your brief, searches the whole market including homes that are never advertised, assesses each property against comparable sales, then negotiates or bids for you with a walk-away number agreed in advance, and coordinates the contract through to settlement with your solicitor, broker and inspector.' },
+    { q: `Who does ${SITE.name} act for?`, a: `Only the buyer. ${SITE.name} is an independent buyer’s agency in Brisbane, founded in ${STATS.foundedYear} by ${SITE.founder.name}. We do not list or sell property and we take no developer commissions, so our advice answers to one person: you.` },
+    { q: 'Where does PRIMEO buy?', a: `Across Brisbane and South East Queensland: ${[SITE.areas.primary, ...SITE.areas.others].join(', ')}. Investment research can extend to growth corridors throughout Australia.` },
+    { q: 'How much does a buyer’s agent cost?', a: 'Fees are agreed before we start, either fixed or a percentage of the purchase price, and explained in the first conversation. Many clients recover the fee through the purchase price alone. If we do not think engaging us makes sense for your brief, we will say so.' },
+    { q: 'How do I get started?', a: `Book a free 30-minute strategy session. Tell us what you are planning and a PRIMEO buyer’s agent will call you within one business day. You can also call ${SITE.phone} during business hours, ${SITE.hours.full}.` },
+  ] as FaqItem[],
 };
 
 // ---------- Buyer Agency (/buyers) ----------
