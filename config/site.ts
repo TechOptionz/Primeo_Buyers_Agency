@@ -26,11 +26,15 @@ export const SITE = {
   phone: '0439 860 639',
   email: 'info@primeo.com.au',
 
+  // The founder, as named in the structured data (the organisation's `founder`, the Person on /about)
+  // and under his name on the About page.
+  founder: { name: 'Prim Ahuja', role: 'Founder & Director' },
+
   address: {
     // TODO: street address (was the placeholder "Level 2, 12 Example Street"). While empty, the
     // site shows the suburb line only and leaves the address out of the structured data.
     street: '',
-    // TODO: confirm suburb, state and postcode.
+    // Brisbane QLD 4000, as on the Google Business Profile.
     locality: 'Brisbane',
     region: 'QLD',
     postcode: '4000',
@@ -41,8 +45,19 @@ export const SITE = {
     mapsUrl: '',
   },
 
-  // TODO: confirm opening hours.
-  hours: { full: 'Mon–Fri 8am–6pm · Sat 9am–2pm', weekdays: 'Mon–Fri 8am–6pm' },
+  /**
+   * Opening hours, as on the Google Business Profile: Mon–Fri 8am–6pm, Sat 9am–2pm. `full` and
+   * `weekdays` are the display strings (contact page, footer, closing call to action); `spec` is the
+   * same hours for the structured data. A change to one must be made to the other.
+   */
+  hours: {
+    full: 'Mon–Fri 8am–6pm · Sat 9am–2pm',
+    weekdays: 'Mon–Fri 8am–6pm',
+    spec: [
+      { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '08:00', closes: '18:00' },
+      { days: ['Saturday'], opens: '09:00', closes: '14:00' },
+    ],
+  },
 
   // Where PRIMEO works: the contact page's "Areas" row and areaServed in the structured data.
   // TODO: confirm.
@@ -51,8 +66,8 @@ export const SITE = {
   /**
    * The Google Business listing behind the rating badge and the reviews page.
    *
-   * The listing is Queensland Fundings, the mortgage business Prim Ahuja also runs; PRIMEO has no
-   * Google listing of its own yet. Wherever the rating or the reviews are shown, the site names
+   * The listing is Queensland Fundings, the mortgage business Prim Ahuja also runs; PRIMEO's own
+   * Business Profile (`profileUrl`) has no reviews yet. Wherever the rating or the reviews are shown, the site names
    * Queensland Fundings as their source (`listingName`, `sourceNote`), and they are kept out of
    * PRIMEO's structured data (lib/seo.ts): a rating has to belong to the business it describes.
    * While `url` is empty, every "on Google" link falls back to the site's own reviews page and the
@@ -65,6 +80,12 @@ export const SITE = {
     sourceNote: 'PRIMEO is founded by Prim Ahuja, who also runs Queensland Fundings. These reviews are from Queensland Fundings clients.',
     // The Queensland Fundings listing on Google Maps.
     url: 'https://maps.app.goo.gl/m97WQLdhyjrNPZvd6',
+    /**
+     * PRIMEO's own verified Google Business Profile (Google's share link). The footer's "Find us on
+     * Google" link and the `sameAs` list in the structured data point here. The profile has no
+     * reviews yet, so the rating badge and the reviews page keep using the listing above.
+     */
+    profileUrl: 'https://share.google/tFaHRMAliKNHRDCC2',
     // TODO: PRIMEO's own "write a review" link, once it has a listing:
     // https://search.google.com/local/writereview?placeid=<place id>. While empty, "Write a review" is hidden.
     writeReviewUrl: '',

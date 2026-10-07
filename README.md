@@ -33,8 +33,11 @@ Values the business has not confirmed are marked `TODO:`; an empty value hides w
 ## SEO
 
 Each page sets its title, description and canonical URL with `pageMeta()` from `lib/seo.ts`; the root
-layout adds the Open Graph and Twitter defaults and the `RealEstateAgent` structured data, both built
-from `config/site.ts`. The structured data carries no `aggregateRating` or `review`: the Google reviews
+layout adds the Open Graph and Twitter defaults and the structured data (`RealEstateAgent` with the
+founder, opening hours and `sameAs` profiles including the Google Business Profile, plus `WebSite` for
+the site name), all built from `config/site.ts`; `/about` adds a `Person` for the founder. Icons
+(`app/favicon.ico`, `app/icon.png`, `app/apple-icon.png`) and the schema logo (`public/logo.png`) are
+rendered by `scripts/build-icons.mjs`. The structured data carries no `aggregateRating` or `review`: the Google reviews
 on the site belong to Queensland Fundings, the owner's mortgage business, and are labelled that way
 wherever they appear. `app/sitemap.ts` and `app/robots.ts` generate `/sitemap.xml` and `/robots.txt`
 (add a new route to `ROUTES` in `lib/seo.ts`). The share card `public/og-image.jpg` is rendered by

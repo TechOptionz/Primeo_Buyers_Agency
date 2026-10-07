@@ -356,6 +356,8 @@ select.input-dark option { color: var(--navy); }
 .footer-link:hover::after { transform: scaleX(1); }
 .social { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(247, 243, 236, 0.25); display: flex; align-items: center; justify-content: center; color: var(--cream); transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s var(--ease); }
 .social:hover { border-color: var(--gold); background: rgba(198, 161, 91, 0.12); color: var(--cream); transform: translateY(-3px); }
+/* the "Find us on Google" link: the same pill as the icons, stretched around its text */
+.social-text { width: auto; padding: 0 16px 0 13px; gap: 9px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap; }
 .t-btn { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(247, 243, 236, 0.3); background: transparent; color: var(--cream); cursor: pointer; font-size: 18px; transition: border-color 0.35s ease, background 0.35s ease; }
 .t-btn:hover { border-color: var(--gold); background: rgba(198, 161, 91, 0.12); }
 

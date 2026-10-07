@@ -23,7 +23,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { service } = await params;
   const svc = SERVICES[service];
-  return svc ? pageMeta({ title: svc.title, description: svc.lead, path: `/${service}` }) : {};
+  return svc ? pageMeta({ title: svc.seoTitle ?? svc.title, description: svc.seo ?? svc.lead, path: `/${service}` }) : {};
 }
 
 export default async function ServicePage({ params }: Params) {

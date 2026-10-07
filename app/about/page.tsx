@@ -5,9 +5,13 @@ import FactBand from '@/components/FactBand';
 import ReviewStrip from '@/components/ReviewStrip';
 import { Slot } from '@/components/Slot';
 import { ABOUT as P, IMAGES } from '@/lib/data';
-import { pageMeta } from '@/lib/seo';
+import { SLOTS } from '@/lib/slots';
+import { pageMeta, founderJsonLd } from '@/lib/seo';
 
-export const metadata: Metadata = pageMeta({ title: `About ${P.name}`, description: P.seo, path: '/about' });
+export const metadata: Metadata = pageMeta({ title: `About ${P.name}, Founder & Director`, description: P.seo, path: '/about' });
+
+// Prim as schema.org Person, linked to the organisation in the root layout's structured data.
+const PERSON_LD = founderJsonLd({ description: P.lead, image: SLOTS.PRIM_AHUJA_PORTRAIT! });
 
 // Value-card glyphs in the site's line-icon style (same stroke as the nav and footer icons), keyed by ABOUT.helps.items[].icon.
 const ICONS: Record<string, React.ReactNode> = {
@@ -19,6 +23,7 @@ const ICONS: Record<string, React.ReactNode> = {
 export default function About() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: PERSON_LD }} />
       <PageHero eyebrow={`Meet ${P.name}`} title={P.hero} lead={P.lead} src={IMAGES.aboutHero} band={<FactBand facts={P.facts} />} />
 
       {/* 1 INTRO: framed portrait with a name plate beside who Prim is, with the at-a-glance rows */}
@@ -111,8 +116,8 @@ export default function About() {
           <div data-seq="1" data-g3="1" className="cells" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
             {P.together.stats.map((s) => (
               <div key={s.label} className="cell">
-                {/* the suffix sits outside the count-up so it can take the gold */}
-                <span className="serif stat-fig"><span data-count={s.v} data-prefix={s.pre}>0</span>{s.suf && <em>{s.suf}</em>}</span>
+                {/* the suffix sits outside the count-up so it can take the gold; the markup carries the final figure and Motion counts up to it */}
+                <span className="serif stat-fig"><span data-count={s.v} data-prefix={s.pre}>{s.pre}{s.v.toLocaleString('en-AU')}</span>{s.suf && <em>{s.suf}</em>}</span>
                 <div style={{ display: 'grid', gap: 4 }}><span style={{ fontSize: 15, fontWeight: 600, color: '#0B1D3A' }}>{s.label}</span><span style={{ fontSize: 13, lineHeight: 1.5, color: '#4A4C55' }}>{s.sub}</span></div>
               </div>
             ))}

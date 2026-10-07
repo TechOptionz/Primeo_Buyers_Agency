@@ -15,7 +15,7 @@ import { byId, monthYear } from '@/lib/reviews';
 import { SLOTS } from '@/lib/slots';
 import { pageMeta } from '@/lib/seo';
 
-export const metadata: Metadata = pageMeta({ title: 'Buyer Agency Brisbane', description: P.lead, path: '/buyers' });
+export const metadata: Metadata = pageMeta({ title: 'Buyer Agency Brisbane', description: P.seo, path: '/buyers' });
 
 // Search engines can show the FAQ under the listing.
 const FAQ_LD = JSON.stringify({
@@ -61,7 +61,8 @@ export default function Buyers() {
             <div data-seq="1" data-g4="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 32 }}>
               {P.who.stats.map((s) => (
                 <div key={s.label} style={{ display: 'grid', gap: 10, paddingTop: 22, borderTop: '1px solid rgba(247,243,236,.2)' }}>
-                  <span data-count={s.v} data-prefix={s.pre} data-suffix={s.suf} className="serif" style={{ fontSize: 56, lineHeight: 0.95, letterSpacing: '-.02em' }}>0</span>
+                  {/* the markup carries the final figure; Motion counts up to it when the cell scrolls into view */}
+                  <span data-count={s.v} data-prefix={s.pre} data-suffix={s.suf} className="serif" style={{ fontSize: 56, lineHeight: 0.95, letterSpacing: '-.02em' }}>{s.pre}{s.v.toLocaleString('en-AU')}{s.suf}</span>
                   <div style={{ display: 'grid', gap: 3 }}><span style={{ fontSize: 15, fontWeight: 600 }}>{s.label}</span><span style={{ fontSize: 13, lineHeight: 1.5, color: 'rgba(247,243,236,.6)' }}>{s.sub}</span></div>
                 </div>
               ))}

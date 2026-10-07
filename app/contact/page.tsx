@@ -8,8 +8,8 @@ import { SITE, telHref, addressLines } from '@/config/site';
 import { pageMeta } from '@/lib/seo';
 
 export const metadata: Metadata = pageMeta({
-  title: 'Contact',
-  description: `Call ${SITE.phone}, email ${SITE.email} or send an enquiry. Every enquiry is answered by a PRIMEO agent within one business day.`,
+  title: 'Contact a Buyer’s Agent in Brisbane',
+  description: `Contact ${SITE.name}, buyer’s agents in Brisbane. Call ${SITE.phone}, email ${SITE.email} or enquire online; we reply within one business day.`,
   path: '/contact',
 });
 

@@ -9,11 +9,12 @@ import GoogleMark from '@/components/GoogleMark';
 import { ImageSlot } from '@/components/ImageSlot';
 import { GOOGLE, REVIEWS, DISTRIBUTION, pick, monthYear } from '@/lib/reviews';
 import { IMAGES } from '@/lib/data';
+import { SITE } from '@/config/site';
 import { pageMeta } from '@/lib/seo';
 
 export const metadata: Metadata = pageMeta({
   title: 'Client Reviews',
-  description: `Rated ${GOOGLE.rating} on Google from ${GOOGLE.count} client reviews. Read a selection, in the words of the people Prim Ahuja and the team have helped.`,
+  description: `Google reviews from clients of ${GOOGLE.business}, ${SITE.founder.name}’s mortgage business. Prim is the founder of ${SITE.name}, Brisbane buyer’s agents.`,
   path: '/reviews',
 });
 

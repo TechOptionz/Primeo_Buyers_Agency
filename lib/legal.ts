@@ -13,7 +13,7 @@ const UPDATED = '30 September 2026';
 
 export const PRIVACY: LegalDoc = {
   title: 'Privacy policy',
-  seo: 'How PRIMEO collects, uses, stores and shares personal information, and how to access or correct yours.',
+  seo: 'PRIMEO Property Group’s privacy policy: how the Brisbane buyer’s agency collects, uses, stores and shares personal information, and how to access yours.',
   lead: 'What we collect when you enquire or engage us, why we collect it, who sees it and how to reach us about it.',
   updated: UPDATED,
   sections: [
@@ -127,7 +127,7 @@ export const PRIVACY: LegalDoc = {
 
 export const TERMS: LegalDoc = {
   title: 'Terms of use',
-  seo: 'The terms that apply to using the PRIMEO website: general information only, property figures, enquiries, reviews and liability.',
+  seo: 'Terms of use for the PRIMEO Property Group website, Brisbane buyer’s agents: general information only, property figures, enquiries, reviews and liability.',
   lead: 'The terms that apply when you use this website. Our services are covered by a separate written agreement.',
   updated: UPDATED,
   sections: [

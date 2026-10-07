@@ -7,6 +7,9 @@ export type Column = { eyebrow: string; title: string; text: string; points: str
 export type Service = {
   key: string;
   title: string;
+  // <title> and meta description; the page falls back to `title` and `lead`.
+  seoTitle?: string;
+  seo?: string;
   hero: string;
   lead: string;
   placeholder: string;
@@ -86,35 +89,35 @@ export const TRUST = [
 ];
 
 // ---------- About (/about): Prim Ahuja ----------
-// Every fact below comes from Prim's CV; the closing quote is his, confirmed. The company is named
-// as it appears on the CV; change it here and every mention on the page follows.
-const COMPANY = 'Aussie Financial Hub';
+// Prim's background (CPA, audit and controls, compliance roles, running a business) comes from his CV.
+// The PRIMEO figures are the ones already shown on the homepage (SITE.stats); the business name and
+// the founder's title come from config/site.ts. Nothing here describes a home-loan business: Prim's
+// mortgage business, Queensland Fundings, is named once, as the source of the Google reviews.
 
 export type Factor = { n: string; title: string; text: string };
 export type Discipline = { kind: string; title: string; text: string };
 export type Help = { icon: string; kind: string; title: string; text: string; href: string; cta: string };
 
 export const ABOUT = {
-  company: COMPANY,
-  name: 'Prim Ahuja',
-  role: 'Certified Practising Accountant (CPA)',
-  seo: `Meet Prim Ahuja, Certified Practising Accountant (CPA) at ${COMPANY}: more than ten years in finance, accounting and compliance, applied to every home loan application.`,
-  hero: 'An accountant’s precision, working for you.',
-  lead: 'Prim Ahuja is a Certified Practising Accountant with more than twenty years of professional experience.',
+  company: SITE.name,
+  name: SITE.founder.name,
+  role: `${SITE.founder.role}, ${SITE.name}`,
+  seo: `Prim Ahuja, founder and director of ${SITE.name}: an independent buyer’s agency in Brisbane acting only for buyers across South East Queensland.`,
+  hero: `Prim Ahuja, founder and director of ${SITE.name}.`,
+  lead: `Prim founded ${SITE.name}, an independent buyer’s agency in Brisbane that acts only for buyers across South East Queensland. He is a Certified Practising Accountant with more than twenty years of professional experience.`,
   // "20+ years" is the overall career figure supplied by the client (the CV documents 2012 onward in Australia
-  // and earlier private-sector experience in its profile); the stats strip keeps the CV's own "10+ years in
-  // finance, accounting and compliance".
-  facts: [{ v: '20+ years', l: 'Professional experience' }, { v: 'CPA', l: 'Certified Practising Accountant' }, { v: GOOGLE.rating, l: `Google rating, ${GOOGLE.reviewCount} reviews` }],
+  // and earlier private-sector experience in its profile). The third figure is PRIMEO's, as on the homepage.
+  facts: [{ v: '20+ years', l: 'Professional experience' }, { v: 'CPA', l: 'Certified Practising Accountant' }, { v: `${STATS.purchases}+`, l: 'Properties secured for clients' }],
   intro: {
     eyebrow: 'About Prim',
     title: 'A career built on numbers, compliance and people.',
-    p1: 'Before he prepared his first loan application, Prim had reconciled balance sheets, audited payment controls, run a business with up to 30 staff and investigated compliance breaches in state and federal government roles. It shows in how he works: nothing goes to a lender until it is right.',
-    p2: 'He explains what is happening and why, answers quickly, and treats a client’s application with the same care he once brought to an audit file.',
+    p1: `Before he founded ${SITE.shortName}, Prim had reconciled balance sheets, audited payment controls, run a business with up to 30 staff and investigated compliance breaches in state and federal government roles. It shows in how he buys: no offer goes in until the numbers behind it are right.`,
+    p2: 'He explains what is happening and why, answers quickly, and treats a client’s purchase with the same care he once brought to an audit file.',
     glance: [
-      { label: 'Focus', value: 'Home loans and property finance', sub: `${COMPANY} · since 2020` },
+      { label: 'Focus', value: 'Buyer’s agency and property advice', sub: `${SITE.name} · founded ${STATS.foundedYear}` },
       { label: 'CPA', value: 'Certified Practising Accountant', sub: 'CPA Australia · since 2015' },
       { label: 'Education', value: 'Master of Professional Accounting', sub: 'Central Queensland University' },
-      { label: 'Language', value: 'English', sub: 'Clear, plain-English client support' },
+      { label: 'Also runs', value: GOOGLE.listingName, sub: 'Prim’s mortgage business, whose clients wrote the Google reviews shown on this site' },
     ] as { label: string; value: string; sub?: string }[],
   },
   // The background in brief: four disciplines, with no employers and no year-by-year history (the client
@@ -127,23 +130,24 @@ export const ABOUT = {
       { kind: 'Accounting', title: 'Trained as an accountant', text: 'A Master of Professional Accounting, then the CPA designation with CPA Australia.' },
       { kind: 'Audit and controls', title: 'Practised at checking the detail', text: 'Years in internal controls and audit, recognised with company awards for accuracy and customer service.' },
       { kind: 'Business and compliance', title: 'Seen from both sides', text: 'He has run a business of his own, and held others to the rules in state and federal compliance roles.' },
-      { kind: 'Home finance', title: 'Beside buyers since 2020', text: 'Six years guiding clients through every stage of a loan application, from the first conversation to lodgement and follow-up.' },
+      { kind: 'Property', title: `Buying for clients since ${STATS.foundedYear}`, text: `${STATS.yearsInMarket} years beside buyers and investors across Brisbane and South East Queensland, from the first brief to settlement, on and off the market.` },
     ] as Discipline[],
   },
   together: {
-    eyebrow: `At ${COMPANY}`,
+    eyebrow: `At ${SITE.name}`,
     title: 'How Prim brings it all together.',
-    text: 'Everything in Prim’s background has a practical use for the client in front of him. These are the four that matter most when a loan application is on the line.',
+    text: 'Everything in Prim’s background has a practical use for the client in front of him. These are the four that matter most when a purchase is on the line.',
     pillars: [
-      { n: '01', title: 'An accountant’s eye', text: 'Prim understands income, tax and financial documents in depth, so an application is prepared correctly the first time rather than patched after a lender queries it.' },
-      { n: '02', title: 'A compliance background', text: 'Years of audit and compliance work mean every file is thorough, accurate and lender-ready, with the supporting evidence already in order.' },
-      { n: '03', title: 'A business owner’s perspective', text: 'Self-employed and small business clients work with someone who has been one. Prim knows how a business’s finances look from the inside and how to present them clearly.' },
-      { n: '04', title: 'Client-first communication', text: 'Clear explanations at every step, fast responses and no jargon. Clients always know where their application is and what happens next.' },
+      { n: '01', title: 'An accountant’s eye', text: 'Prim reads comparable sales, rental figures, holding costs and contracts in depth, so an offer rests on evidence from the start rather than on a hunch corrected after the fact.' },
+      { n: '02', title: 'A compliance background', text: 'Years of audit and compliance work mean every property file is thorough: due diligence done, the supporting evidence in order, and nothing signed on an assumption.' },
+      { n: '03', title: 'A business owner’s perspective', text: 'Self-employed and small business clients work with someone who has been one. Prim knows how a purchase has to perform and how it fits the rest of a balance sheet.' },
+      { n: '04', title: 'Client-first communication', text: 'Clear explanations at every step, fast responses and no jargon. Clients always know where their purchase is and what happens next.' },
     ] as Factor[],
+    // PRIMEO's figures, the same ones the homepage shows (SITE.stats).
     stats: [
-      { v: 10, suf: '+', label: 'Years in finance, accounting and compliance', sub: 'Working in Australia since 2012' },
-      { v: 22, pre: '$', suf: 'M', label: 'Lodged in a single month', sub: 'Loan applications successfully lodged in one month' },
-      { v: GOOGLE.fiveStarRounded, suf: '+', label: 'Five-star Google reviews', sub: `${GOOGLE.rating} average rating from ${GOOGLE.reviewCount} reviews on Google` },
+      { v: STATS.securedValue.amount, pre: '$', suf: 'M+', label: 'Property secured for clients', sub: `Homes and investments across Brisbane and South East Queensland since ${STATS.foundedYear}` },
+      { v: STATS.suburbsServed, suf: '+', label: 'Suburbs served', sub: 'From New Farm to the Moreton Bay corridor' },
+      { v: 60, pre: '$', suf: 'k', label: 'Average saved against the guide', sub: 'Negotiated below the price guide, on average, for PRIMEO clients' },
     ] as { v: number; pre?: string; suf?: string; label: string; sub: string }[],
   },
   // One section for what Prim does for PRIMEO clients and the standard he works to (formerly two: help cards and value cards).
@@ -160,9 +164,11 @@ export const ABOUT = {
   },
   closing: {
     eyebrow: 'A note from Prim',
-    quote: 'Most people apply for a home loan only a few times in their lives. I have spent my career learning to get the numbers right, as an accountant, an auditor and a business owner, and I bring all of it to your application. If you are thinking about your next move, let’s talk it through.',
-    signature: 'Certified Practising Accountant',
-    text: 'Tell Prim what you are planning and he will explain what a lender is likely to want to see, and where to start.',
+    // Prim's confirmed quote, with "home loan" and "application" changed to "property" and "purchase".
+    // TODO: have Prim approve this wording; it is printed in his name.
+    quote: 'Most people buy a property only a few times in their lives. I have spent my career learning to get the numbers right, as an accountant, an auditor and a business owner, and I bring all of it to your purchase. If you are thinking about your next move, let’s talk it through.',
+    signature: SITE.founder.role,
+    text: 'Tell Prim what you are planning and he will explain what to look for, what the evidence says it should cost, and where to start.',
     button: 'Book a conversation',
   },
 };
@@ -174,6 +180,8 @@ export const SERVICES: Record<string, Service> = {
   land: {
     key: 'land',
     title: 'House & Land Packages',
+    seoTitle: 'House & Land Packages Brisbane',
+    seo: 'PRIMEO’s independent house and land advice for South East Queensland’s growth corridors: vetted builders, fixed-price contracts and where to buy.',
     hero: 'New homes, land and packages across growth corridors.',
     lead: 'Turnkey packages with vetted builders, fixed-price contracts and independent advice on where to buy.',
     placeholder: 'Photo: new estate streetscape, contemporary homes, wide sky',
@@ -217,6 +225,7 @@ export const BUYERS = {
   title: 'Buyer Agency',
   hero: 'An expert in your corner, from search to settlement.',
   lead: 'Independent representation, investment research, off-market access and property advice for buyers across Brisbane and South East Queensland.',
+  seo: 'PRIMEO’s buyer’s agency in Brisbane: independent search, off-market access and negotiation for buyers and investors across South East Queensland.',
   facts: [{ v: `${STATS.purchases}+`, l: 'Properties secured' }, { v: STATS.offMarketShare, l: 'Bought off-market' }, { v: STATS.averageSaving, l: 'Average saved vs guide' }],
   sections: [
     { id: 'what-we-do', label: 'What we do' },

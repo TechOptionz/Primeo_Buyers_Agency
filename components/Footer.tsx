@@ -3,6 +3,7 @@ import { SERVICE_ITEMS } from '@/lib/data';
 import { SITE, telHref, addressLines } from '@/config/site';
 import { Logo } from '@/components/Logo';
 import RatingBadge from '@/components/RatingBadge';
+import GoogleMark from '@/components/GoogleMark';
 
 // Market insights and Careers are listed only once config/site.ts has a URL for them.
 const COMPANY = [
@@ -41,13 +42,20 @@ export default function Footer() {
             </Link>
             <p data-reveal="1" style={{ fontSize: 15, lineHeight: 1.65, color: 'rgba(247,243,236,.65)', maxWidth: 360 }}>Independent buyer agency, property investment, off-market sourcing and property advisory.</p>
             <div data-reveal="2"><RatingBadge tone="dark" size="sm" to="google" /></div>
-            {SOCIAL.length > 0 && (
-              <div style={{ display: 'flex', gap: 10 }}>
+            {(SOCIAL.length > 0 || SITE.google.profileUrl) && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
                 {SOCIAL.map((s, i) => (
                   <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`PRIMEO on ${s.label}`} className="social" data-reveal={i + 2}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">{s.d}</svg>
                   </a>
                 ))}
+                {/* PRIMEO's Google Business Profile, beside the social profiles */}
+                {SITE.google.profileUrl && (
+                  <a href={SITE.google.profileUrl} target="_blank" rel="noopener noreferrer" className="social social-text" data-reveal={SOCIAL.length + 2}>
+                    <GoogleMark size={14} />
+                    <span>Find us on Google</span>
+                  </a>
+                )}
               </div>
             )}
           </div>
