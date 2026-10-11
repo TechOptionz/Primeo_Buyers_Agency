@@ -1,5 +1,5 @@
 'use client';
-import { FormEvent, useState, useTransition } from 'react';
+import { FormEvent, useEffect, useRef, useState, useTransition } from 'react';
 import { sendEnquiry } from '@/app/actions';
 import { SITE } from '@/config/site';
 
@@ -55,8 +55,21 @@ export function InterestSelect({ className, placeholder = 'I’m interested in�
 
 export function ContactForm() {
   const { sent, pending, error, onSubmit } = useSubmit();
+  const formRef = useRef<HTMLFormElement>(null);
+  // Arriving from a package card on the House & Land page (/contact?package=<address>): pick the
+  // House & land interest and name the package in the brief. Read on the client so the page stays
+  // static; only fields the visitor has not touched are filled.
+  useEffect(() => {
+    const pkg = new URLSearchParams(window.location.search).get('package')?.trim().slice(0, 120);
+    const form = formRef.current;
+    if (!pkg || !form) return;
+    const interest = form.elements.namedItem('interest') as HTMLSelectElement | null;
+    const message = form.elements.namedItem('message') as HTMLTextAreaElement | null;
+    if (interest && !interest.value) interest.value = 'House & land packages';
+    if (message && !message.value) message.value = `I’d like to know more about the package at ${pkg}.`;
+  }, []);
   return (
-    <form data-reveal="1" data-form-card="1" onSubmit={onSubmit} aria-busy={pending} style={{ display: 'grid', gap: 20, padding: 40, background: '#F7F3EC', border: '1px solid #E6E0D4', borderRadius: 8 }}>
+    <form ref={formRef} data-reveal="1" data-form-card="1" onSubmit={onSubmit} aria-busy={pending} style={{ display: 'grid', gap: 20, padding: 40, background: '#F7F3EC', border: '1px solid #E6E0D4', borderRadius: 8 }}>
       <div data-g2="1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
         <label className="field">
           <span className="field-label">Full name</span>

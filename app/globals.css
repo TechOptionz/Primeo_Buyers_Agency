@@ -649,6 +649,28 @@ select.input-dark option { color: var(--navy); }
 .faq-a p { padding: 0 46px 28px 56px; font-size: 16px; line-height: 1.65; color: var(--ink); max-width: 640px; }
 .faq-item.on .faq-a { grid-template-rows: 1fr; opacity: 1; }
 
+/* floor plan viewer (components/FloorPlan.tsx): a native <dialog> over a navy wash. The frame is
+   sized from the plan's aspect ratio and capped to the viewport, so tall plans scroll inside the box. */
+/* the trigger is a <button> styled as .link-u: strip the button chrome but keep that class's type and rule */
+.plan-open { background: none; border-width: 0 0 1.5px; padding: 0 0 6px; font-family: inherit; line-height: inherit; }
+.plan-dialog { width: min(720px, calc(100vw - 32px)); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); padding: 0; border: 0; border-radius: 8px; background: #fff; color: var(--navy); box-shadow: 0 40px 80px rgba(11, 29, 58, 0.35); overflow: hidden; }
+.plan-dialog::backdrop { background: rgba(11, 29, 58, 0.72); backdrop-filter: blur(2px); }
+.plan-body { display: grid; gap: 20px; max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); padding: 28px 32px 32px; overflow-y: auto; }
+.plan-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--sand); }
+.plan-close { flex: none; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--sand); background: #fff; color: var(--navy); cursor: pointer; transition: border-color 0.3s ease, background 0.3s ease; }
+.plan-close:hover { border-color: var(--gold); background: var(--cream); }
+/* --ar is the plan's width / height (set inline). The height is fixed to the viewport and the
+   width follows from the ratio, so a tall, narrow plan is shown as large as the screen allows;
+   a wide plan hits max-width instead and is letterboxed by object-fit: contain. */
+.plan-frame { position: relative; aspect-ratio: var(--ar); height: min(70vh, 1100px); height: min(70dvh, 1100px); max-width: 100%; margin: 0 auto; background: #fff; }
+.plan-frame .slot-img { object-fit: contain !important; }
+.plan-note { font-size: 12px; line-height: 1.55; color: var(--tan); }
+@media (max-width: 760px) {
+  .plan-body { padding: 20px 18px 22px; }
+  /* phones: full width, natural height; the dialog body scrolls through a tall plan */
+  .plan-frame { height: auto; width: 100%; }
+}
+
 @media (max-width: 1000px) {
   .chap-stack-wrap { display: none; }
   .chap-mob { display: block; }

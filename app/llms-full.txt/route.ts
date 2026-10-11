@@ -54,6 +54,12 @@ ${land.intro}
 
 ${land.steps.map((s) => `${s.n}. **${s.title}.** ${s.text}`).join('\n')}
 
+${land.packages?.length ? `### Current packages (fixed price, full turnkey)
+
+${land.packages.map((p) => `- **${p.address}**${p.estate ? ` (${p.estate})` : ''}: ${p.kind === 'rooming' ? 'rooming house' : 'house and land'}, $${p.price.toLocaleString('en-AU')} (land $${p.land.toLocaleString('en-AU')}, build $${p.build.toLocaleString('en-AU')}); ${p.beds} bed, ${p.baths} bath, ${p.cars} car; ${p.buildSize} m² home on ${p.landSize} m² land; land ${p.registration === 'Registered' ? 'registered' : `registration ${p.registration}`}; estimated rent ${p.rent ? `$${p.rent.toLocaleString('en-AU')} a week` : 'on request'}.`).join('\n')}
+
+${land.packagesNote ?? ''}` : ''}
+
 ${land.faq ? `### Frequently asked questions\n\n${faq(land.faq.items)}` : ''}
 
 ## About ${ABOUT.name} (${SITE.url}/about)

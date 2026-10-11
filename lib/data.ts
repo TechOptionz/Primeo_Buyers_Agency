@@ -4,6 +4,34 @@ export type Step = { n: string; title: string; text: string; ph: string; src?: s
 export type ServiceCard = { tag: string; title: string; text: string; foot: string; ph: string; src?: string };
 export type Column = { eyebrow: string; title: string; text: string; points: string[]; cta: string; ph: string; src?: string };
 
+/**
+ * A house and land package on the House & Land page: one brochure, transcribed. Prices are whole
+ * dollars, sizes square metres. `rent` is the developer's estimated weekly rent; leave it out when
+ * the brochure says "on request". `kind` is the dwelling type the brochure gives.
+ */
+export type Package = {
+  id: string;
+  kind: 'house' | 'rooming';
+  suburb: string;
+  estate?: string;
+  address: string;
+  price: number;
+  land: number;
+  build: number;
+  landSize: number;
+  buildSize: number;
+  registration: string;
+  rent?: number;
+  beds: number;
+  baths: number;
+  cars: number;
+  note?: string;
+  ph: string;
+  src?: string;
+  // The brochure's floor plan (page 2), with its pixel size so the viewer is framed before it loads.
+  plan?: { src: string; w: number; h: number };
+};
+
 export type Service = {
   key: string;
   title: string;
@@ -24,6 +52,9 @@ export type Service = {
   cardsEyebrow?: string;
   cardsTitle?: string;
   cards: ServiceCard[];
+  // Current house and land packages (the House & Land page); the section is left out while empty.
+  packages?: Package[];
+  packagesNote?: string;
   columns: Column[];
   // The editorial quote band: a Google review (its id in lib/reviews.ts) beside a photo.
   quote: { reviewId: string; ph: string; src?: string };
@@ -175,6 +206,59 @@ export const ABOUT = {
   },
 };
 
+// ---------- House & Land: current packages ----------
+// Fixed-price, full-turnkey packages PRIMEO is currently offering, transcribed from the builder and
+// developer brochures supplied on 11 Oct 2026 (Prim is the consultant named on each). Every figure
+// is the developer's: price, land and build split, sizes, registration and estimated rent. The photos
+// are the brochures' own indicative images; the three rooming-house packages share one brochure
+// interior, so two of them use the same photo. Listed cheapest first. Remove a package when it is
+// sold or withdrawn; add one by transcribing its brochure the same way.
+export const PACKAGES: Package[] = [
+  {
+    id: 'durack-fairways', kind: 'house', suburb: 'Durack', estate: 'The Fairways', address: 'Lot 4 Blunder Road, Durack QLD 4077',
+    price: 987900, land: 588000, build: 399900, landSize: 302, buildSize: 137, registration: 'March 2027', rent: 700,
+    beds: 3, baths: 2, cars: 1,
+    note: 'Community title: body corporate fees approx. $23.52 a week. A 21-day finance clause is available. Land deposit $2,000 initially, balance to 10% when unconditional.',
+    ph: 'Photo: single-storey home with gabled facade, The Fairways, Durack', src: '/images/package_durack_fairways.jpg',
+    plan: { src: '/images/plan_durack_fairways.png', w: 365, h: 1196 },
+  },
+  {
+    id: 'moggill', kind: 'rooming', suburb: 'Moggill', address: '1218 Proposed Street, Moggill QLD 4070',
+    price: 1300761, land: 695000, build: 605761, landSize: 420, buildSize: 200, registration: 'Registered', rent: 2080,
+    beds: 5, baths: 5, cars: 3,
+    ph: 'Photo: furnished living room of a rooming house', src: '/images/package_rooming_interior.jpg',
+    plan: { src: '/images/plan_rooming_two_wing.png', w: 413, h: 1196 },
+  },
+  {
+    id: 'coopers-plains', kind: 'rooming', suburb: 'Coopers Plains', address: '1226 Proposed Street, Coopers Plains QLD 4108',
+    price: 1393010, land: 760000, build: 633010, landSize: 432, buildSize: 185, registration: 'October 2026', rent: 2330,
+    beds: 5, baths: 5, cars: 3,
+    ph: 'Photo: architectural render of a single-storey rooming house, Coopers Plains', src: '/images/package_coopers_plains.jpg',
+    plan: { src: '/images/plan_coopers_plains.png', w: 570, h: 1196 },
+  },
+  {
+    id: 'carseldine', kind: 'rooming', suburb: 'Carseldine', address: '1204 Proposed Street, Carseldine QLD 4034',
+    price: 1421099, land: 799000, build: 622099, landSize: 400, buildSize: 200, registration: 'Registered', rent: 2340,
+    beds: 5, baths: 5, cars: 3,
+    ph: 'Photo: furnished living room of a rooming house', src: '/images/package_rooming_interior.jpg',
+    plan: { src: '/images/plan_rooming_two_wing.png', w: 413, h: 1196 },
+  },
+  {
+    id: 'rochedale-viva', kind: 'house', suburb: 'Rochedale', estate: 'Viva Rochedale', address: '2 Loredana Street, Rochedale QLD 4123',
+    price: 1694900, land: 998000, build: 696900, landSize: 376.34, buildSize: 230, registration: 'Registered',
+    beds: 5, baths: 2, cars: 2,
+    ph: 'Photo: two-storey contemporary home at dusk, Viva Rochedale', src: '/images/package_rochedale_viva.jpg',
+    plan: { src: '/images/plan_rochedale_viva.png', w: 918, h: 850 },
+  },
+  {
+    id: 'rochedale-mayfair', kind: 'house', suburb: 'Rochedale', estate: 'Mayfair Lane', address: '16 Proposed Street, Rochedale QLD 4123',
+    price: 1879650, land: 1489000, build: 390650, landSize: 563, buildSize: 195.24, registration: 'March 2027',
+    beds: 4, baths: 2, cars: 2,
+    ph: 'Photo: single-storey weatherboard home with double garage, Mayfair Lane, Rochedale', src: '/images/package_rochedale_mayfair.jpg',
+    plan: { src: '/images/plan_rochedale_mayfair.png', w: 676, h: 1196 },
+  },
+];
+
 const withPh = <T extends object>(items: T[], phs: string[], srcs?: string[]) =>
   items.map((x, i) => ({ ...x, ph: phs[i] || 'Photo', src: srcs?.[i] }));
 
@@ -201,12 +285,10 @@ export const SERVICES: Record<string, Service> = {
       { n: '04', title: 'Build & handover', text: 'Progress inspections and a final handover check before you move in.' },
     ], ['Photo: pre-approval meeting', 'Photo: estate display village', 'Photo: signing land contract', 'Photo: house under construction'],
     ['/images/why_primeo_review.jpg', '/images/land_step_select.jpg', '/images/land_step_contract.jpg', '/images/land_step_build.jpg']),
-    cardsEyebrow: 'Current packages',
-    cardsTitle: 'Selected developments.',
-    // Empty until there are real packages to list (the sample estate names and prices were removed);
-    // while it is empty the page leaves the "Current packages" section out.
-    // TODO: add real developments: { tag: '<region>', title: '<estate>', text: '…', foot: 'From $…', ph: 'Photo: …', src: '/images/<file>.jpg' }
+    // Estate-level cards are not used on this page: the packages below list each property instead.
     cards: [],
+    packages: PACKAGES,
+    packagesNote: 'Prices, images, floor plans and measurements are supplied by the developer or builder, are indicative and may change without notice. Estimated rents are the developer’s figures, not PRIMEO’s. Ask us for our independent assessment of any package before you commit.',
     columns: [],
     quote: { reviewId: 'neharika-basnet', ph: 'Photo: couple at new home handover', src: '/images/land_quote.jpg' },
     reviewStrip: { title: 'What first-home and new-build clients say.', text: `Three of the ${GOOGLE.reviewCount} Google reviews, from clients who bought a first home or financed a build.`, ids: ['dinesh-rabari', 'bhupinder-bawa', 'karan-bhatia'] },

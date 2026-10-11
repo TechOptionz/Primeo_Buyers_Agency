@@ -10,6 +10,7 @@ import Faq from '@/components/Faq';
 import Stars from '@/components/Stars';
 import GoogleMark from '@/components/GoogleMark';
 import RatingBadge from '@/components/RatingBadge';
+import PackageCard from '@/components/PackageCard';
 import { SERVICES } from '@/lib/data';
 import { byId, monthYear } from '@/lib/reviews';
 import { pageMeta } from '@/lib/seo';
@@ -70,6 +71,26 @@ export default async function ServicePage({ params }: Params) {
 
       {svc.steps.length > 0 && (
         <PinnedSteps eyebrow="Step by step" title={svc.stepsTitle || ''} blurb="Scroll to follow each stage of the process." steps={svc.steps} />
+      )}
+
+      {/* current house and land packages: one card per brochure (lib/data.ts PACKAGES) */}
+      {svc.packages && svc.packages.length > 0 && (
+        <section id="packages" data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4', scrollMarginTop: 72 }}>
+          <div data-pad="1" className="container" style={{ display: 'grid', gap: 44 }}>
+            <div data-reveal="0" className="head-row">
+              <div style={{ display: 'grid', gap: 14, maxWidth: 720 }}>
+                <p className="eyebrow eyebrow-tan">Current packages</p>
+                <h2 data-h2="1" className="h2"><span data-line="1" className="lines"><span>{`${svc.packages.length} fixed-price packages, available now.`}</span></span></h2>
+                <p className="lead" style={{ maxWidth: 560 }}>Full-turnkey house and land packages across Brisbane, each with its land and build price shown separately. Ask for our written assessment of any of them before you commit.</p>
+              </div>
+              <Link href="/contact" className="link-u">Ask about a package →</Link>
+            </div>
+            <div data-seq="1" data-g3="1" data-scroll-row="1" tabIndex={0} role="group" aria-label="Current house and land packages" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 24, alignItems: 'stretch' }}>
+              {svc.packages.map((p, i) => <PackageCard key={p.id} p={p} index={i % 3} />)}
+            </div>
+            {svc.packagesNote && <p className="rev-note" style={{ maxWidth: 760 }}>{svc.packagesNote}</p>}
+          </div>
+        </section>
       )}
 
       {svc.cards.length > 0 && (
