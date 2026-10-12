@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Newsreader } from 'next/font/google';
+import dynamic from 'next/dynamic';
+import localFont from 'next/font/local';
 import CountUp from '@/components/CountUp';
 import HeroVideo from '@/components/HeroVideo';
 import { ImageSlot } from '@/components/ImageSlot';
 import PinnedSteps from '@/components/PinnedSteps';
-import Testimonials, { type Slide } from '@/components/Testimonials';
+import { type Slide } from '@/components/Testimonials';
 import RatingBadge from '@/components/RatingBadge';
-import Faq from '@/components/Faq';
 import { SERVICES, PROPERTIES, JOURNEY, TRUST, ARTICLES, IMAGES, HOME_FAQ } from '@/lib/data';
 import { FEATURED, monthYear } from '@/lib/reviews';
 import { SLOTS } from '@/lib/slots';
@@ -26,8 +26,15 @@ const FAQ_LD = JSON.stringify({
 
 const { stats: S } = SITE;
 
-// The serif italic, for the last word of the hero headline. The layout loads the upright face only.
-const serifItalic = Newsreader({ subsets: ['latin'], style: ['italic'], axes: ['opsz'], variable: '--font-serif-italic', display: 'swap' });
+// The serif italic, for the last word of the hero headline (weight 400 with the optical-size axis, see
+// app/layout.tsx). Not preloaded: a 63 KB file for one word should not compete with the poster and the
+// stylesheet, and the word is behind the intro cover until long after it has arrived.
+const serifItalic = localFont({ src: './fonts/newsreader-latin-400-italic.woff2', weight: '400', style: 'italic', variable: '--font-serif-italic', display: 'swap', preload: false, adjustFontFallback: 'Times New Roman' });
+
+// Below-the-fold widgets. Their markup is still server-rendered; only the client code is split out and
+// hydrated after the rest of the page, so it is not on the path to the first paint.
+const Testimonials = dynamic(() => import('@/components/Testimonials'));
+const Faq = dynamic(() => import('@/components/Faq'));
 
 // Headline figures for the hero band. Each counts up once the intro cover lifts; `em` is the gold
 // suffix, kept outside the counter so it holds its colour.
@@ -55,6 +62,13 @@ const SERVICE_CARDS = [
   { key: 'advisory', href: '/buyers#advisory', n: '04', title: 'Property Advisory', text: 'Independent counsel on value, strategy and negotiation.', ph: 'PROPERTY_ADVISORY_MEETING', src: SLOTS.PROPERTY_ADVISORY_MEETING, span: 2 },
   { key: 'land', href: '/land', n: '05', title: 'House & Land', text: 'New developments and packages in established growth corridors.', ph: 'Photo: new estate streetscape', src: SERVICES.land.src, span: 2 },
 ];
+
+// The service cards' rendered width, so phones get the 640px file rather than the 750px one. Under 760px
+// the grid is one column inside 24px padding; to 1000px it is a scroll row of 76%-wide cards; above that
+// a 6-column grid in the 1320px container (40px padding, 16px gaps).
+const cardSizes = (span: number) => span === 4
+  ? '(max-width: 760px) calc(100vw - 48px), (max-width: 1000px) 76vw, (max-width: 1320px) calc(66.7vw - 59px), 821px'
+  : '(max-width: 760px) calc(100vw - 48px), (max-width: 1000px) 76vw, (max-width: 1320px) calc(33.3vw - 37px), 403px';
 
 const SLIDES: Slide[] = FEATURED.map((r) => ({ id: r.id, name: r.name, rating: r.rating, quote: r.quote ?? r.text, when: monthYear(r.date) }));
 
@@ -113,7 +127,7 @@ export default function Home() {
           <div data-seq="1" data-scroll-row="1" data-svc-grid="1" style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 16 }}>
             {SERVICE_CARDS.map((c, i) => (
               <Link key={c.key} href={c.href} data-card="1" data-reveal={i} data-span="1" style={{ gridColumn: `span ${c.span}`, position: 'relative', display: 'block', height: 420, borderRadius: 8, overflow: 'hidden', background: '#3A4A66', color: '#F7F3EC' }}>
-                <div data-card-img="1" className="fill"><ImageSlot src={c.src} alt="" placeholder={c.ph} tone="dark" sizes={`(max-width: 760px) 100vw, ${Math.round((c.span / 6) * 100)}vw`} /></div>
+                <div data-card-img="1" className="fill"><ImageSlot src={c.src} alt="" placeholder={c.ph} tone="dark" sizes={cardSizes(c.span)} /></div>
                 <div className="ov-card" />
                 <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 30, display: 'grid', gap: 10, pointerEvents: 'none' }}>
                   <span className="eyebrow eyebrow-gold">{c.n}</span>
@@ -199,7 +213,7 @@ export default function Home() {
       <section data-sec="1" className="sec" style={{ background: '#fff', borderTop: '1px solid #E6E0D4', borderBottom: '1px solid #E6E0D4' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 72, alignItems: 'center' }}>
           <div style={{ position: 'relative' }}>
-            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={IMAGES.why} alt="Consultant and clients reviewing a property report" placeholder="Photo: consultant and clients reviewing a property report" sizes="(max-width: 1000px) 100vw, 50vw" /></div>
+            <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#E6E0D4' }}><ImageSlot src={IMAGES.why} alt="Consultant and clients reviewing a property report" placeholder="Photo: consultant and clients reviewing a property report" sizes="(max-width: 1000px) calc(100vw - 48px), 50vw" /></div>
             <div data-reveal="2" className="why-badge">
               <span className="serif"><CountUp value={S.securedValue.short} /><em>+</em></span>
               <span>Secured for clients</span>
@@ -264,7 +278,7 @@ export default function Home() {
       {/* 8 GOOGLE REVIEWS: featured reviews carousel (FEATURED in lib/reviews.ts) */}
       <section data-sec="1" className="sec" style={{ background: '#0B1D3A', color: '#F7F3EC' }}>
         <div data-pad="1" data-g2="1" className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 72, alignItems: 'center' }}>
-          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#3A4A66' }}><ImageSlot src={IMAGES.clients} alt="Clients on the verandah of their new home" placeholder="Photo: clients on the verandah of their new home" tone="dark" sizes="(max-width: 1000px) 100vw, 40vw" /></div>
+          <div data-mask="1" data-img-tall="1" className="media" style={{ aspectRatio: '4/5', borderRadius: 8, background: '#3A4A66' }}><ImageSlot src={IMAGES.clients} alt="Clients on the verandah of their new home" placeholder="Photo: clients on the verandah of their new home" tone="dark" sizes="(max-width: 1000px) calc(100vw - 48px), 40vw" /></div>
           <Testimonials items={SLIDES} badge={<RatingBadge tone="dark" size="md" to="google" label="full" />} />
         </div>
       </section>

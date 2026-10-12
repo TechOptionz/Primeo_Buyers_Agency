@@ -23,6 +23,7 @@ export default function Intro() {
   useEffect(() => {
     // Hold hero reveals until the cover lifts.
     intro.pending = true;
+    intro.mounted = true;
     const t1 = setTimeout(() => { intro.pending = false; }, 400);
 
     // Flight to the nav logo. The CSS intro is timed from first paint, but this effect

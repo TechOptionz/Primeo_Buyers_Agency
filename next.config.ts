@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // The stylesheet (about 12 KB compressed) goes into the HTML as <style> instead of a <link>: the
+    // link was a render-blocking request on the way to the first paint. It costs the cross-page cache
+    // of the CSS, which is small next to the first-visit saving.
+    inlineCss: true,
+  },
   images: {
     // No on-demand optimisation: scripts/build-images.mjs pre-renders every size below as AVIF
     // and WebP before `dev` and `build`, and this loader points next/image at those static files.

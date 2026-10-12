@@ -33,9 +33,9 @@ function posterProps(alt: string) {
 type Connection = { saveData?: boolean; effectiveType?: string };
 
 /**
- * Homepage hero background. The poster (frame 0 of the loop) paints first and is the
- * LCP image; the video has no src in the markup, so nothing downloads until the page
- * has loaded. It then fades in over the poster once it is actually playing.
+ * Homepage hero background. The poster (frame 0 of the loop) paints first; the video has no
+ * src in the markup, so nothing downloads until the page has loaded and the intro cover has
+ * lifted. It then fades in over the poster once it is actually playing.
  * Stays on the poster for reduced-motion, Save-Data and 2g/3g visitors, on phones (unless
  * SITE.features.heroVideoOnMobile is on in config/site.ts), or if the browser refuses
  * autoplay (e.g. iOS Low Power Mode).
@@ -59,25 +59,31 @@ export default function HeroVideo({ alt }: { alt: string }) {
     if (!SITE.features.heroVideoOnMobile && window.matchMedia(PHONE).matches) return;
 
     // Playback waits for three things: data buffered, the intro cover lifted, hero on screen.
-    // The file downloads while the intro plays, but the film is held on frame 0 (= the poster)
-    // until the cover is gone: otherwise the opening shot is spent behind it, and decoding
-    // 1080p video during the logo flight and wipe makes both stutter.
-    let visible = true, ready = false, lifted = false, dead = false;
+    // The download itself starts only once the page has loaded and the cover has lifted. Fetching
+    // the film during the intro, as this used to, made it part of the page's Largest Contentful
+    // Paint whenever the first paint landed after the load event (PageSpeed then charged the
+    // 1-3 MB file to LCP, which is where the 5 s mobile LCP came from); and the film could not play
+    // under the cover anyway: the opening shot would be spent behind it, and decoding 1080p video
+    // during the logo flight and wipe made both stutter. Frame 0 is the poster, so the hand-off
+    // is invisible whenever the file arrives.
+    let visible = true, ready = false, lifted = false, loaded = false, dead = false;
     const play = () => { if (ready && lifted && visible && !dead) video.play().then(() => setOn(true)).catch(() => {}); };
     const start = () => {
+      if (!loaded || !lifted || dead || video.src) return;
       video.muted = true; // React doesn't reliably reflect `muted`, and autoplay requires it
       video.preload = 'auto';
       video.src = (window.matchMedia(PORTRAIT).matches ? SOURCES.mobile : SOURCES.desktop).video + (video.canPlayType(AV1) ? '.webm' : '.mp4');
       video.addEventListener('canplay', () => { ready = true; play(); }, { once: true });
       video.load();
     };
-    if (document.readyState === 'complete') start();
-    else window.addEventListener('load', start, { once: true });
+    const onLoad = () => { loaded = true; start(); };
+    if (document.readyState === 'complete') onLoad();
+    else window.addEventListener('load', onLoad, { once: true });
 
     // The cover's own introWipe animation is the clock (see Intro). Already finished on
     // client-side navigations back to the homepage, so this resolves immediately there.
     const wipe = document.querySelector('.intro')?.getAnimations()[0];
-    (wipe ? wipe.finished.catch(() => {}) : Promise.resolve()).then(() => { lifted = true; play(); });
+    (wipe ? wipe.finished.catch(() => {}) : Promise.resolve()).then(() => { lifted = true; start(); play(); });
 
     // Don't decode video nobody can see.
     const io = new IntersectionObserver(([e]) => {
@@ -88,7 +94,7 @@ export default function HeroVideo({ alt }: { alt: string }) {
 
     return () => {
       dead = true;
-      window.removeEventListener('load', start);
+      window.removeEventListener('load', onLoad);
       io.disconnect();
       video.pause();
       video.removeAttribute('src');

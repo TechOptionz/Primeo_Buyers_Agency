@@ -104,3 +104,5 @@ the comment in that file says how to refresh it if the logo changes.
 - `components/Motion.tsx` — scroll reveals, counters, pinned steps, card hover (data-attribute driven)
 - `components/SubNav.tsx`, `ServiceChapters.tsx`, `Faq.tsx`, `SectionHead.tsx` — Buyer Agency page pieces
 - `app/globals.css` — design tokens, utility classes, responsive rules
+- `app/fonts/` — Newsreader (weight 400, upright and italic, latin subset, downloaded from Google Fonts) served by
+  `next/font/local` from `app/layout.tsx` and `app/page.tsx`: see the comment there for why it is not loaded through `next/font/google`

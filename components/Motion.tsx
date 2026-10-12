@@ -50,9 +50,11 @@ export default function Motion() {
       const id = runs.get(el);
       el.textContent = fmt(0);
       const born = Math.max(performance.now(), coverEnd), dur = 2400;
-      let t0 = 0;
+      let t0 = 0, last = 0;
       const tick = (t: number) => {
         if (dead || runs.get(el) !== id) return;
+        if (t0 && t - last < 30) { requestAnimationFrame(tick); return; } // ~30 updates a second is plenty for a figure
+        last = t;
         if (!t0) {
           // Hold at zero under the cover and while the figure is still hidden (a staggered cell waits
           // for more scroll); a figure that is merely dimmed starts after 4s rather than never.
